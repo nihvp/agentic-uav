@@ -1,0 +1,7 @@
+string tool_name
+string arguments_json
+string client_token
+---
+bool success
+string result_json
+string error_message

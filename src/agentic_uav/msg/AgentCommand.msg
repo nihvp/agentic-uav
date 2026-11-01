@@ -1,0 +1,10 @@
+std_msgs/Header header
+string command_id
+string action_type
+geometry_msgs/Point target_position
+float32 target_yaw
+float32 speed
+float32 loiter_duration
+string tool_name
+string tool_parameters
+string reasoning_trace

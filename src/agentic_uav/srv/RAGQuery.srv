@@ -1,0 +1,9 @@
+string query_text
+int32 top_k
+string filter_category
+---
+bool success
+string[] document_ids
+string[] contents
+float32[] similarity_scores
+string error_message

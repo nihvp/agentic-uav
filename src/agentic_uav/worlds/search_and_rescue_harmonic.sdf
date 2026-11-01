@@ -1,0 +1,222 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="search_and_rescue_harmonic">
+    <!-- Gazebo Harmonic Core Plugins -->
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin
+      filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin
+      filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <!-- Ambient Lighting & Sun -->
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 50 0 0 0</pose>
+      <diffuse>0.85 0.85 0.85 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- Ground Plane -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>200 200</size>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>200 200</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.6 0.6 0.6 1</ambient>
+            <diffuse>0.6 0.6 0.6 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Target 1: Survivor in Orange/Red high-vis jacket -->
+    <model name="survivor_target">
+      <static>true</static>
+      <pose>8.0 4.0 0.0 0 0 0</pose>
+      <link name="link">
+        <visual name="torso">
+          <pose>0 0 0.7 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.25</radius>
+              <length>1.4</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.9 0.4 0.1 1</ambient>
+            <diffuse>0.9 0.4 0.1 1</diffuse>
+          </material>
+        </visual>
+        <collision name="col">
+          <pose>0 0 0.7 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.3</radius>
+              <length>1.4</length>
+            </cylinder>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Target 2: Fire Hazard Source -->
+    <model name="fire_hazard">
+      <static>true</static>
+      <pose>12.0 5.5 0.0 0 0 0</pose>
+      <link name="link">
+        <visual name="fire_cone">
+          <pose>0 0 0.8 0 0 0</pose>
+          <geometry>
+            <cone>
+              <radius>1.2</radius>
+              <length>1.6</length>
+            </cone>
+          </geometry>
+          <material>
+            <ambient>0.95 0.15 0.05 1</ambient>
+            <diffuse>0.95 0.15 0.05 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Target 3: Emergency Landing Pad (Blue Circle) -->
+    <model name="landing_pad">
+      <static>true</static>
+      <pose>0.0 8.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="pad_visual">
+          <geometry>
+            <cylinder>
+              <radius>2.0</radius>
+              <length>0.02</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.1 0.4 0.9 1</ambient>
+            <diffuse>0.1 0.4 0.9 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Target 4: Debris Obstacle near Landing Pad -->
+    <model name="debris_obstacle">
+      <static>true</static>
+      <pose>1.5 8.5 0.4 0 0 0</pose>
+      <link name="link">
+        <visual name="debris_visual">
+          <geometry>
+            <box>
+              <size>1.0 1.2 0.8</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.4 0.4 0.4 1</ambient>
+            <diffuse>0.4 0.4 0.4 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Simulated UAV Quadrotor with RGB-D Sensor Rig -->
+    <model name="agentic_uav">
+      <pose>0 0 0.3 0 0 0</pose>
+      <link name="base_link">
+        <inertial>
+          <mass>1.8</mass>
+          <inertia>
+            <ixx>0.034</ixx>
+            <iyy>0.034</iyy>
+            <izz>0.058</izz>
+          </inertia>
+        </inertial>
+        <visual name="body">
+          <geometry>
+            <box>
+              <size>0.4 0.4 0.12</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.2 0.2 0.2 1</ambient>
+            <diffuse>0.2 0.2 0.2 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.4 0.4 0.12</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <!-- Forward / Downward Angled RGB-D Camera Sensor -->
+        <sensor name="rgbd_camera" type="rgbd_camera">
+          <pose>0.15 0.0 -0.05 0 0.52 0</pose>
+          <always_on>1</always_on>
+          <update_rate>15.0</update_rate>
+          <topic>/camera</topic>
+          <camera>
+            <horizontal_fov>1.3962634</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>50.0</far>
+            </clip>
+            <depth_camera>
+              <clip>
+                <near>0.2</near>
+                <far>30.0</far>
+              </clip>
+            </depth_camera>
+          </camera>
+        </sensor>
+      </link>
+
+      <!-- Gazebo Odometry Publisher -->
+      <plugin
+        filename="gz-sim-odometry-publisher-system"
+        name="gz::sim::systems::OdometryPublisher">
+        <odom_frame>map</odom_frame>
+        <robot_base_frame>base_link</robot_base_frame>
+        <odom_topic>/uav/odometry</odom_topic>
+        <odom_publish_frequency>20</odom_publish_frequency>
+      </plugin>
+    </model>
+  </world>
+</sdf>

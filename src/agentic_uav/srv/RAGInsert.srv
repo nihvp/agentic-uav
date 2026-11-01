@@ -1,0 +1,7 @@
+string document_id
+string content
+string category
+string metadata_json
+---
+bool success
+string message

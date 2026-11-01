@@ -1,0 +1,11 @@
+uint32 id
+string label
+float32 confidence
+float32 existence_prob
+geometry_msgs/Point position
+BoundingBox3D bbox
+geometry_msgs/Vector3 velocity
+string[] attributes
+builtin_interfaces/Time first_observed
+builtin_interfaces/Time last_observed
+uint32 observation_count
