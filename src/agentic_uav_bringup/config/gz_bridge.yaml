@@ -1,0 +1,26 @@
+# Gazebo -> ROS camera bridge for PX4's x500_depth model.
+# The Gazebo topic names depend on the world, model instance and PX4 version.
+# Confirm in the sim container with:  gz topic -l | grep -Ei 'image|depth|camera_info'
+- ros_topic_name: /camera/image
+  gz_topic_name: /world/search_and_rescue/model/x500_depth_0/link/camera_link/sensor/IMX214/image
+  ros_type_name: sensor_msgs/msg/Image
+  gz_type_name: gz.msgs.Image
+  direction: GZ_TO_ROS
+
+- ros_topic_name: /camera/camera_info
+  gz_topic_name: /world/search_and_rescue/model/x500_depth_0/link/camera_link/sensor/IMX214/camera_info
+  ros_type_name: sensor_msgs/msg/CameraInfo
+  gz_type_name: gz.msgs.CameraInfo
+  direction: GZ_TO_ROS
+
+- ros_topic_name: /camera/depth
+  gz_topic_name: /depth_camera
+  ros_type_name: sensor_msgs/msg/Image
+  gz_type_name: gz.msgs.Image
+  direction: GZ_TO_ROS
+
+- ros_topic_name: /clock
+  gz_topic_name: /clock
+  ros_type_name: rosgraph_msgs/msg/Clock
+  gz_type_name: gz.msgs.Clock
+  direction: GZ_TO_ROS

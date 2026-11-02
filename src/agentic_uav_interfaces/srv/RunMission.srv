@@ -1,0 +1,9 @@
+# Natural-language mission goal for the reasoning layer.
+string goal
+# Maximum LLM steps; <= 0 uses the node default.
+int32 max_steps
+---
+bool success
+string summary
+# JSON list of {step, thought, tool, arguments, result} entries.
+string trace_json

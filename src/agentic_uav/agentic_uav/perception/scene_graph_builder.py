@@ -4,7 +4,6 @@ Transforms 2D YOLO detections and synchronized depth images into 3D world-refere
 semantic entities with Bayesian existence estimation, 3D covariance, and relational edges.
 """
 
-import math
 import numpy as np
 from typing import List, Dict, Any, Optional, Tuple
 
@@ -66,51 +65,12 @@ class SceneGraphBuilder:
 
         self.next_entity_id = 1
         self.tracked_entities: Dict[int, TrackedEntity] = {}
-        self.world_model_names: Dict[str, int] = {}
 
     def set_camera_intrinsics(self, fx: float, fy: float, cx: float, cy: float):
         self.fx = fx
         self.fy = fy
         self.cx = cx
         self.cy = cy
-
-    def update_world_entity(self, name: str, label: str, pos_world: np.ndarray, confidence: float = 0.95):
-        """Directly injects or updates an entity from Gazebo world simulation state."""
-        # Check if already registered by model name
-        if name in self.world_model_names:
-            t_id = self.world_model_names[name]
-            if t_id in self.tracked_entities:
-                track = self.tracked_entities[t_id]
-                track.pos_world = pos_world.copy()
-                track.confidence = max(track.confidence, confidence)
-                track.update_bayesian_existence(hit=True)
-                return t_id
-
-        # Check proximity association
-        for t_id, track in self.tracked_entities.items():
-            if track.label == label and np.linalg.norm(track.pos_world - pos_world) < self.max_association_distance:
-                track.pos_world = pos_world.copy()
-                track.confidence = max(track.confidence, confidence)
-                track.update_bayesian_existence(hit=True)
-                self.world_model_names[name] = t_id
-                return t_id
-
-        # Spawn new tracked entity
-        new_id = self.next_entity_id
-        self.next_entity_id += 1
-        self.world_model_names[name] = new_id
-
-        bbox_size = np.array([0.6, 0.6, 1.4], dtype=np.float32) if label == "survivor" else np.array([1.2, 1.2, 1.5], dtype=np.float32)
-        new_track = TrackedEntity(
-            entity_id=new_id,
-            label=label,
-            pos_world=pos_world.copy(),
-            bbox_size=bbox_size,
-            confidence=confidence
-        )
-        new_track.log_odds = 4.0  # High initial confidence (98%)
-        self.tracked_entities[new_id] = new_track
-        return new_id
 
     def get_current_graph(self) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
         """Returns the current nodes and edges directly without requiring a new camera frame."""
@@ -279,7 +239,7 @@ class SceneGraphBuilder:
         return nodes, edges
 
     def _derive_attributes(self, track: TrackedEntity) -> List[str]:
-        attrs = [f"state:confirmed" if track.get_existence_probability() > 0.7 else "state:tentative"]
+        attrs = ["state:confirmed" if track.get_existence_probability() > 0.7 else "state:tentative"]
         if track.label == "survivor":
             attrs.extend(["priority:high", "action:assist"])
         elif track.label == "fire_hazard":

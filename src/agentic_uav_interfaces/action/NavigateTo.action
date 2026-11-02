@@ -1,0 +1,13 @@
+# Fly to a position in the map frame (ENU, metres, origin = PX4 home).
+geometry_msgs/Point target
+# Heading in radians (ENU, 0 = east, CCW positive). NaN keeps the current heading.
+float32 yaw
+# Distance at which the goal counts as reached; <= 0 uses the node default.
+float32 acceptance_radius
+---
+bool success
+string message
+geometry_msgs/Point final_position
+---
+float32 distance_remaining
+geometry_msgs/Point current_position

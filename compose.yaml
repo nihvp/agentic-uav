@@ -1,0 +1,43 @@
+name: agentic-uav
+
+x-host: &host
+  network_mode: host
+  ipc: host
+  shm_size: 2gb
+
+services:
+  sim:
+    <<: *host
+    build:
+      context: .
+      dockerfile: docker/sim.Dockerfile
+    image: agentic-uav/sim:px4-1.16
+    environment:
+      DISPLAY: ${DISPLAY:-:0}
+      HEADLESS: ${HEADLESS:-}
+      LIBGL_ALWAYS_SOFTWARE: ${LIBGL_ALWAYS_SOFTWARE:-0}
+      PX4_GZ_WORLD: search_and_rescue
+      PX4_SIM_MODEL: gz_x500_depth
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./src/agentic_uav_bringup/worlds:/worlds:ro,z
+    stdin_open: true
+    tty: true
+
+  agent:
+    <<: *host
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
+    image: agentic-uav/agent:jazzy
+    depends_on: [sim]
+    environment:
+      ROS_DOMAIN_ID: ${ROS_DOMAIN_ID:-0}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      REBUILD_ON_START: ${REBUILD_ON_START:-1}
+    volumes:
+      - ./src:/ws/src:rw,z
+      - agent-data:/data
+
+volumes:
+  agent-data:

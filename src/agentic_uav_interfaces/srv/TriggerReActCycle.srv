@@ -1,5 +1,0 @@
-string mission_goal
----
-bool success
-string final_plan
-string thought_trace

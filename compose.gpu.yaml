@@ -1,0 +1,5 @@
+# Added by scripts/run_on_fedora.sh when /dev/dri exists.
+services:
+  sim:
+    devices:
+      - /dev/dri:/dev/dri

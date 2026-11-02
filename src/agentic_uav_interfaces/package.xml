@@ -2,9 +2,9 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>agentic_uav_interfaces</name>
-  <version>1.0.0</version>
-  <description>Interfaces (messages and services) for 5-Layer Agentic UAV System</description>
-  <maintainer email="dev@agentic-ai-uav.org">Antigravity Autonomous Systems</maintainer>
+  <version>0.2.0</version>
+  <description>Messages, services and actions for the Agentic UAV stack</description>
+  <maintainer email="nihvp@outlook.com">Muhammed Nihal</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
@@ -13,6 +13,7 @@
   <depend>std_msgs</depend>
   <depend>geometry_msgs</depend>
   <depend>builtin_interfaces</depend>
+  <depend>action_msgs</depend>
 
   <exec_depend>rosidl_default_runtime</exec_depend>
 

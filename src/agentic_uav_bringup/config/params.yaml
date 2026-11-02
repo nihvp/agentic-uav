@@ -1,0 +1,31 @@
+action_node:
+  ros__parameters:
+    takeoff_altitude: 4.0
+    acceptance_radius: 0.5
+    geofence_radius: 150.0
+    geofence_max_alt: 25.0
+    min_nav_altitude: 1.0
+    rate_hz: 20.0
+    nav_timeout_s: 120.0
+    # PX4 versions some topic names; confirm with `ros2 topic list | grep fmu/out`.
+    px4.status_topic: /fmu/out/vehicle_status_v1
+    px4.local_position_topic: /fmu/out/vehicle_local_position
+    px4.battery_topic: /fmu/out/battery_status
+
+perception_node:
+  ros__parameters:
+    detector: none   # Phase 2: yolo
+    rate_hz: 5.0
+
+reasoning_node:
+  ros__parameters:
+    llm.provider: gemini
+    llm.model: gemini-2.5-flash
+    max_steps: 20
+    service_timeout_s: 10.0
+    nav_timeout_s: 180.0
+
+learning_node:
+  ros__parameters:
+    store_path: /data/memory.jsonl
+    embedder: sentence-transformers
