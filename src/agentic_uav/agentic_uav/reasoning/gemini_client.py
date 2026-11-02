@@ -5,6 +5,7 @@ for air-gapped simulation benches and automated CI testing.
 """
 
 import os
+import re
 import json
 import logging
 from typing import Dict, Any, Optional
@@ -70,33 +71,76 @@ class GeminiClient:
         return self._generate_simulated_react(prompt)
 
     def _generate_simulated_react(self, prompt: str) -> str:
-        """High-level rule-guided ReAct simulator mimicking Gemini's structured output."""
-        prompt_lower = prompt.lower()
+        """Dynamic rule-guided ReAct simulator that parses actual entities and coordinates from the scene graph."""
+        # Parse nodes from prompt:
+        # Format: - [ID 1] survivor at (8.0, 4.0, 0.0) (P_exist=0.95) attrs:[...]
+        node_pattern = re.compile(
+            r'-\s*\[ID\s*(\d+)\]\s*([a-zA-Z0-9_-]+)\s*at\s*\(([-\d\.]+),\s*([-\d\.]+),\s*([-\d\.]+)\)',
+            re.IGNORECASE
+        )
+        survivors = []
+        fires = []
+        for match in node_pattern.finditer(prompt):
+            nid, label, x, y, z = match.groups()
+            coords = [float(x), float(y), float(z)]
+            label_lower = label.lower()
+            if "survivor" in label_lower or "person" in label_lower:
+                # Check if survivor is already safe at the emergency landing pad (near x=0, y=8)
+                dist_pad = ((coords[0] - 0.0)**2 + (coords[1] - 8.0)**2)**0.5
+                if dist_pad > 2.2:  # Not yet rescued!
+                    survivors.append({"id": int(nid), "pos": coords})
+            elif "fire" in label_lower or "hazard" in label_lower:
+                fires.append({"id": int(nid), "pos": coords})
 
-        if "fire_hazard" in prompt_lower and "survivor" in prompt_lower:
+        # Find the survivor facing the highest wildfire threat
+        target_survivor = None
+        target_fire = None
+        min_threat_dist = float("inf")
+
+        for s in survivors:
+            for f in fires:
+                d = ((s["pos"][0] - f["pos"][0])**2 + (s["pos"][1] - f["pos"][1])**2)**0.5
+                if d < min_threat_dist:
+                    min_threat_dist = d
+                    target_survivor = s
+                    target_fire = f
+
+        if target_survivor is None and survivors:
+            target_survivor = survivors[0]
+
+        # Case 1: Survivor in proximity to active wildfire
+        if target_survivor is not None and min_threat_dist < 15.0 and target_fire is not None:
+            sx, sy = target_survivor["pos"][0], target_survivor["pos"][1]
+            fx, fy = target_fire["pos"][0], target_fire["pos"][1]
             return (
-                "Thought: The probabilistic scene graph indicates a fire hazard threatening a survivor nearby. "
-                "Immediate safety protocols require isolating the hazard vector, dispatching an alert, and verifying a clear landing route.\n"
-                "Action: invoke_mcp_tool\n"
-                "Action Input: {\"tool_name\": \"emergency_alert_dispatch\", \"arguments\": {\"severity\": \"CRITICAL\", \"threat\": \"Wildfire near survivor\", \"location\": [12.4, 5.2, 0.0]}}\n"
+                f"Thought: 3D scene graph indicates survivor at ({sx:.1f}, {sy:.1f}) in critical proximity to fire hazard at ({fx:.1f}, {fy:.1f}) (distance: {min_threat_dist:.1f}m). "
+                f"Immediate safety protocols require isolating the hazard vector, dispatching an alert via MCP, and commanding UAV aerial coverage to ({sx:.1f}, {sy:.1f}, 4.0).\n"
+                f"Action: invoke_mcp_tool\n"
+                f"Action Input: {{\"tool_name\": \"emergency_alert_dispatch\", \"arguments\": {{\"severity\": \"CRITICAL\", \"threat\": \"Wildfire near survivor\", \"location\": [{sx:.1f}, {sy:.1f}, 0.0]}}}}\n"
             )
-        elif "survivor" in prompt_lower and "inspect" not in prompt_lower:
+
+        # Case 2: Survivor detected without direct fire threat
+        if target_survivor is not None:
+            sx, sy = target_survivor["pos"][0], target_survivor["pos"][1]
             return (
-                "Thought: A potential survivor has been detected in the scene graph with high existence probability. "
-                "I will command the UAV to loiter directly above the coordinates to perform target inspection and confirm vital signs.\n"
-                "Action: inspect_target\n"
-                "Action Input: {\"target_id\": 1, \"duration\": 10.0, \"x\": 10.5, \"y\": 4.0, \"z\": 5.0}\n"
+                f"Thought: Survivor detected at ({sx:.1f}, {sy:.1f}) in scene graph. Commanding UAV to navigate and inspect target coordinates.\n"
+                f"Action: inspect_target\n"
+                f"Action Input: {{\"target_id\": {target_survivor['id']}, \"duration\": 5.0, \"x\": {sx:.1f}, \"y\": {sy:.1f}, \"z\": 4.0}}\n"
             )
-        elif "landing_zone" in prompt_lower and "debris" in prompt_lower:
+
+        # Case 3: Landing zone blocked by debris
+        prompt_lower = prompt.lower()
+        if "landing_zone" in prompt_lower and "debris" in prompt_lower:
             return (
                 "Thought: The designated landing zone has a debris obstacle relation. "
-                "I should query the RAG memory for secondary landing site alternatives and obstacle clearance SOPs.\n"
+                "I will query the RAG memory for secondary landing site alternatives and obstacle clearance SOPs.\n"
                 "Action: query_rag_memory\n"
                 "Action Input: {\"query\": \"Standard procedure for obstructed emergency landing zone\"}\n"
             )
-        else:
-            return (
-                "Thought: Survey sector Alpha is clear of active hazards. Advancing along the search grid pattern.\n"
-                "Action: navigate_waypoint\n"
-                "Action Input: {\"x\": 15.0, \"y\": 15.0, \"z\": 6.0, \"speed\": 2.5}\n"
-            )
+
+        # Case 4: All survivors rescued / area secure -> Return to Launch
+        return (
+            "Thought: All detected survivors are secured at the landing pad. Search objectives complete. Commanding Return-to-Launch.\n"
+            "Action: return_to_launch\n"
+            "Action Input: {\"reason\": \"All survivors secured at landing pad\"}\n"
+        )

@@ -31,7 +31,10 @@ if [ -z "$GEMINI_API_KEY" ]; then
     echo "To activate live Gemini multimodal reasoning, run: export GEMINI_API_KEY='your_key'"
 fi
 
-# 5. Build and launch container
+# 5. Build and launch container cleanly
+echo "Stopping any previous container instances..."
+docker compose down --remove-orphans || true
+
 echo "Building and launching container via docker compose..."
 docker compose build
-docker compose up
+docker compose up --force-recreate

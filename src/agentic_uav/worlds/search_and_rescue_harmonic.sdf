@@ -44,6 +44,14 @@
               <size>200 200</size>
             </plane>
           </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1.0</mu>
+                <mu2>1.0</mu2>
+              </ode>
+            </friction>
+          </surface>
         </collision>
         <visual name="visual">
           <geometry>
@@ -154,6 +162,7 @@
     <model name="agentic_uav">
       <pose>0 0 0.3 0 0 0</pose>
       <link name="base_link">
+        <gravity>0</gravity>
         <inertial>
           <mass>1.8</mass>
           <inertia>
@@ -165,20 +174,32 @@
         <visual name="body">
           <geometry>
             <box>
-              <size>0.4 0.4 0.12</size>
+              <size>0.5 0.5 0.15</size>
             </box>
           </geometry>
           <material>
-            <ambient>0.2 0.2 0.2 1</ambient>
-            <diffuse>0.2 0.2 0.2 1</diffuse>
+            <ambient>0.1 0.7 0.9 1</ambient>
+            <diffuse>0.1 0.7 0.9 1</diffuse>
           </material>
         </visual>
+        <velocity_decay>
+          <linear>1.5</linear>
+          <angular>5.0</angular>
+        </velocity_decay>
         <collision name="collision">
           <geometry>
             <box>
               <size>0.4 0.4 0.12</size>
             </box>
           </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1.0</mu>
+                <mu2>1.0</mu2>
+              </ode>
+            </friction>
+          </surface>
         </collision>
 
         <!-- Forward / Downward Angled RGB-D Camera Sensor -->
@@ -207,6 +228,19 @@
           </camera>
         </sensor>
       </link>
+
+      <!--
+        VelocityControl plugin.
+        Default topic when omitted: /model/agentic_uav/cmd_vel
+        We keep the default so that:
+          gz topic -t "/model/agentic_uav/cmd_vel" -m gz.msgs.Twist -p "linear: {z: 1.0}"
+        continues to work as already proven by the user.
+      -->
+      <plugin
+        filename="gz-sim-velocity-control-system"
+        name="gz::sim::systems::VelocityControl">
+        <link_name>base_link</link_name>
+      </plugin>
 
       <!-- Gazebo Odometry Publisher -->
       <plugin

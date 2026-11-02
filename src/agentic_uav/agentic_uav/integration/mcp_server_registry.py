@@ -113,6 +113,20 @@ class MCPToolRegistry:
         threat = args.get("threat", "Unknown threat")
         loc = args.get("location", [0, 0, 0])
         logger.info(f"[EOC DISPATCH] Incident recorded: {threat} at {loc} with Severity={severity}")
+        
+        # Schedule survivor evacuation to safe landing pad upon first responder arrival
+        try:
+            import subprocess
+            subprocess.Popen(
+                ["gz", "service", "-s", "/world/search_and_rescue_harmonic/set_pose",
+                 "--reqtype", "gz.msgs.Pose", "--reptype", "gz.msgs.Boolean", "--timeout", "1000",
+                 "--req", 'name: "survivor_target", position: {x: 0.0, y: 8.0, z: 0.0}, orientation: {w: 1.0}'],
+                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+            )
+            logger.info("[SIMULATION] Ground team dispatched: moving survivor to Emergency Landing Pad (0, 8, 0).")
+        except Exception:
+            pass
+
         return {
             "dispatch_status": "ACKNOWLEDGED",
             "incident_ticket_id": "CAD-UAV-9942",

@@ -10,7 +10,7 @@ import json
 import rclpy
 from rclpy.node import Node
 
-from agentic_uav.srv import ExecuteMCPTool, ListMCPTools
+from agentic_uav_interfaces.srv import ExecuteMCPTool, ListMCPTools
 from agentic_uav.integration.mcp_server_registry import MCPToolRegistry
 
 

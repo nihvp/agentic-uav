@@ -24,6 +24,15 @@ def generate_launch_description():
     params_file = os.path.join(pkg_dir, "config", "agentic_uav_params.yaml")
     world_file = os.path.join(pkg_dir, "worlds", "search_and_rescue_harmonic.sdf")
 
+    # Prefer live mounted files from workspace src if available
+    src_world = "/ros2_ws/src/agentic_uav/worlds/search_and_rescue_harmonic.sdf"
+    if os.path.isfile(src_world):
+        world_file = src_world
+
+    src_params = "/ros2_ws/src/agentic_uav/config/agentic_uav_params.yaml"
+    if os.path.isfile(src_params):
+        params_file = src_params
+
     # Launch Configurations
     use_sim_time = LaunchConfiguration("use_sim_time")
     launch_gazebo = LaunchConfiguration("launch_gazebo")
@@ -34,7 +43,7 @@ def generate_launch_description():
         # Launch Arguments
         DeclareLaunchArgument(
             "use_sim_time",
-            default_value="true",
+            default_value="false",
             description="Use simulation clock from Gazebo Harmonic"
         ),
         DeclareLaunchArgument(
@@ -73,25 +82,35 @@ def generate_launch_description():
             output="screen"
         ),
 
-        # ROS-GZ Bridge Node (Bridges Gazebo Harmonic topics into ROS 2)
+        # ROS-GZ Bridge
+        # The VelocityControl plugin defaults to /model/agentic_uav/cmd_vel
+        # so we bridge that topic. We also bridge /cmd_vel for convenience.
+        # The "@" means bidirectional, "[" means GZ->ROS, "]" means ROS->GZ.
         Node(
             condition=IfCondition(launch_gazebo),
             package="ros_gz_bridge",
             executable="parameter_bridge",
             name="ros_gz_bridge",
             arguments=[
+                # Velocity command: bridge the GZ default topic for this model
+                "/model/agentic_uav/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist",
+                # Odometry from Gazebo to ROS
+                "/uav/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry",
+                "/model/agentic_uav/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry",
+                # Camera feeds from Gazebo to ROS
                 "/camera/image@sensor_msgs/msg/Image[gz.msgs.Image",
                 "/camera/depth_image@sensor_msgs/msg/Image[gz.msgs.Image",
                 "/camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo",
-                "/uav/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry",
-                "/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist",
+                # Simulation clock
                 "/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock",
             ],
             remappings=[
                 ("/camera/image", "/camera/image_raw"),
                 ("/camera/depth_image", "/camera/depth/image_raw"),
             ],
-            parameters=[{"use_sim_time": use_sim_time}],
+            parameters=[
+                {"use_sim_time": use_sim_time}
+            ],
             output="screen"
         ),
 
@@ -143,6 +162,12 @@ def generate_launch_description():
             executable="learning_node",
             name="learning_node",
             parameters=[params_file, {"use_sim_time": use_sim_time}],
+            output="screen"
+        ),
+
+        # 6. Direct ROS-to-Gazebo Action Relay
+        ExecuteProcess(
+            cmd=["python3", "/ros2_ws/src/ros_to_gz_relay.py"],
             output="screen"
         )
     ])

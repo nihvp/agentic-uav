@@ -67,6 +67,8 @@ class PX4Controller:
         """Commands a 3D position setpoint."""
         z = min(z, self.geofence_max_alt - 1.0)
         self.target_pos = np.array([x, y, z], dtype=np.float32)
+        if speed > 0:
+            self.max_speed = speed
         if yaw is not None:
             self.target_yaw = yaw
         else:
@@ -101,9 +103,9 @@ class PX4Controller:
         error_pos = self.target_pos - self.current_pos
         dist = np.linalg.norm(error_pos)
 
-        if dist > 0.05:
+        if dist > 0.15:
             direction = error_pos / dist
-            speed = min(self.max_speed, dist * 0.8)
+            speed = min(self.max_speed, max(0.4, dist * 0.8))
             desired_vel = direction * speed
         else:
             desired_vel = np.zeros(3, dtype=np.float32)

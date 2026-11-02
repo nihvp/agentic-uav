@@ -59,7 +59,7 @@ Containerized with Docker on Ubuntu 22.04 LTS and pre-configured for hardware-ac
 - **3D Spatial Back-Projection**: Inverse pinhole camera model $(u, v, d) \to (X_c, Y_c, Z_c)$ transformed to world frame via camera-to-body extrinsics and drone orientation.
 - **Bayesian Track & Covariance**: Recursive log-odds existence probability filtering ($P(\text{exists})$) and depth-dependent 3D spatial covariance.
 - **Relational Scene Graph**: Evaluates topological and metric spatial relationships (`near`, `threatens`, `blocking_path`, `inside_zone`) with associated uncertainty probabilities.
-- **Publishes**: `/perception/scene_graph` (`agentic_uav/msg/ProbabilisticSceneGraph`) and `/perception/scene_graph_markers` (`visualization_msgs/msg/MarkerArray`).
+- **Publishes**: `/perception/scene_graph` (`agentic_uav_interfaces/msg/ProbabilisticSceneGraph`) and `/perception/scene_graph_markers` (`visualization_msgs/msg/MarkerArray`).
 
 ### 2. Reasoning Layer (`reasoning_node`)
 - **Cognitive Engine**: Google Gemini API (`gemini-2.5-flash`) with structured prompt framing and offline deterministic ReAct fallback.
@@ -68,15 +68,15 @@ Containerized with Docker on Ubuntu 22.04 LTS and pre-configured for hardware-ac
   - `Action`: Chooses from allowed atomic actions (`navigate_waypoint`, `inspect_target`, `query_rag_memory`, `invoke_mcp_tool`, `deploy_payload`, `return_to_launch`, `mission_complete`).
   - `Action Input`: Strictly validated JSON parameters.
   - `Observation`: Dynamic feedback loop from RAG queries, MCP tools, and flight status.
-- **Publishes**: `/action/agent_command` (`agentic_uav/msg/AgentCommand`).
-- **Services**: `/reasoning/trigger_react_cycle` (`agentic_uav/srv/TriggerReActCycle`).
+- **Publishes**: `/action/agent_command` (`agentic_uav_interfaces/msg/AgentCommand`).
+- **Services**: `/reasoning/trigger_react_cycle` (`agentic_uav_interfaces/srv/TriggerReActCycle`).
 
 ### 3. Action Layer (`action_node`)
 - **PX4 SITL Bridge**: Streams offboard trajectory setpoints (`/fmu/in/trajectory_setpoint`, `/mavros/setpoint_position/local`, `/cmd_vel`) at 20 Hz.
 - **Flight State Machine**: `DISARMED` $\to$ `ARMING` $\to$ `TAKEOFF` $\to$ `OFFBOARD` $\to$ `LOITER` $\to$ `RTL` $\to$ `LANDED`.
 - **Safety Geofence**: Strict ceiling (25m) and horizontal radius (150m) enforcement with automatic Return-to-Launch failsafe.
 - **Tool Actuators**: Executes physical/digital tool requests (camera gimbal pitch/pan, thermal sensor activation, emergency strobe, payload release solenoid).
-- **Publishes**: `/action/flight_telemetry` (`agentic_uav/msg/FlightTelemetry`).
+- **Publishes**: `/action/flight_telemetry` (`agentic_uav_interfaces/msg/FlightTelemetry`).
 
 ### 4. Integration Layer (`mcp_integration_node`)
 - **Model Context Protocol (MCP)**: Implements standardized tool discovery (`ListMCPTools`) and execution (`ExecuteMCPTool`) adhering to JSON Schema guidelines.
@@ -108,23 +108,26 @@ Containerized with Docker on Ubuntu 22.04 LTS and pre-configured for hardware-ac
 ├── tests/
 │   └── test_agentic_uav.py     # End-to-end unit and integration test suite
 └── src/
-    └── agentic_uav/
-        ├── CMakeLists.txt      # ROS 2 CMake build file with message generation & Python install
-        ├── package.xml         # Package manifest and ROS 2 dependencies
+    ├── agentic_uav_interfaces/ # ROS 2 Interfaces Package (Messages & Services)
+    │   ├── CMakeLists.txt      # Message & service generation build rules
+    │   ├── package.xml         # Interface package manifest
+    │   ├── msg/                # Custom ROS 2 message definitions
+    │   │   ├── BoundingBox3D.msg
+    │   │   ├── SceneNode.msg
+    │   │   ├── SceneEdge.msg
+    │   │   ├── ProbabilisticSceneGraph.msg
+    │   │   ├── AgentCommand.msg
+    │   │   └── FlightTelemetry.msg
+    │   └── srv/                # Custom ROS 2 service definitions
+    │       ├── RAGQuery.srv
+    │       ├── RAGInsert.srv
+    │       ├── ExecuteMCPTool.srv
+    │       ├── ListMCPTools.srv
+    │       └── TriggerReActCycle.srv
+    └── agentic_uav/            # Core ROS 2 Application Package
+        ├── CMakeLists.txt      # ROS 2 CMake build file with Python install & scripts
+        ├── package.xml         # Package manifest and dependencies
         ├── setup.py            # Python setuptools packaging
-        ├── msg/                # Custom ROS 2 message definitions
-        │   ├── BoundingBox3D.msg
-        │   ├── SceneNode.msg
-        │   ├── SceneEdge.msg
-        │   ├── ProbabilisticSceneGraph.msg
-        │   ├── AgentCommand.msg
-        │   └── FlightTelemetry.msg
-        ├── srv/                # Custom ROS 2 service definitions
-        │   ├── RAGQuery.srv
-        │   ├── RAGInsert.srv
-        │   ├── ExecuteMCPTool.srv
-        │   ├── ListMCPTools.srv
-        │   └── TriggerReActCycle.srv
         ├── agentic_uav/        # Python library implementation
         │   ├── perception/     # YOLOv11 & 3D Scene Graph Builder
         │   ├── reasoning/      # Gemini API & ReAct Workflow Engine
@@ -221,17 +224,17 @@ ros2 topic echo /action/flight_telemetry
 
 ### Query RAG Memory Service
 ```bash
-ros2 service call /learning/rag_query agentic_uav/srv/RAGQuery "{query_text: 'What is the procedure for an obstructed landing zone?', top_k: 2}"
+ros2 service call /learning/rag_query agentic_uav_interfaces/srv/RAGQuery "{query_text: 'What is the procedure for an obstructed landing zone?', top_k: 2}"
 ```
 
 ### Discover MCP Registered Tools
 ```bash
-ros2 service call /integration/list_mcp_tools agentic_uav/srv/ListMCPTools "{}"
+ros2 service call /integration/list_mcp_tools agentic_uav_interfaces/srv/ListMCPTools "{}"
 ```
 
 ### Trigger an On-Demand Cognitive ReAct Cycle
 ```bash
-ros2 service call /reasoning/trigger_react_cycle agentic_uav/srv/TriggerReActCycle "{mission_goal: 'Confirm survivor location and verify emergency landing zone clearance.'}"
+ros2 service call /reasoning/trigger_react_cycle agentic_uav_interfaces/srv/TriggerReActCycle "{mission_goal: 'Confirm survivor location and verify emergency landing zone clearance.'}"
 ```
 
 ---

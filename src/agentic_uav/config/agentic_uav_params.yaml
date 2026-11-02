@@ -15,7 +15,7 @@ reasoning_node:
     gemini_model: "gemini-2.5-flash"
     default_mission_goal: "Conduct search and rescue reconnaissance over Sector Alpha: identify survivors, locate thermal hazards, and verify clear landing zones."
     cognitive_cycle_rate_hz: 0.5
-    auto_cycle_enabled: true
+    auto_cycle_enabled: false
 
 action_node:
   ros__parameters:

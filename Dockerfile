@@ -64,11 +64,17 @@ RUN groupadd --gid $USER_GID $USERNAME && \
 # 4. Install Python AI/ML dependencies
 WORKDIR /ros2_ws
 COPY requirements.txt /ros2_ws/requirements.txt
-RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel && \
-    pip3 install --no-cache-dir -r /ros2_ws/requirements.txt
+RUN python3 -m pip install --no-cache-dir --upgrade pip && \
+    python3 -m pip install --no-cache-dir "setuptools<=58.2.0" wheel && \
+    python3 -m pip install --no-cache-dir --ignore-installed \
+        --extra-index-url https://download.pytorch.org/whl/cpu \
+        torch torchvision && \
+    python3 -m pip install --no-cache-dir --ignore-installed \
+        --extra-index-url https://download.pytorch.org/whl/cpu \
+        -r /ros2_ws/requirements.txt
 
-# 5. Copy Agentic UAV ROS 2 workspace package
-COPY src/agentic_uav /ros2_ws/src/agentic_uav
+# 5. Copy Agentic UAV ROS 2 workspace packages
+COPY src /ros2_ws/src
 RUN chown -R $USERNAME:$USERNAME /ros2_ws
 
 # 6. Switch to non-root user and initialize rosdep
@@ -86,7 +92,9 @@ RUN /bin/bash -c "source /opt/ros/humble/setup.bash && \
 # 8. Setup runtime environment and entrypoint
 COPY entrypoint.sh /ros2_ws/entrypoint.sh
 USER root
-RUN chmod +x /ros2_ws/entrypoint.sh
+RUN chmod +x /ros2_ws/entrypoint.sh && \
+    echo "source /opt/ros/humble/setup.bash" >> /home/$USERNAME/.bashrc && \
+    echo "source /ros2_ws/install/setup.bash" >> /home/$USERNAME/.bashrc
 USER $USERNAME
 
 # Environment variables for GUI and DDS communications

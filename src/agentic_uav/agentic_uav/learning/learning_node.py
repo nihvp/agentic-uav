@@ -9,7 +9,7 @@ import json
 import rclpy
 from rclpy.node import Node
 
-from agentic_uav.srv import RAGQuery, RAGInsert
+from agentic_uav_interfaces.srv import RAGQuery, RAGInsert
 from agentic_uav.learning.vector_store import SemanticVectorStore
 from agentic_uav.learning.default_sop_knowledge import DEFAULT_KNOWLEDGE_DOCUMENTS
 

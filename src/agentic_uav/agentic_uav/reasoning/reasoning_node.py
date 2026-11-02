@@ -13,8 +13,8 @@ from rclpy.node import Node
 from std_msgs.msg import Header
 from geometry_msgs.msg import Point
 
-from agentic_uav.msg import ProbabilisticSceneGraph, FlightTelemetry, AgentCommand
-from agentic_uav.srv import TriggerReActCycle, RAGQuery, ExecuteMCPTool
+from agentic_uav_interfaces.msg import ProbabilisticSceneGraph, FlightTelemetry, AgentCommand
+from agentic_uav_interfaces.srv import TriggerReActCycle, RAGQuery, ExecuteMCPTool
 from agentic_uav.reasoning.gemini_client import GeminiClient
 from agentic_uav.reasoning.react_engine import ReActEngine
 
@@ -28,7 +28,7 @@ class ReasoningNode(Node):
         self.declare_parameter("gemini_model", "gemini-2.5-flash")
         self.declare_parameter("default_mission_goal", "Search and rescue reconnaissance over Sector Alpha: find survivors, identify hazards, verify clear landing zones.")
         self.declare_parameter("cognitive_cycle_rate_hz", 0.5)  # Run ReAct every 2.0s
-        self.declare_parameter("auto_cycle_enabled", True)
+        self.declare_parameter("auto_cycle_enabled", False)
 
         api_key = self.get_parameter("gemini_api_key").get_parameter_value().string_value
         model_name = self.get_parameter("gemini_model").get_parameter_value().string_value
@@ -146,6 +146,16 @@ class ReasoningNode(Node):
             tool_name = action_input.get("tool_name", "weather_advisory")
             tool_args = action_input.get("arguments", {})
             self._call_mcp_service(tool_name, tool_args)
+            # Concurrently fly the UAV to maintain aerial visual coverage of the incident
+            loc = tool_args.get("location", [8.0, 4.0, 4.0])
+            flight_input = {
+                "x": float(loc[0]) if len(loc) > 0 else 8.0,
+                "y": float(loc[1]) if len(loc) > 1 else 4.0,
+                "z": float(loc[2]) if len(loc) > 2 and loc[2] > 0.5 else 4.0,
+                "speed": 2.0
+            }
+            self._publish_flight_command("navigate_waypoint", flight_input, thought)
+            self.last_observation = f"Invoked MCP tool '{tool_name}' and dispatched aerial reconnaissance to ({flight_input['x']}, {flight_input['y']}, {flight_input['z']})."
         elif action in ["navigate_waypoint", "inspect_target", "deploy_payload", "return_to_launch", "mission_complete"]:
             self._publish_flight_command(action, action_input, thought)
             self.last_observation = f"Dispatched {action} command to Action Layer executor."

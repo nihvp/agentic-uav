@@ -24,9 +24,9 @@ services:
       # Direct Rendering Infrastructure (DRI / GPU Acceleration)
       - /dev/dri:/dev/dri:rw
       # Optional live code mounting for fast iteration
-      - ./src/agentic_uav:/ros2_ws/src/agentic_uav:rw
+      - ./src:/ros2_ws/src:rw
     devices:
       - /dev/dri:/dev/dri
     privileged: true
-    restart: unless-stopped
-    command: ros2 launch agentic_uav agentic_uav.launch.py
+    restart: "no"
+    command: ros2 launch /ros2_ws/src/agentic_uav/launch/agentic_uav.launch.py

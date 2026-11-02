@@ -59,8 +59,9 @@ class YOLODetector:
 
         if not self.is_synthetic_mode and self.model is not None:
             try:
+                img = np.ascontiguousarray(rgb_image, dtype=np.uint8)
                 results = self.model.predict(
-                    source=rgb_image,
+                    source=img,
                     conf=self.confidence_threshold,
                     device=self.device,
                     verbose=False
@@ -141,21 +142,5 @@ class YOLODetector:
                     "class_id": 1,
                     "label": "landing_zone"
                 })
-
-        # Ensure that even in monochromatic or low-contrast sim, we anchor nominal targets for UAV test flight
-        if not detections:
-            cx, cy = width / 2.0, height / 2.0
-            detections.append({
-                "bbox": [cx - 35, cy - 35, cx + 35, cy + 35],
-                "confidence": 0.88,
-                "class_id": 0,
-                "label": "survivor"
-            })
-            detections.append({
-                "bbox": [cx + 100, cy - 20, cx + 180, cy + 50],
-                "confidence": 0.76,
-                "class_id": 2,
-                "label": "debris_obstacle"
-            })
 
         return detections

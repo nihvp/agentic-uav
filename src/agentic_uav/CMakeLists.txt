@@ -7,33 +7,15 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
+find_package(agentic_uav_interfaces REQUIRED)
 
+find_package(rclpy REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(builtin_interfaces REQUIRED)
-
-# Generate custom ROS 2 messages and services
-rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/BoundingBox3D.msg"
-  "msg/SceneNode.msg"
-  "msg/SceneEdge.msg"
-  "msg/ProbabilisticSceneGraph.msg"
-  "msg/AgentCommand.msg"
-  "msg/FlightTelemetry.msg"
-  "srv/RAGQuery.srv"
-  "srv/RAGInsert.srv"
-  "srv/ExecuteMCPTool.srv"
-  "srv/ListMCPTools.srv"
-  "srv/TriggerReActCycle.srv"
-  DEPENDENCIES
-    std_msgs
-    geometry_msgs
-    builtin_interfaces
-)
 
 # Install Python modules
 ament_python_install_package(${PROJECT_NAME})
@@ -56,5 +38,5 @@ install(DIRECTORY
   DESTINATION share/${PROJECT_NAME}
 )
 
-ament_export_dependencies(rosidl_default_runtime)
+ament_export_dependencies(agentic_uav_interfaces)
 ament_package()

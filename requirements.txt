@@ -1,3 +1,5 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+
 # Core Agentic UAV System Dependencies
 ultralytics>=8.3.0
 numpy>=1.22.0,<2.0.0
