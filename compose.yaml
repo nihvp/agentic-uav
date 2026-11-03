@@ -16,11 +16,18 @@ services:
       DISPLAY: ${DISPLAY:-:0}
       HEADLESS: ${HEADLESS:-}
       LIBGL_ALWAYS_SOFTWARE: ${LIBGL_ALWAYS_SOFTWARE:-0}
-      PX4_GZ_WORLD: search_and_rescue
+      PX4_GZ_WORLD: ${PX4_GZ_WORLD:-search_and_rescue}
       PX4_SIM_MODEL: gz_x500_depth
+      GZ_IP: 127.0.0.1
+      # docker/sim_entrypoint.sh applies PX4_PARAM_<NAME> at PX4 startup.
+      # No ground station: allow arming without one and skip RC-loss failsafe in offboard.
+      PX4_PARAM_NAV_DLL_ACT: 0
+      PX4_PARAM_COM_RCL_EXCEPT: 4
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ./src/agentic_uav_bringup/worlds:/worlds:ro,z
+      # Mounted so entrypoint changes apply without rebuilding the image.
+      - ./docker/sim_entrypoint.sh:/usr/local/bin/sim_entrypoint.sh:ro,z
     stdin_open: true
     tty: true
 
@@ -33,11 +40,15 @@ services:
     depends_on: [sim]
     environment:
       ROS_DOMAIN_ID: ${ROS_DOMAIN_ID:-0}
+      # Must match the sim container so ros_gz_bridge discovers Gazebo topics.
+      GZ_IP: 127.0.0.1
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       REBUILD_ON_START: ${REBUILD_ON_START:-1}
     volumes:
       - ./src:/ws/src:rw,z
       - agent-data:/data
+    # e.g. AGENT_LAUNCH_ARGS="perception:=false reasoning:=false learning:=false"
+    command: ros2 launch agentic_uav_bringup agent.launch.py ${AGENT_LAUNCH_ARGS:-}
 
 volumes:
   agent-data:

@@ -24,6 +24,10 @@ fi
 FILES=(-f compose.yaml)
 if [[ -e /dev/dri ]]; then
   FILES+=(-f compose.gpu.yaml)
+  card=$(ls /dev/dri/card* 2>/dev/null | head -1)
+  render=$(ls /dev/dri/renderD* 2>/dev/null | head -1)
+  export DRI_CARD_GID=$(stat -c %g "${card:-/dev/dri}")
+  export DRI_RENDER_GID=$(stat -c %g "${render:-${card:-/dev/dri}}")
 else
   echo "No /dev/dri: using software rendering."
   export LIBGL_ALWAYS_SOFTWARE=1

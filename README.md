@@ -9,7 +9,7 @@ on ROS 2 Jazzy, PX4 SITL and Gazebo Harmonic, run with Docker Compose on a Fedor
 
 | Layer       | Node             | State                                                       |
 |-------------|------------------|-------------------------------------------------------------|
-| Action      | `action_node`    | PX4 offboard control, `NavigateTo` action, `FlightCommand` service (Phase 1, not yet flown) |
+| Action      | `action_node`    | PX4 offboard control, `NavigateTo` action, `FlightCommand` service (Phase 1, flown in SITL) |
 | Reasoning   | `reasoning_node` | Provider-agnostic LLM tool loop; Gemini adapter (Phase 3)   |
 | Perception  | `perception_node`| Camera pipeline + scene graph; no detector yet (Phase 2)    |
 | Learning    | `learning_node`  | Persistent RAG store seeded with SOPs (Phase 5)             |

@@ -133,6 +133,8 @@ class OffboardController:
 
     def go_to(self, target_enu: Tuple[float, float, float], yaw_enu: float = math.nan,
               radius: float = 0.0) -> Tuple[bool, str, int]:
+        if self.state in (State.STARTING, State.TAKING_OFF):
+            return False, "Still taking off; wait for controller_state HOLDING, then navigate.", -1
         if self.state not in (State.HOLDING, State.NAVIGATING):
             return False, f"Cannot navigate in state {self.state.value}; take off first.", -1
         if target_enu[2] < self.cfg.min_nav_altitude:

@@ -3,3 +3,8 @@ services:
   sim:
     devices:
       - /dev/dri:/dev/dri
+    # Host groups that own /dev/dri/card* and renderD* (set by run_on_fedora.sh);
+    # without them the container user gets "Permission denied" and Gazebo renders on CPU.
+    group_add:
+      - "${DRI_CARD_GID:-39}"
+      - "${DRI_RENDER_GID:-39}"

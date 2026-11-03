@@ -21,6 +21,10 @@ RUN git clone --branch ${PX4_TAG} --depth 1 --recurse-submodules --shallow-submo
 # PX4's setup script installs Gazebo Harmonic and the Python build deps on 24.04.
 USER px4
 RUN bash /opt/PX4-Autopilot/Tools/setup/ubuntu.sh --no-nuttx && sudo rm -rf /var/lib/apt/lists/*
+# PX4's version header needs a nuttx-X.Y.Z tag in the NuttX submodule, which the
+# shallow clone drops. SITL does not use NuttX, so a placeholder tag is enough.
+RUN cd /opt/PX4-Autopilot/platforms/nuttx/NuttX/nuttx \
+    && (git tag -l 'nuttx-*' | grep -q . || git tag nuttx-0.0.0)
 RUN cd /opt/PX4-Autopilot && make px4_sitl
 
 USER root
