@@ -1,17 +1,20 @@
 """
 Probabilistic 3D Semantic Scene Graph Builder.
-Transforms 2D YOLO detections and synchronized depth images into 3D world-referenced
-semantic entities with Bayesian existence estimation, 3D covariance, and relational edges.
+Transforms 2D detections with measured depth into 3D world-referenced semantic
+entities with Bayesian existence estimation, 3D covariance, and relational edges.
+Detections without a valid depth are dropped; positions are never guessed.
 """
 
 import numpy as np
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any, Tuple
 
 
 class TrackedEntity:
     """Internal representation of a 3D semantic entity with Bayesian state."""
-    def __init__(self, entity_id: int, label: str, pos_world: np.ndarray, bbox_size: np.ndarray, confidence: float):
+    def __init__(self, entity_id: int, label: str, pos_world: np.ndarray, bbox_size: np.ndarray, confidence: float,
+                 source: str = ""):
         self.id = entity_id
+        self.source = source
         self.label = label
         self.pos_world = pos_world  # [x, y, z] in world frame
         self.bbox_size = bbox_size  # [sx, sy, sz]
@@ -92,38 +95,24 @@ class SceneGraphBuilder:
         return nodes, edges
 
     def deproject_pixel_to_3d_camera(self, u: float, v: float, depth: float) -> np.ndarray:
-        """Pinhole camera inverse projection: (u, v, depth) -> (X_c, Y_c, Z_c)."""
-        if depth <= 0.05 or np.isnan(depth) or np.isinf(depth):
-            depth = 5.0  # Safe simulation fallback if ray fails
+        """Pinhole camera inverse projection: (u, v, depth along optical axis) -> (X_c, Y_c, Z_c)."""
         x_c = (u - self.cx) * depth / self.fx
         y_c = (v - self.cy) * depth / self.fy
         z_c = depth
         return np.array([x_c, y_c, z_c], dtype=np.float32)
 
-    def transform_camera_to_world(self, pt_cam: np.ndarray, drone_pos: np.ndarray, drone_rot_mat: np.ndarray) -> np.ndarray:
-        """
-        Transforms coordinates from camera optical frame (X-right, Y-down, Z-forward)
-        to ROS ENU world frame via drone body frame.
-        """
-        # Optical to standard aircraft/ROS body frame (X-forward, Y-left, Z-up)
-        # R_body_cam: [ [0, 0, 1], [-1, 0, 0], [0, -1, 0] ]
-        R_body_cam = np.array([
-            [0.0,  0.0,  1.0],
-            [-1.0, 0.0,  0.0],
-            [0.0, -1.0,  0.0]
-        ], dtype=np.float32)
-
-        pt_body = R_body_cam @ pt_cam
-        pt_world = (drone_rot_mat @ pt_body) + drone_pos
-        return pt_world
+    def transform_camera_to_world(self, pt_cam: np.ndarray, cam_pos: np.ndarray, cam_rot: np.ndarray) -> np.ndarray:
+        """Optical frame (X-right, Y-down, Z-forward) -> ENU world, given the camera pose
+        (see perception/camera_model.camera_pose_world)."""
+        return cam_rot @ pt_cam + cam_pos
 
     def process_detections(self, detections: List[Dict[str, Any]],
-                           depth_image: Optional[np.ndarray],
-                           drone_pos: np.ndarray,
-                           drone_rot_mat: np.ndarray) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+                           cam_pos: np.ndarray,
+                           cam_rot: np.ndarray) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
         """
-        Ingests 2D detections, projects into 3D, performs data association,
-        updates track state, and generates graph nodes and edges.
+        Ingests 2D detections that carry a measured "point_cam" (3D point in the camera
+        optical frame, from the depth image), places them in the world, performs data
+        association, updates track state, and generates graph nodes and edges.
         """
         current_frame_entities = []
 
@@ -131,26 +120,13 @@ class SceneGraphBuilder:
             bbox = det["bbox"]  # [x1, y1, x2, y2]
             label = det["label"]
             conf = det["confidence"]
+            pt_cam = det.get("point_cam")
+            if pt_cam is None or not np.all(np.isfinite(pt_cam)) or pt_cam[2] <= 0.1:
+                continue
+            pt_cam = np.asarray(pt_cam, dtype=float)
+            depth_val = float(pt_cam[2])
 
-            u_center = (bbox[0] + bbox[2]) / 2.0
-            v_center = (bbox[1] + bbox[3]) / 2.0
-
-            # Extract median depth inside the bounding box
-            depth_val = 4.0  # Nominal fallback
-            if depth_image is not None and depth_image.size > 0:
-                h, w = depth_image.shape[:2]
-                ix1 = max(0, min(w - 1, int(bbox[0])))
-                iy1 = max(0, min(h - 1, int(bbox[1])))
-                ix2 = max(0, min(w, int(bbox[2])))
-                iy2 = max(0, min(h, int(bbox[3])))
-                if ix2 > ix1 and iy2 > iy1:
-                    crop = depth_image[iy1:iy2, ix1:ix2]
-                    valid_depths = crop[np.isfinite(crop) & (crop > 0.1) & (crop < 50.0)]
-                    if valid_depths.size > 0:
-                        depth_val = float(np.median(valid_depths))
-
-            pt_cam = self.deproject_pixel_to_3d_camera(u_center, v_center, depth_val)
-            pt_world = self.transform_camera_to_world(pt_cam, drone_pos, drone_rot_mat)
+            pt_world = self.transform_camera_to_world(pt_cam, cam_pos, cam_rot)
 
             # Estimate 3D bounding box size from 2D pixel extent and depth
             box_w_cam = abs(bbox[2] - bbox[0]) * depth_val / self.fx
@@ -167,6 +143,7 @@ class SceneGraphBuilder:
                 "label": label,
                 "confidence": conf,
                 "pos_world": pt_world,
+                "source": det.get("source", ""),
                 "bbox_size": bbox_size,
                 "covariance": cov_matrix
             })
@@ -201,7 +178,8 @@ class SceneGraphBuilder:
                     label=obs["label"],
                     pos_world=obs["pos_world"],
                     bbox_size=obs["bbox_size"],
-                    confidence=obs["confidence"]
+                    confidence=obs["confidence"],
+                    source=obs["source"]
                 )
                 new_track.covariance = obs["covariance"]
                 self.tracked_entities[new_id] = new_track
@@ -240,6 +218,8 @@ class SceneGraphBuilder:
 
     def _derive_attributes(self, track: TrackedEntity) -> List[str]:
         attrs = ["state:confirmed" if track.get_existence_probability() > 0.7 else "state:tentative"]
+        if track.source:
+            attrs.append(f"detector:{track.source}")
         if track.label == "survivor":
             attrs.extend(["priority:high", "action:assist"])
         elif track.label == "fire_hazard":

@@ -14,8 +14,14 @@ action_node:
 
 perception_node:
   ros__parameters:
-    detector: none   # Phase 2: yolo
+    detector: color   # HSV blobs matched to the search_and_rescue world; or none
     rate_hz: 5.0
+    # Camera on the body (FLU, m) and its downward pitch (rad). The pitch must match
+    # CAMERA_PITCH_RAD in compose.yaml, which the sim applies to the x500_depth model.
+    camera.mount_xyz: [0.132, 0.0, 0.261]
+    camera.mount_pitch: 0.785
+    px4.local_position_topic: /fmu/out/vehicle_local_position
+    px4.attitude_topic: /fmu/out/vehicle_attitude
 
 reasoning_node:
   ros__parameters:

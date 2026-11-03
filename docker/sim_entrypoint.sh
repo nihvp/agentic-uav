@@ -11,6 +11,21 @@ if [[ -f "/worlds/${WORLD}.sdf" ]]; then
   ln -sf "/worlds/${WORLD}.sdf" "${PX4_DIR}/Tools/simulation/gz/worlds/${WORLD}.sdf"
 fi
 
+# Camera mount and resolution. Patched from pristine copies so restarts don't stack edits.
+MODELS="${PX4_DIR}/Tools/simulation/gz/models"
+for f in x500_depth/model.sdf OakD-Lite/model.sdf; do
+  [[ -f "${MODELS}/${f}.orig" ]] || cp "${MODELS}/${f}" "${MODELS}/${f}.orig"
+done
+sed "s|<pose\(.*\)>.12 .03 .242 0 0 0</pose>|<pose\1>.12 .03 .242 0 ${CAMERA_PITCH_RAD:-0} 0</pose>|" \
+  "${MODELS}/x500_depth/model.sdf.orig" > "${MODELS}/x500_depth/model.sdf"
+sed -e "s|<width>1920</width>|<width>${CAMERA_WIDTH:-1920}</width>|" \
+    -e "s|<height>1080</height>|<height>${CAMERA_HEIGHT:-1080}</height>|" \
+    -e "s|<update_rate>30</update_rate>|<update_rate>${CAMERA_RATE_HZ:-30}</update_rate>|g" \
+  "${MODELS}/OakD-Lite/model.sdf.orig" > "${MODELS}/OakD-Lite/model.sdf"
+grep -q ".242 0 ${CAMERA_PITCH_RAD:-0} 0</pose>" "${MODELS}/x500_depth/model.sdf" \
+  || echo "[sim_entrypoint] WARNING: camera mount pose not found in x500_depth/model.sdf; pitch not applied"
+echo "[sim_entrypoint] camera pitch ${CAMERA_PITCH_RAD:-0} rad, RGB ${CAMERA_WIDTH:-1920}x${CAMERA_HEIGHT:-1080} @ ${CAMERA_RATE_HZ:-30} Hz"
+
 # Apply PX4_PARAM_<NAME>=<value> env vars once PX4 is running. Setting them during
 # startup does not stick: the SITL scripts set their own defaults afterwards.
 apply_params() {

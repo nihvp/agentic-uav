@@ -110,8 +110,22 @@ PX4 offboard-loss failsafe (not a crash).
   attitude (convert NED -> ENU via `common/frames.py`).
 * Reuse `scene_graph_builder.py` (log-odds existence, covariance, relation edges).
 
-**Accept:** Hovering over the survivor model yields one confirmed `survivor` node
-within ~1 m of its true SDF position, and the node decays when out of view.
+**Accept:** Hovering 5 m short of the survivor, facing it (the camera is pitched 45°
+down, so it cannot see straight below), yields one confirmed `survivor` node within
+~1 m of its true SDF position, and the node decays when out of view.
+
+**Implemented (memory-constrained VM):** `ColorDetector` (HSV blobs matched to the
+world's solid colours, every node tagged `detector:color`) instead of YOLO, which
+would need torch in RAM. The sim patches the x500_depth camera to 45° pitch and
+640x360 @ 10 Hz RGB. Debris (grey on grey) is not detected. YOLO plus a Fuel person
+model remains an option once the VM has more memory.
+
+**Measured in SITL (hover at (3, 4, 5)):** survivor placed 0.3-0.5 m from its SDF
+position (passes). Known error sources, checked against Gazebo ground truth for
+diagnosis only: PX4's estimated yaw was 3.6° off the true heading and its altitude
+0.3 m high, which rotates/shifts every projected point; depth sees an object's near
+surface, not its centre; objects cut by the image edge are placed at the centroid of
+their visible part (the landing pad seen at 50° off-axis landed 1.7 m off).
 
 ### Phase 3 — Reasoning layer
 
