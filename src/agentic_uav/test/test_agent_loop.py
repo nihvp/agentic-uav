@@ -40,3 +40,18 @@ def test_missing_args_and_budget():
     result = AgentLoop(provider, registry([]), "sys", max_steps=3).run("go")
     assert not result.success and "budget" in result.summary
     assert "Missing required" in result.trace[0]["result"]
+
+
+def test_llm_failure_ends_mission_with_trace():
+    class Flaky(ScriptedProvider):
+        def complete(self, system, messages, tools):
+            if len(messages) > 2:
+                raise TimeoutError("read timed out")
+            return super().complete(system, messages, tools)
+
+    events = []
+    result = AgentLoop(Flaky([call("takeoff", altitude=5)]), registry([]), "sys",
+                       on_event=events.append).run("go")
+    assert not result.success and "TimeoutError" in result.summary
+    assert [t["tool"] for t in result.trace] == ["takeoff"]
+    assert [e["phase"] for e in events] == ["llm", "start", "done", "llm"]

@@ -11,3 +11,5 @@ geometry_msgs/Twist current_twist
 float32 battery_percentage
 bool geofence_ok
 bool is_in_air
+# Why the controller last left offboard flight or failed to start, e.g. a PX4 failsafe; empty if none
+string last_event

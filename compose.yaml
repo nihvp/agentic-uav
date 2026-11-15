@@ -26,6 +26,10 @@ services:
       # No ground station: allow arming without one and skip RC-loss failsafe in offboard.
       PX4_PARAM_NAV_DLL_ACT: 0
       PX4_PARAM_COM_RCL_EXCEPT: 4
+      # The VM can stall for over a second; give offboard setpoints 3 s before the
+      # failsafe, and hold position (5) instead of landing when it does trigger.
+      PX4_PARAM_COM_OF_LOSS_T: 3
+      PX4_PARAM_COM_OBL_RC_ACT: 5
       # docker/sim_entrypoint.sh patches the x500_depth camera: pitch it down so it sees
       # the ground below, and render RGB smaller/slower to save CPU and memory.
       # Keep CAMERA_PITCH_RAD equal to perception_node camera.mount_pitch in params.yaml.

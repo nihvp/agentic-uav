@@ -22,14 +22,27 @@ perception_node:
     camera.mount_pitch: 0.785
     px4.local_position_topic: /fmu/out/vehicle_local_position
     px4.attitude_topic: /fmu/out/vehicle_attitude
+    # Skip frames while turning faster than this (rad/s): image lag would rotate detections.
+    max_yaw_rate: 0.15
 
 reasoning_node:
   ros__parameters:
     llm.provider: gemini
-    llm.model: gemini-2.5-flash
-    max_steps: 20
+    # gemini-2.5-* is closed to new API users; see ai.google.dev/gemini-api/docs/deprecations
+    # gemini-3.8-flash took 80-90+ s per request on the free tier (2026-11-09); 3.5 (routed to 3.6) took 3-15 s.
+    llm.model: gemini-3.8-flash
+    # Gemini free tier: 5 requests/min per model. 0 = no pacing (paid tier).
+    llm.requests_per_minute: 5.0
+    # Gemini 3 thinks at "high" by default (minutes per step with many tools). low|medium|high, "" = default
+    # (gemini-3.8-flash rejects "minimal").
+    llm.thinking_level: low
+    # Also sent to Google as the server-side deadline for each request.
+    llm.timeout_s: 180.0
+    # One look per step (paced 12 s on the free tier): a 360 deg scan alone takes ~12 steps.
+    max_steps: 40
     service_timeout_s: 10.0
     nav_timeout_s: 180.0
+    trace_dir: /data/missions
 
 learning_node:
   ros__parameters:

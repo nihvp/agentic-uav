@@ -29,6 +29,8 @@ docs/REBUILD_PLAN.md             architecture and phased plan
 
 ## Run on the Fedora VM
 
+Step-by-step daily guide with troubleshooting: [docs/RUN_GUIDE.md](docs/RUN_GUIDE.md).
+
 ```bash
 export GEMINI_API_KEY=...        # needed by reasoning_node
 scripts/run_on_fedora.sh --build # first run builds both images (PX4 build takes a while)
@@ -56,7 +58,7 @@ docker compose exec agent bash -lc 'source /ws/install/setup.bash && ros2 action
 ### Run an LLM mission
 
 ```bash
-docker compose exec agent bash -lc 'source /ws/install/setup.bash && ros2 service call /reasoning/run_mission agentic_uav_interfaces/srv/RunMission "{goal: \"Take off to 5 m, fly to (8, 4, 5), hover, then return to launch.\"}"'
+docker compose exec agent bash -lc 'source /ws/install/setup.bash && ros2 service call /reasoning/run_mission agentic_uav_interfaces/srv/RunMission "{goal: \"Find the survivor and hover above them.\"}"'
 ```
 
 ## Tests

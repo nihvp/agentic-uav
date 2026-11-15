@@ -112,6 +112,11 @@ class ActionNode(Node):
         prev = self.ctrl.state
         out = self.ctrl.tick()
         if self.ctrl.state != prev:
+            if self.ctrl.state.value == "EXTERNAL":
+                # Name the mode PX4 switched to (e.g. AUTO_LAND after an offboard-loss failsafe).
+                nav = NAV_STATE_NAMES.get(self.ctrl.nav_state, str(self.ctrl.nav_state))
+                self.ctrl.last_error = (f"{time.strftime('%H:%M:%S')} PX4 left offboard mode "
+                                        f"(now {nav}, armed={self.ctrl.armed}).")
             self.get_logger().info(f"{prev.value} -> {self.ctrl.state.value} {self.ctrl.last_error}".rstrip())
 
         stamp = self._now_us()
@@ -218,6 +223,7 @@ class ActionNode(Node):
         msg.battery_percentage = self.battery
         msg.geofence_ok = self.ctrl.geofence_ok()
         msg.is_in_air = self.ctrl.in_air()
+        msg.last_event = self.ctrl.last_error
         self.pub_telem.publish(msg)
 
 

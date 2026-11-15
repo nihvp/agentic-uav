@@ -93,3 +93,16 @@ def test_start_times_out_if_px4_refuses():
     for _ in range(10):
         ctrl.tick()
     assert ctrl.state == State.IDLE and "did not accept" in ctrl.last_error
+
+
+def test_navigate_with_heading_waits_until_turned():
+    ctrl, px4 = make()
+    ctrl.takeoff(5.0)
+    px4.step(10)
+    ok, _, seq = ctrl.go_to((0.0, 0.0, 5.0), yaw_enu=0.0)   # face east = NED yaw pi/2
+    assert ok
+    px4.step(3)                                            # in position, FakePX4 heading still north
+    assert ctrl.goal_result(seq) is None and ctrl.state == State.NAVIGATING
+    ctrl.update_position(px4.pos, 1.5, True)               # within 0.15 rad of pi/2
+    px4.ctrl.tick()
+    assert ctrl.goal_result(seq) == (True, "Reached target.")

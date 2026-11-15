@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Dict, List, Optional, Tuple
 
-from agentic_uav.common.frames import enu_to_ned, ned_to_enu, yaw_enu_to_ned
+from agentic_uav.common.frames import enu_to_ned, ned_to_enu, wrap_pi, yaw_enu_to_ned
 
 # Mirrors px4_msgs VehicleCommand / VehicleStatus constants (kept here so this
 # module does not need px4_msgs).
@@ -40,6 +40,8 @@ class State(Enum):
 class ControllerConfig:
     takeoff_altitude: float = 4.0
     acceptance_radius: float = 0.5
+    # A goal with a heading is reached only once the heading is within this (rad).
+    yaw_tolerance: float = 0.15
     geofence_radius: float = 150.0
     geofence_max_alt: float = 25.0
     min_nav_altitude: float = 1.0
@@ -214,7 +216,11 @@ class OffboardController:
 
     def _reached(self) -> bool:
         d = self.distance_to_target()
-        return not math.isnan(d) and d <= self._radius
+        if math.isnan(d) or d > self._radius:
+            return False
+        if math.isnan(self._target_yaw_ned) or math.isnan(self.heading_ned):
+            return True
+        return abs(wrap_pi(self.heading_ned - self._target_yaw_ned)) <= self.cfg.yaw_tolerance
 
     def _hold_here(self):
         if self.pos_ned is not None:

@@ -44,7 +44,11 @@ class AgentLoop:
         nudges = 0
 
         for step in range(1, (max_steps or self.max_steps) + 1):
-            resp = self.provider.complete(self.system_prompt, messages, self.registry.specs())
+            self.on_event({"step": step, "phase": "llm"})
+            try:
+                resp = self.provider.complete(self.system_prompt, messages, self.registry.specs())
+            except Exception as ex:  # network, quota, bad model id: end with the trace so far
+                return MissionResult(False, f"LLM call failed at step {step}: {type(ex).__name__}: {ex}", trace)
             messages.append(Message(role="assistant", content=resp.text,
                                     tool_calls=resp.tool_calls, provider_raw=resp.provider_raw))
 
@@ -57,8 +61,10 @@ class AgentLoop:
                 continue
 
             for call in resp.tool_calls:
+                self.on_event({"step": step, "phase": "start", "thought": resp.text,
+                               "tool": call.name, "arguments": call.arguments})
                 result = self.registry.call(call.name, call.arguments)
-                entry = {"step": step, "thought": resp.text, "tool": call.name,
+                entry = {"step": step, "phase": "done", "thought": resp.text, "tool": call.name,
                          "arguments": call.arguments, "result": result.content, "ok": result.ok}
                 trace.append(entry)
                 self.on_event(entry)
