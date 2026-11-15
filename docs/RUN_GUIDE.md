@@ -4,7 +4,7 @@ Day-to-day steps to set up the VM, start the stack, fly by hand, run an LLM miss
 and fix known problems. Commands run **on the VM** (AnyDesk desktop terminal) unless
 they say **Mac**.
 
-- Repo on the VM: `~/agentic-uav` (a git clone, branch `rebuild`)
+- Repo on the VM: `~/Desktop/AgenticAI_Drones/agentic-uav` (a git clone, branch `rebuild`)
 - Repo on the Mac: `~/UTM-shared/UTM-Fedora/agentic-uav`
 - VM: x86_64, 8 CPUs, 53 GiB RAM, RTX 5070 Ti (16 GB), Ubuntu with an X11 desktop
 
@@ -59,13 +59,13 @@ Use these to judge perception and mission results (expect ~0.5 m error).
 3. Clone the repo:
 
    ```bash
-   git clone -b rebuild https://github.com/nihvp/agentic-uav.git ~/agentic-uav
+   cd ~/Desktop/AgenticAI_Drones && git clone -b rebuild https://github.com/nihvp/agentic-uav.git
    ```
 
 4. Settings file (git-ignored; compose reads it automatically):
 
    ```bash
-   cd ~/agentic-uav && cp .env.example .env
+   cd ~/Desktop/AgenticAI_Drones/agentic-uav && cp .env.example .env
    ```
 
 5. Check the host. Fix every FAIL before going on:
@@ -88,7 +88,7 @@ Use these to judge perception and mission results (expect ~0.5 m error).
 2. **VM:** pull (stack can keep running if the drone is landed):
 
    ```bash
-   cd ~/agentic-uav && git pull
+   cd ~/Desktop/AgenticAI_Drones/agentic-uav && git pull
    ```
 3. **VM:** apply it. Python or `params.yaml` change:
 
@@ -107,7 +107,7 @@ Use these to judge perception and mission results (expect ~0.5 m error).
 Terminal **A** (stack, leave it running):
 
 ```bash
-cd ~/agentic-uav && git pull
+cd ~/Desktop/AgenticAI_Drones/agentic-uav && git pull
 ```
 
 | Goal | Command |
@@ -129,7 +129,7 @@ node started, and `[llm] qwen3:14b ready`. Early `Waiting for: /camera/image...`
 Terminal **B**:
 
 ```bash
-cd ~/agentic-uav && docker compose exec agent bash
+cd ~/Desktop/AgenticAI_Drones/agentic-uav && docker compose exec agent bash
 ```
 
 Inside the container:
