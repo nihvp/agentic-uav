@@ -46,8 +46,15 @@ def wait_future(future, timeout: float):
 class ReasoningNode(Node):
     def __init__(self):
         super().__init__("reasoning_node")
-        provider_name = self.declare_parameter("llm.provider", "gemini").value
-        model = self.declare_parameter("llm.model", "gemini-3.5-flash").value
+        provider_name = self.declare_parameter("llm.provider", "ollama").value
+        # LLM_MODEL (set by compose from .env) overrides params.yaml so the model the llm
+        # service pulls and the one the agent asks for cannot drift apart.
+        model_param = self.declare_parameter("llm.model", "qwen3:14b").value
+        model = os.environ.get("LLM_MODEL") if provider_name != "gemini" and os.environ.get("LLM_MODEL") \
+            else model_param
+        base_url = self.declare_parameter("llm.base_url", "http://127.0.0.1:11434/v1").value
+        temperature = float(self.declare_parameter("llm.temperature", -1.0).value)
+        reasoning_effort = self.declare_parameter("llm.reasoning_effort", "").value
         rpm = float(self.declare_parameter("llm.requests_per_minute", 0.0).value)
         thinking = self.declare_parameter("llm.thinking_level", "low").value
         llm_timeout = float(self.declare_parameter("llm.timeout_s", 90.0).value)
@@ -75,7 +82,9 @@ class ReasoningNode(Node):
         self.agent = AgentLoop(
             make_provider(provider_name, model=model, requests_per_minute=rpm,
                           log=lambda m: self.get_logger().warn(m), thinking_level=thinking,
-                          timeout_s=llm_timeout), registry, SYSTEM_PROMPT,
+                          timeout_s=llm_timeout, base_url=base_url,
+                          temperature=temperature if temperature >= 0 else None,
+                          reasoning_effort=reasoning_effort), registry, SYSTEM_PROMPT,
             max_steps=self.max_steps,
             on_event=self._log_event,
         )

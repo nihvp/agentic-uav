@@ -10,8 +10,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       ros-jazzy-ros-gz-bridge ros-jazzy-cv-bridge \
     && rm -rf /var/lib/apt/lists/*
 
-# CPU-only torch in its own layer: it is the largest download and rarely changes.
-RUN pip3 install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu torch torchvision
+# CUDA 12.8 torch (needed for Blackwell GPUs, e.g. RTX 50xx) in its own layer: it is the
+# largest download and rarely changes. The host driver supplies CUDA at run time.
+RUN pip3 install --no-cache-dir --index-url https://download.pytorch.org/whl/cu128 torch torchvision
 COPY docker/agent-requirements.txt /tmp/agent-requirements.txt
 RUN pip3 install --no-cache-dir -r /tmp/agent-requirements.txt
 

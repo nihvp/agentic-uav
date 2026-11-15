@@ -26,8 +26,9 @@ services:
       # No ground station: allow arming without one and skip RC-loss failsafe in offboard.
       PX4_PARAM_NAV_DLL_ACT: 0
       PX4_PARAM_COM_RCL_EXCEPT: 4
-      # The VM can stall for over a second; give offboard setpoints 3 s before the
+      # The Fedora VM stalled for over a second; give offboard setpoints 3 s before the
       # failsafe, and hold position (5) instead of landing when it does trigger.
+      # TODO(remote VM): measure, then return to PX4 defaults if no stalls.
       PX4_PARAM_COM_OF_LOSS_T: 3
       PX4_PARAM_COM_OBL_RC_ACT: 5
       # docker/sim_entrypoint.sh patches the x500_depth camera: pitch it down so it sees
@@ -58,6 +59,8 @@ services:
       GZ_IP: 127.0.0.1
       GZ_PARTITION: agentic_uav
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      # Model the llm service serves; reasoning_node asks for the same one.
+      LLM_MODEL: ${LLM_MODEL:-qwen3:14b}
       REBUILD_ON_START: ${REBUILD_ON_START:-1}
     volumes:
       - ./src:/ws/src:rw,z
@@ -65,5 +68,35 @@ services:
     # e.g. AGENT_LAUNCH_ARGS="perception:=false reasoning:=false learning:=false"
     command: ros2 launch agentic_uav_bringup agent.launch.py ${AGENT_LAUNCH_ARGS:-}
 
+  # Local LLM: Ollama with an OpenAI-compatible API on 127.0.0.1:11434/v1. Pulls
+  # LLM_MODEL on first start (several GB, kept in the ollama-models volume).
+  # 16 GB VRAM is shared with Gazebo rendering, so the default is a ~9 GB 4-bit
+  # 14B model with a 16k context and an 8-bit KV cache.
+  llm:
+    <<: *host
+    image: ollama/ollama:${OLLAMA_TAG:-latest}
+    environment:
+      OLLAMA_HOST: 127.0.0.1:11434
+      OLLAMA_CONTEXT_LENGTH: ${LLM_CONTEXT:-16384}
+      OLLAMA_FLASH_ATTENTION: "1"
+      OLLAMA_KV_CACHE_TYPE: q8_0
+      # Keep the model in VRAM between missions instead of unloading after 5 min.
+      OLLAMA_KEEP_ALIVE: "-1"
+      LLM_MODEL: ${LLM_MODEL:-qwen3:14b}
+    volumes:
+      - ollama-models:/root/.ollama
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >-
+        ollama serve & pid=$$!;
+        until ollama list >/dev/null 2>&1; do sleep 1; done;
+        ollama pull "$$LLM_MODEL" && echo "[llm] $$LLM_MODEL ready";
+        wait $$pid
+    healthcheck:
+      test: ["CMD-SHELL", "ollama show \"$$LLM_MODEL\" >/dev/null 2>&1"]
+      interval: 10s
+      start_period: 30m
+
 volumes:
   agent-data:
+  ollama-models:

@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       python3 python3-pip python3-venv tzdata \
     && rm -rf /var/lib/apt/lists/*
 
-# Replace the image's default uid-1000 user with one that matches the Fedora host user.
+# Replace the image's default uid-1000 user with one that matches the host user (uid 1000).
 RUN userdel -r ubuntu 2>/dev/null || true; \
     useradd -m -u 1000 -s /bin/bash px4 && echo "px4 ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/px4
 

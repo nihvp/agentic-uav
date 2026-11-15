@@ -1,26 +1,29 @@
-# Run guide (Fedora VM)
+# Run guide (remote Ubuntu GPU VM)
 
-Day-to-day steps to start the stack, fly by hand, run an LLM mission, and fix the
-problems we have already hit. Every command runs **on the Fedora VM** unless it says Mac.
+Day-to-day steps to set up the VM, start the stack, fly by hand, run an LLM mission,
+and fix known problems. Commands run **on the VM** (AnyDesk desktop terminal) unless
+they say **Mac**.
 
-- Repo on the VM: `/mnt/utm-share/agentic-uav`
-- Same folder on the Mac: `~/UTM-shared/UTM-Fedora/agentic-uav`
-
-> **Editing files:** edit on the **Mac** side (any editor) — the VM sees the change
-> immediately. `sed -i` fails on the VM's shared folder (it cannot create temp files).
+- Repo on the VM: `~/agentic-uav` (a git clone, branch `rebuild`)
+- Repo on the Mac: `~/UTM-shared/UTM-Fedora/agentic-uav`
+- VM: x86_64, 8 CPUs, 53 GiB RAM, RTX 5070 Ti (16 GB), Ubuntu with an X11 desktop
 
 ---
 
 ## 0. What runs where
 
-| Container | What's inside | Started by |
-|-----------|---------------|------------|
-| `sim`   | PX4 SITL + Gazebo Harmonic + XRCE-DDS agent | `scripts/run_on_fedora.sh` |
-| `agent` | ROS 2 Jazzy nodes: action, perception, reasoning (LLM), learning, Gazebo bridge | same script |
+| Container | What's inside | GPU use |
+|-----------|---------------|---------|
+| `sim`   | PX4 SITL + Gazebo Harmonic + XRCE-DDS agent | Gazebo rendering (GUI + depth camera) |
+| `agent` | ROS 2 Jazzy nodes: action, perception, reasoning, learning, Gazebo bridge | torch (YOLO, embeddings) |
+| `llm`   | Ollama serving `LLM_MODEL` (OpenAI-compatible API on `127.0.0.1:11434/v1`) | model weights + KV cache |
+
+All three use host networking. The 16 GB of VRAM is shared: Gazebo takes ~1-2 GB,
+the default model (`qwen3:14b`, 4-bit) ~10-11 GB with its 16k context.
 
 The `agent` container rebuilds the ROS workspace on every start (`REBUILD_ON_START=1`),
-so code and `params.yaml` changes only need `docker compose restart agent`.
-No image rebuild is needed unless a Dockerfile or `agent-requirements.txt` changes.
+so code and `params.yaml` changes only need `docker compose restart agent`. Rebuild the
+image (`--build`) only when a Dockerfile or `docker/agent-requirements.txt` changes.
 
 World `search_and_rescue` (map frame: metres, x east, y north, z up, home = 0,0):
 
@@ -31,57 +34,102 @@ World `search_and_rescue` (map frame: metres, x east, y north, z up, home = 0,0)
 | Landing pad | (0.0, 8.0) | blue |
 | Debris | (1.5, 8.5) | — (not detected) |
 
-Use these to judge whether perception/mission results are right (expect ~0.5 m error).
+Use these to judge perception and mission results (expect ~0.5 m error).
 
 ---
 
-## 1. Start of day
+## 1. One-time VM setup
+
+1. Docker Engine + compose plugin: follow https://docs.docker.com/engine/install/ubuntu/
+   then let your user run it without sudo:
+
+   ```bash
+   sudo usermod -aG docker $USER
+   ```
+   Log out and back in (or reboot) for the group to apply.
+
+2. NVIDIA Container Toolkit: install `nvidia-container-toolkit` following
+   https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+   then register it with Docker:
+
+   ```bash
+   sudo nvidia-ctk runtime configure --runtime=docker && sudo systemctl restart docker
+   ```
+
+3. Clone the repo:
+
+   ```bash
+   git clone -b rebuild https://github.com/nihvp/agentic-uav.git ~/agentic-uav
+   ```
+
+4. Settings file (git-ignored; compose reads it automatically):
+
+   ```bash
+   cd ~/agentic-uav && cp .env.example .env
+   ```
+
+5. Check the host. Fix every FAIL before going on:
+
+   ```bash
+   scripts/check_host.sh --gpu-test
+   ```
+
+6. First build and start. The PX4 build and the model download (~9 GB) take a while:
+
+   ```bash
+   scripts/run.sh --build
+   ```
+
+---
+
+## 2. Daily workflow (Mac ↔ VM)
+
+1. **Mac:** edit, commit, `git push`.
+2. **VM:** pull (stack can keep running if the drone is landed):
+
+   ```bash
+   cd ~/agentic-uav && git pull
+   ```
+3. **VM:** apply it. Python or `params.yaml` change:
+
+   ```bash
+   docker compose restart agent
+   ```
+   Dockerfile, requirements or `compose*.yaml` change: Ctrl+C the stack and start it
+   again with `--build`.
+4. Run and test (sections 4-6), copy findings or mission traces back to the Mac
+   (commit them under `docs/` or paste them into the chat).
+
+---
+
+## 3. Start of day
 
 Terminal **A** (stack, leave it running):
 
 ```bash
-cd /mnt/utm-share/agentic-uav
+cd ~/agentic-uav && git pull
 ```
-
-```bash
-free -h
-```
-Expect about 4.8 Gi total. Close other apps in the VM if "available" is under ~3 Gi.
-
-```bash
-export GEMINI_API_KEY=your-key-here
-```
-
-Pick one start command:
 
 | Goal | Command |
 |------|---------|
-| **LLM mission (normal)** | `AGENT_LAUNCH_ARGS="learning:=false" scripts/run_on_fedora.sh --headless` |
-| Flight + perception only, no LLM | `AGENT_LAUNCH_ARGS="reasoning:=false learning:=false" scripts/run_on_fedora.sh --headless` |
-| Flight only | `AGENT_LAUNCH_ARGS="perception:=false reasoning:=false learning:=false" scripts/run_on_fedora.sh --headless` |
-| With the Gazebo window (heavier) | drop `--headless` |
-| After a Dockerfile change | add `--build` |
+| **Everything, Gazebo window on the desktop** | `scripts/run.sh` |
+| Everything, no Gazebo window | `scripts/run.sh --headless` |
+| No LLM (flight + perception only) | `AGENT_LAUNCH_ARGS="reasoning:=false" scripts/run.sh --no-llm` |
+| Flight only | `AGENT_LAUNCH_ARGS="perception:=false reasoning:=false learning:=false" scripts/run.sh --no-llm` |
+| After a Dockerfile / requirements change | add `--build` |
 
-`--headless` saves a lot of CPU/RAM; use it unless you need to watch.
-The key must be exported **in terminal A before starting**. If you forgot, press
-Ctrl+C, export it, and start again (`docker compose restart` does not pick up new env vars).
-
-Wait ~1–2 minutes. Ready when terminal A shows lines like `Action layer up`,
-`Perception layer up`, and the reasoning node started. Early `Waiting for: /camera/image...`
-or `No valid PX4 local position` warnings are normal for the first ~30–60 s.
+Ready when terminal A shows `Action layer up`, `Perception layer up`, the reasoning
+node started, and `[llm] qwen3:14b ready`. Early `Waiting for: /camera/image...` or
+`No valid PX4 local position` warnings are normal for the first ~30 s.
 
 ---
 
-## 2. Open a ROS shell
+## 4. Open a ROS shell and check health
 
-Terminal **B** (and C for logs):
-
-```bash
-cd /mnt/utm-share/agentic-uav
-```
+Terminal **B**:
 
 ```bash
-docker compose exec agent bash
+cd ~/agentic-uav && docker compose exec agent bash
 ```
 
 Inside the container:
@@ -90,10 +138,8 @@ Inside the container:
 source /ws/install/setup.bash
 ```
 
-All `ros2 ...` commands below run inside this shell.
-("Could not determine the type" right after starting is DDS discovery lag — wait 5 s, retry.)
-
-### Quick health check
+All `ros2 ...` and `python3 -m ...` commands below run inside this shell.
+("Could not determine the type" right after starting is DDS discovery lag; wait 5 s.)
 
 ```bash
 ros2 topic echo --once /action/telemetry | grep -E "armed|controller_state|last_event"
@@ -108,11 +154,24 @@ Both `true` = PX4 is ready to fly.
 ```bash
 ros2 topic hz /camera/image --window 20
 ```
-About 2–3 Hz on this VM is normal (perception only).
+Note the rate (the Fedora VM managed 2-3 Hz) and write it in REBUILD_PLAN.md.
+
+LLM check: one request with one tool, must print `PASS`. The first call loads the
+model into VRAM (up to a minute); later calls take a few seconds.
+
+```bash
+python3 -m agentic_uav.reasoning.llm_check
+```
+
+GPU memory (on the VM, outside the container):
+
+```bash
+nvidia-smi --query-gpu=memory.used,memory.total,utilization.gpu --format=csv
+```
 
 ---
 
-## 3. Fly by hand (no LLM)
+## 5. Fly by hand (no LLM)
 
 Take off to 5 m:
 
@@ -148,147 +207,119 @@ Other commands: `{command: HOLD}`, `{command: LAND, altitude: 0.0}`.
 
 ---
 
-## 4. Run the LLM mission
+## 6. Run the LLM mission
 
-The drone should be **on the ground** (`armed: false`) — the agent takes off itself.
+The drone should be **on the ground** (`armed: false`); the agent takes off itself.
 
-Terminal **C** — watch the agent think (outside the container, in the repo folder):
+Terminal **C**: watch the agent think (on the VM, in the repo folder):
 
 ```bash
 docker compose logs -f agent | grep reasoning_node
 ```
 
-Terminal **B** — start the mission (this call blocks until the mission ends):
+Terminal **B**: start the mission (blocks until it ends):
 
 ```bash
 ros2 service call /reasoning/run_mission agentic_uav_interfaces/srv/RunMission "{goal: 'Find the survivor and hover above them.'}"
 ```
 
-In terminal C you'll see, per step: `asking the LLM for the next action...`,
+Per step terminal C shows `asking the LLM for the next action...`,
 `calling <tool>(args) | <thought>`, then the result. Expected flow: takeoff → scan →
-(move ~10 m, scan again) → navigate to the survivor at ~(8, 4, 5) → finish_mission.
+(move, scan again) → navigate to the survivor at ~(8, 4, 5) → finish_mission.
 
 **Success** = the response says `success: True` and telemetry is close to x 8, y 4, z 5.
 
-After the mission, read the full trace (outside the container):
+Save the trace into the repo so it can be pushed and read on the Mac:
 
 ```bash
-docker compose exec agent bash -c 'cat $(ls -t /data/missions/*.json | head -1)'
+mkdir -p traces && docker compose exec agent bash -c 'cat $(ls -t /data/missions/*.json | head -1)' > traces/mission_$(date +%Y%m%d_%H%M%S).json
 ```
 
-Save a copy to the shared folder (so you can open it on the Mac):
-
-```bash
-docker compose exec agent bash -c 'cat $(ls -t /data/missions/*.json | head -1)' > mission_latest.json
-```
-
-Then RTL (section 3) before starting another mission.
+Then RTL (section 5) before the next mission. There is no quota now, so run the
+mission many times and note the success rate.
 
 ---
 
-## 5. LLM quota and switching models
+## 7. Changing the LLM
 
-Gemini free tier is about **5 requests/min and ~20 requests/day per model**. One mission
-uses roughly 8–20 requests, so you get about **1–2 missions per model per day**.
-The daily quota resets at **midnight US Pacific = 12:00 noon UAE time (UTC+4)**.
-Check usage: https://ai.dev/rate-limit
-
-The model is set in `src/agentic_uav_bringup/config/params.yaml` (edit on the Mac):
-
-```yaml
-llm.model: gemini-3.5-flash
-```
-
-| Model | Notes |
-|-------|-------|
-| `gemini-3.5-flash` | Default. 3–15 s per request. Separate daily quota. |
-| `gemini-3.5-flash-lite` | Faster, separate quota; a bit less reliable at multi-step planning. Good backup. |
-| `gemini-3.8-flash` | **Don't use**: 80–90+ s per request on free tier → 504 errors. |
-| `gemini-2.5-*` | **Don't use**: 404, closed to new users. |
-
-Each model has its own quota, so when one is exhausted switch to the other.
-After editing, land first, then:
+Set the model in `.env` (on the VM) and restart the stack:
 
 ```bash
-docker compose restart agent
+LLM_MODEL=qwen3:14b
 ```
+
+The `llm` service pulls it on start; `reasoning_node` asks for the same name. Rules:
+the model must support **tool calling** in Ollama (marked "tools" on ollama.com), and
+weights + KV cache must leave ~2 GB of VRAM for Gazebo. On 16 GB that means ~14B at
+4-bit, or ~8B at 8-bit. `LLM_CONTEXT` (default 16384) costs VRAM too.
+
+List and remove downloaded models:
+
+```bash
+docker compose exec llm ollama list
+```
+
+```bash
+docker compose exec llm ollama rm <model>
+```
+
+Gemini still works: set `llm.provider: gemini` and a Gemini `llm.model` in
+`params.yaml`, put `GEMINI_API_KEY` in `.env`, and set `llm.requests_per_minute: 5.0`
+on the free tier.
 
 ---
 
-## 6. Gazebo window (to watch the drone)
+## 8. Gazebo window
 
-Either start without `--headless`, or attach a viewer to a headless sim:
-
-```bash
-xhost +si:localuser:$(whoami)
-```
+`scripts/run.sh` without `--headless` opens it on the VM desktop (visible in AnyDesk).
+To attach a viewer to a headless sim:
 
 ```bash
-docker compose exec sim gz sim -g
+xhost +si:localuser:$(whoami) && docker compose exec sim gz sim -g
 ```
 
-Close the window when done; the simulation keeps running.
+Closing the window leaves the simulation running.
 
 ---
 
-## 7. Troubleshooting
+## 9. Troubleshooting
 
 | Symptom | Cause / fix |
 |---------|-------------|
-| `GEMINI_API_KEY is not set` | Export it in terminal A, Ctrl+C, start again. |
-| `429 RESOURCE_EXHAUSTED` / `Gemini quota exhausted ... wait N s` | Per-minute limit: it waits and retries by itself. Daily limit (wait > 60 s): mission stops — switch model (section 5) or wait for noon UTC+4. |
-| `404 ... no longer available to new users` | Wrong model name — use one from the table in section 5. |
-| `504 DEADLINE_EXCEEDED` | Model too slow (3.8-flash). Switch to 3.5-flash. |
+| `check_host.sh`: NVIDIA runtime FAIL | Section 1 step 2; `docker info \| grep -i runtimes` must list `nvidia`. |
+| `could not select device driver "nvidia"` | Same as above, then restart Docker. |
+| `DISPLAY is not set` | You are in SSH, not the desktop terminal. Use `--headless` or the AnyDesk terminal. |
+| Gazebo window does not open / `cannot open display` | `xhost +si:localuser:$(whoami)`; check `echo $DISPLAY` matches the desktop. |
+| Gazebo renders on CPU (slow, `llvmpipe` in logs) | GPU overlay not applied: `scripts/run.sh` prints "no NVIDIA runtime" in that case. |
+| `llm_check` connection error | `docker compose logs llm \| tail`; still pulling the model, or port 11434 is taken by a host Ollama (`sudo systemctl stop ollama`). |
+| `llm_check` FAIL (text, no tool call) | Model does not do tool calls well; try another tools-capable model (section 7). |
+| Ollama `out of memory` / model on CPU (slow) | Model + context too big next to Gazebo: smaller model, lower `LLM_CONTEXT`, or `--headless`. |
+| CUDA error in agent (`no kernel image`) | Image has old torch; rebuild with `--build` (needs CUDA 12.8 wheels for RTX 50xx). |
+| Permission denied writing in `src/` | Host user is not uid 1000; see `check_host.sh`. |
 | `Cannot navigate in state TAKING_OFF` | Takeoff still in progress; wait for `HOLDING`. |
-| `No valid PX4 local position yet` | PX4 still initialising. Wait 30–60 s and retry. |
-| Drone lands by itself mid-flight | PX4 failsafe from a VM stall. Check `docker compose logs sim \| grep -iE "failsafe\|offboard\|landing\|disarm" \| tail -20`. Telemetry `last_event` also says why. Free RAM, use `--headless`. |
-| `controller_state: EXTERNAL` | PX4 took control (failsafe/RTL). Send TAKEOFF again to resume in place, or RTL. |
-| Perception tracks nothing | `docker compose logs agent \| grep "Frames used" \| tail -3`. If "skipped mid-turn" keeps rising while hovering, report it. Check camera with `ros2 topic hz /camera/image`. |
-| No `/camera/*` topics | Bridge not up: `docker compose logs agent \| grep -iE "bridge\|camera" \| head -20`. |
-| Mission seems stuck | Watch terminal C; a single LLM request can take ~15 s, plus pacing waits of up to 12 s between requests on the free tier. |
-| Simulation slow / "time jump detected" | VM under load. Close other apps; `free -h`; stay headless. |
+| `No valid PX4 local position yet` | PX4 still initialising; wait 30 s. |
+| Drone lands by itself / `controller_state: EXTERNAL` | PX4 failsafe. `docker compose logs sim \| grep -iE "failsafe\|offboard\|landing\|disarm" \| tail -20`; telemetry `last_event` says why. Send TAKEOFF to resume, or RTL. |
+| Perception tracks nothing | `docker compose logs agent \| grep "Frames used" \| tail -3`; `ros2 topic hz /camera/image`. |
+| No `/camera/*` topics | `docker compose logs agent \| grep -iE "bridge\|camera" \| head -20`. |
 | Disk full | `docker image prune -f`; `df -h /`. |
 
-Useful log commands (outside the container):
+---
 
-```bash
-docker compose logs agent | grep action_node | tail -20
-```
+## 10. Rules
 
-```bash
-docker compose logs sim --since 2m | grep -E "WARN|ERROR" | tail -20
-```
-
-```bash
-docker compose ps -a
-```
+- **Never restart `agent` mid-flight.** It stops offboard setpoints and triggers the
+  PX4 failsafe. RTL and wait for `armed: false` first.
+- **End of day:** RTL, wait for `armed: false`, Ctrl+C in terminal A, then
+  `docker compose down`. Mission traces stay in the `agent-data` volume, models in
+  `ollama-models`.
 
 ---
 
-## 8. Never restart the agent mid-flight
-
-Restarting `agent` while flying stops offboard setpoints, which triggers the PX4 failsafe.
-Always **RTL and wait for `armed: false`** before `docker compose restart agent` or Ctrl+C.
-
----
-
-## 9. End of day
-
-1. RTL (section 3) and wait for `armed: false`.
-2. Ctrl+C in terminal A, then:
-
-```bash
-docker compose down
-```
-
-Mission traces survive in the `agent-data` volume.
-
----
-
-## 10. Unit tests (optional, Mac or VM, no simulator needed)
+## 11. Unit tests (Mac or VM, no simulator)
 
 ```bash
 cd src/agentic_uav && python3 -m pytest test -p no:cacheprovider
 ```
 
-Needs `numpy`, `opencv-python-headless`, `pytest`, `google-genai` installed.
+Needs `numpy`, `opencv-python-headless`, `pytest`, `openai` (and `google-genai` for the
+Gemini tests, which are skipped without it).

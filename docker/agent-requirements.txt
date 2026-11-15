@@ -1,5 +1,6 @@
 # Ubuntu 24.04's cv_bridge is built against NumPy 1.x.
 numpy>=1.26,<2
+openai>=1.40
 google-genai>=1.20
 mcp>=1.2
 sentence-transformers>=3.0

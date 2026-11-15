@@ -14,10 +14,10 @@ or reports "not available" to the reasoning layer; it never returns canned succe
 | Simulator      | Gazebo Harmonic (the official pairing for Jazzy)                       |
 | Autopilot      | PX4 SITL, `gz_x500_depth` airframe (quadrotor + RGB-D camera)          |
 | PX4 <-> ROS 2  | uXRCE-DDS (MicroXRCEAgent) + `px4_msgs`, versions pinned to the PX4 tag |
-| LLM            | Provider-agnostic adapter; Gemini first, others pluggable              |
+| LLM            | Provider-agnostic adapter; local open model on the VM GPU via Ollama's OpenAI-compatible API, Gemini kept as an option |
 | Tools          | Real MCP server (`mcp` Python SDK) for external tools                  |
 | Memory         | Persistent vector store on a mounted volume                            |
-| Runtime        | Docker Compose on the Fedora VM (aarch64), host networking             |
+| Runtime        | Docker Compose on a remote Ubuntu VM (x86_64, NVIDIA GPU), host networking; was a Fedora VM (aarch64) up to Phase 3 WIP |
 
 ## Architecture
 
@@ -67,6 +67,68 @@ src/agentic_uav/                 Python package, one sub-package per layer
   test/                          pure-Python unit tests (no ROS needed)
 src/agentic_uav_bringup/         launch files, params, bridge config, worlds
 ```
+
+## Move to the remote GPU VM (2026-11)
+
+Phases 0-2 and the Phase 3 work so far ran on a Fedora VM in UTM (aarch64, ~4.8 GB
+RAM, no usable GPU). Two limits stopped Phase 3 acceptance:
+
+* **LLM quota.** The Gemini free tier allows ~5 requests/min and ~20/day per model, so
+  1-2 missions a day with 12 s pacing between steps. Not enough to iterate on prompts.
+* **VM capacity.** VM stalls tripped the PX4 offboard failsafe, the camera was cut to
+  640x360 and perception ran at 2-3 Hz, and YOLO was dropped (no RAM for torch).
+
+The new host is a remote Ubuntu VM reached by AnyDesk: x86_64, 8 CPUs, 53 GiB RAM,
+684 GB free disk, RTX 5070 Ti (16 GB, Blackwell), driver 590 / CUDA 13.1, X11 desktop. Workflow: edit on the Mac, push to GitHub, `git pull` on the VM, run and test
+there, bring findings back.
+
+### What changes
+
+| Area | Fedora VM (before) | Remote GPU VM (after) |
+|------|--------------------|-----------------------|
+| Host script | `scripts/run_on_fedora.sh`, `/dev/dri` passthrough | `scripts/run.sh` + `scripts/check_host.sh` (arch, `nvidia-smi`, NVIDIA Container Toolkit, Docker, disk) |
+| GPU in containers | `compose.gpu.yaml` mapped `/dev/dri` | `compose.gpu.yaml` reserves the NVIDIA GPU (`deploy.resources.reservations.devices`) for `sim`, `agent` and `llm` |
+| Gazebo rendering | headless or llvmpipe | GPU rendering; GUI on the VM desktop (AnyDesk) or headless |
+| LLM | Gemini free tier over the internet | new `llm` service: Ollama serving an open model with tool calling (default `qwen3:14b`, 4-bit, 16k context), OpenAI-compatible API on `127.0.0.1:11434/v1` |
+| LLM adapter | `GeminiProvider` only | new `OpenAICompatProvider` (`openai` SDK; also works with Ollama / LM Studio). Gemini stays selectable; pacing defaults to 0 |
+| Agent image | CPU-only torch | CUDA 12.8 torch (required for Blackwell), so YOLO and `sentence-transformers` run on the GPU |
+| Perception | colour detector only | colour detector stays the default; YOLO for `person` becomes a real option (Phase 2 follow-up) |
+| Sim tuning | `COM_OF_LOSS_T=3`, 640x360 @ 10 Hz camera | keep at first, measure, then restore PX4 defaults and a larger camera if the VM keeps up |
+| Run guide | Fedora-specific (`/mnt/utm-share`, `sed -i` caveat) | rewritten for the Ubuntu VM and the git-pull workflow |
+
+The layer code and ROS interfaces do not change for the move. Only the LLM adapter,
+container setup and docs do. The rule above still holds: no ground truth, no faked
+results.
+
+### Order of work
+
+1. **Host bring-up.** `check_host.sh`, `run.sh`, NVIDIA `compose.gpu.yaml`, run guide.
+   Build both images on the VM. **Accept:** Phase 1 and Phase 2 checks pass again on
+   the new VM (takeoff, `NavigateTo`, RTL; survivor placed within ~1 m).
+2. **Local LLM.** `llm` compose service (Ollama, model and context length from `.env`),
+   `OpenAICompatProvider` with unit tests against a fake server, `params.yaml` switched
+   to `llm.provider: ollama`. Pick the model by GPU memory; it must support
+   native tool calling. **Accept:** a scripted single-tool request round-trips through
+   Ollama from inside the `agent` container (`python3 -m agentic_uav.reasoning.llm_check`).
+3. **Finish Phase 3.** Run "Find the survivor and hover above them" repeatedly (now
+   free), tune prompts and tools, record success over ~10 runs. Re-measure whether the
+   VM-stall workarounds (offboard loss timeout, small camera, motion gating
+   thresholds) are still needed.
+4. **Phase 4 (MCP)** and onward as planned below.
+
+**Why Ollama, not vLLM.** The 16 GB of VRAM is shared with Gazebo rendering (and
+later YOLO). vLLM reserves a fixed fraction of VRAM up front and is tuned for
+throughput across many requests; this stack sends one request at a time. Ollama loads
+4-bit GGUF models, sizes its memory to the model and context, and has an
+OpenAI-compatible API, so the adapter is the same either way. vLLM can be swapped in
+later by pointing `llm.base_url` at it (`llm.provider: vllm`).
+
+**Status (2026-11-15):** steps 1 and 2 are written (`scripts/check_host.sh`,
+`scripts/run.sh`, NVIDIA `compose.gpu.yaml`, `llm` service, `OpenAICompatProvider`,
+`python3 -m agentic_uav.reasoning.llm_check`, new run guide) but not yet run on the VM.
+Open items: whether the NVIDIA Container Toolkit is installed, whether Gazebo picks up
+the NVIDIA GL libraries in the `sim` container (headless sensor rendering included),
+and how much VRAM Gazebo plus the model really use.
 
 ## Phases
 

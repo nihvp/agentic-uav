@@ -27,18 +27,21 @@ perception_node:
 
 reasoning_node:
   ros__parameters:
-    llm.provider: gemini
-    # gemini-2.5-* is closed to new API users; see ai.google.dev/gemini-api/docs/deprecations
-    # gemini-3.8-flash took 80-90+ s per request on the free tier (2026-11-09); 3.5 (routed to 3.6) took 3-15 s.
-    llm.model: gemini-3.8-flash
-    # Gemini free tier: 5 requests/min per model. 0 = no pacing (paid tier).
-    llm.requests_per_minute: 5.0
-    # Gemini 3 thinks at "high" by default (minutes per step with many tools). low|medium|high, "" = default
-    # (gemini-3.8-flash rejects "minimal").
-    llm.thinking_level: low
-    # Also sent to Google as the server-side deadline for each request.
+    # ollama (local llm service, OpenAI-compatible API) | vllm | openai_compat | gemini
+    llm.provider: ollama
+    llm.base_url: http://127.0.0.1:11434/v1
+    # For ollama/vllm the LLM_MODEL env var (compose, from .env) overrides this.
+    llm.model: qwen3:14b
+    # -1 = server/model default.
+    llm.temperature: -1.0
+    # Passed through as reasoning_effort when set (servers that support it). "" = omit.
+    llm.reasoning_effort: ""
+    # A local 14B model answers in a few seconds; the first request also loads it into VRAM.
     llm.timeout_s: 180.0
-    # One look per step (paced 12 s on the free tier): a 360 deg scan alone takes ~12 steps.
+    # Gemini only (llm.provider: gemini, model e.g. gemini-3.5-flash). Free tier = 5 rpm.
+    llm.requests_per_minute: 0.0
+    llm.thinking_level: low
+    # A 360 deg scan alone takes ~12 steps.
     max_steps: 40
     service_timeout_s: 10.0
     nav_timeout_s: 180.0
