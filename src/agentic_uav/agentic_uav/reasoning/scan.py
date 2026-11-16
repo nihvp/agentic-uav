@@ -1,7 +1,7 @@
 """Helpers for the scan tool: turn in place and collect what perception reports.
 
-Each LLM request costs quota (the free tier allows ~20 a day), so a 360-degree look
-is one tool call instead of a turn + get_scene_graph pair per heading. Everything
+A 360-degree look is one tool call instead of a turn + get_scene_graph pair per
+heading, which keeps missions short in LLM steps. Everything
 returned still comes from the perception layer's scene graph; nothing is inferred here.
 """
 
@@ -16,10 +16,15 @@ def scan_headings(start_deg: float, step_deg: float = 60.0) -> List[float]:
 
 
 def compact_nodes(nodes: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """Scene nodes trimmed to what the LLM needs, confirmed first."""
+    """Scene nodes trimmed to what the LLM needs, confirmed first.
+
+    Accepts raw scene-graph nodes or already compacted ones (the scan tool receives
+    compacted nodes from _settled_scene); compacting twice keeps "confirmed".
+    """
     out = [{"id": n["id"], "label": n["label"], "position": n["position"],
             "existence_prob": n["existence_prob"],
-            "confirmed": "state:confirmed" in n.get("attributes", [])} for n in nodes]
+            "confirmed": n["confirmed"] if "confirmed" in n else "state:confirmed" in n.get("attributes", [])}
+           for n in nodes]
     return sorted(out, key=lambda n: (not n["confirmed"], -n["existence_prob"]))
 
 

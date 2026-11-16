@@ -105,3 +105,12 @@ def test_detection_without_depth_is_dropped():
     nodes, _ = builder.process_detections(
         [{"bbox": [0, 0, 10, 10], "label": "survivor", "confidence": 0.9, "point_cam": None}], t, r)
     assert nodes == []
+
+
+def test_association_gate_grows_with_object_size():
+    from agentic_uav.perception.scene_graph_builder import association_gate
+    person = [0.6, 0.5, 1.7]
+    pad = [3.2, 2.6, 0.4]
+    assert association_gate(2.5, person, person) == 2.5      # small objects keep the base gate
+    assert association_gate(2.5, pad, pad) > 2.7             # sightings 2.7 m apart now merge
+    assert abs(association_gate(2.5, pad, pad) - 3.7) < 1e-9

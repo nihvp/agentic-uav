@@ -54,6 +54,18 @@ class TrackedEntity:
         self.pos_world = (1.0 - alpha) * self.pos_world + alpha * new_pos
 
 
+def association_gate(base: float, size_a, size_b) -> float:
+    """Max distance for matching an observation to a track of the same label.
+
+    A large object (the 3 m landing pad) seen from different angles is placed metres
+    apart, since depth hits its near edge and the image edge can cut it; a fixed gate
+    then splits it into several tracks (seen 2.7 m apart in SITL). Allow up to the
+    mean horizontal extent of the two boxes plus 0.5 m, never less than the base gate.
+    """
+    extent = 0.5 * (max(size_a[0], size_a[1]) + max(size_b[0], size_b[1]))
+    return max(base, extent + 0.5)
+
+
 class SceneGraphBuilder:
     """Builds and updates a probabilistic 3D semantic scene graph."""
 
@@ -157,7 +169,8 @@ class SceneGraphBuilder:
             for t_id, track in self.tracked_entities.items():
                 if track.label == obs["label"]:
                     dist = np.linalg.norm(track.pos_world - obs["pos_world"])
-                    if dist < min_dist and dist < self.max_association_distance:
+                    gate = association_gate(self.max_association_distance, track.bbox_size, obs["bbox_size"])
+                    if dist < min_dist and dist < gate:
                         min_dist = dist
                         best_id = t_id
 

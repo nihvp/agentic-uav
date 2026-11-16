@@ -17,9 +17,9 @@ class FakeClient:
         return self._responses.pop(0)
 
 
-def reply(content=None, calls=()):
+def reply(content=None, calls=(), reasoning=None):
     tool_calls = [NS(id=i, function=NS(name=n, arguments=a)) for i, n, a in calls] or None
-    return NS(choices=[NS(message=NS(content=content, tool_calls=tool_calls))])
+    return NS(choices=[NS(message=NS(content=content, tool_calls=tool_calls, reasoning=reasoning))])
 
 
 TOOLS = [ToolSpec("navigate_to", "Fly to a point.",
@@ -61,3 +61,10 @@ def test_bad_arguments_reach_the_registry_as_an_error():
 def test_unclosed_think_is_dropped():
     assert strip_thinking("<think>still going") == ""
     assert strip_thinking("plain") == "plain"
+
+
+def test_reasoning_field_becomes_the_thought_when_content_is_empty():
+    client = FakeClient([reply("", [("c1", "scan", "{}")], reasoning="Survivor seen at 8,4; fly there.")])
+    resp = OpenAICompatProvider("m", client=client, reasoning_effort="none").complete("s", [Message("user", "go")], TOOLS)
+    assert resp.text == "[thinking] Survivor seen at 8,4; fly there."
+    assert client.requests[0]["reasoning_effort"] == "none"

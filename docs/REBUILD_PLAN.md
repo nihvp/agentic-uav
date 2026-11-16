@@ -142,7 +142,15 @@ later by pointing `llm.base_url` at it (`llm.provider: vllm`).
 * Phase 2 re-check passed: hovering at (3, 4, 5) facing east, survivor placed at
   (7.68, 3.91), 0.33 m from its SDF position. Fire placed 1.5 m off (10.88, 4.49 vs
   12.0, 5.5): ~8 m away near the image edge, depth sees its near surface.
-* Next: Phase 3 mission runs with the local LLM.
+* Phase 3 run 1 (qwen3:14b, thinking on): flew takeoff -> scan -> move -> scan ->
+  survivor, ending 0.44 m above it, but reported failure. Causes: the scan tool marked
+  every object unconfirmed (nodes were compacted twice, losing `state:confirmed`), so
+  the model re-scanned from above the survivor, where the camera cannot see it. Also
+  25-40 s per step from Qwen3 thinking, and the landing pad split into ~7 tracks.
+  Fixed: scan keeps `confirmed`; prompt says targets below the vehicle are out of view
+  and arriving above one achieves "hover above"; `llm.reasoning_effort: none`
+  (thinking off, its text kept in the trace when on); size-aware association gate.
+* Next: repeat the mission ~10 times and record the success rate.
 
 ## Phases
 

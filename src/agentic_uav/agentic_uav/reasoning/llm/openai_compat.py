@@ -45,7 +45,13 @@ class OpenAICompatProvider(LLMProvider):
         calls = [ToolCall(id=c.id or uuid.uuid4().hex[:8], name=c.function.name,
                           arguments=parse_arguments(c.function.arguments))
                  for c in (msg.tool_calls or [])]
-        return LLMResponse(text=strip_thinking(msg.content or ""), tool_calls=calls)
+        text = strip_thinking(msg.content or "")
+        # Ollama returns the model's thinking in a separate "reasoning" field. Keep a short
+        # version as the thought when the model said nothing else, so traces show why.
+        reasoning = (getattr(msg, "reasoning", None) or "").strip()
+        if not text and reasoning:
+            text = "[thinking] " + shorten(reasoning)
+        return LLMResponse(text=text, tool_calls=calls)
 
 
 def to_openai_tool(spec: ToolSpec) -> Dict[str, Any]:
@@ -83,6 +89,11 @@ def parse_arguments(raw: Any) -> Dict[str, Any]:
         # Passed through so the registry rejects it and the model sees why.
         return {"invalid_json_arguments": raw}
     return args if isinstance(args, dict) else {"invalid_json_arguments": raw}
+
+
+def shorten(text: str, limit: int = 400) -> str:
+    text = " ".join(text.split())
+    return text if len(text) <= limit else "..." + text[-limit:]
 
 
 def strip_thinking(text: str) -> str:

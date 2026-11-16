@@ -25,3 +25,10 @@ def test_merge_keeps_best_confidence_and_latest_position():
     s = seen[2]
     assert s["existence_prob"] == 0.95 and s["confirmed"]
     assert s["position"] == [8.0, 4.0, 0.7] and s["seen_at_heading_deg"] == 60.0
+
+
+def test_merge_of_compacted_nodes_keeps_confirmed():
+    # The scan tool merges nodes that _settled_scene already compacted.
+    seen = {}
+    merge_sightings(seen, compact_nodes([node(6, "survivor", 0.99, True, (8.3, 4.3, 0.1))]), 299.1)
+    assert seen[6]["confirmed"] and seen[6]["existence_prob"] == 0.99
