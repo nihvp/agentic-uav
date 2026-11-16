@@ -137,7 +137,7 @@ later by pointing `llm.base_url` at it (`llm.provider: vllm`).
 * LLM: `qwen3:14b` fully on the GPU (41/41 layers, ~10.6 GB with 16k context, q8 KV).
   `llm_check` PASS: 1.9 s per request warm; the first load took ~150 s, so the `llm`
   service now preloads the model and only reports healthy once it is in memory.
-* Next: confirm GPU rendering and camera rate, then re-run the Phase 1 and 2 checks.
+* Next: re-run the Phase 1 and 2 checks on the VM.
 
 ## Phases
 
