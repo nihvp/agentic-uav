@@ -123,12 +123,21 @@ throughput across many requests; this stack sends one request at a time. Ollama 
 OpenAI-compatible API, so the adapter is the same either way. vLLM can be swapped in
 later by pointing `llm.base_url` at it (`llm.provider: vllm`).
 
-**Status (2026-11-15):** steps 1 and 2 are written (`scripts/check_host.sh`,
-`scripts/run.sh`, NVIDIA `compose.gpu.yaml`, `llm` service, `OpenAICompatProvider`,
-`python3 -m agentic_uav.reasoning.llm_check`, new run guide) but not yet run on the VM.
-Open items: whether the NVIDIA Container Toolkit is installed, whether Gazebo picks up
-the NVIDIA GL libraries in the `sim` container (headless sensor rendering included),
-and how much VRAM Gazebo plus the model really use.
+**Status (2026-11-16), measured on the VM:**
+
+* Host: Ubuntu 22.04, Docker 29 (`docker.io`) + `docker-compose-v2` + NVIDIA Container
+  Toolkit; `check_host.sh --gpu-test` passes.
+* Gazebo: PX4's own launch rendered over GLX on `$DISPLAY` and failed (`NV-GLX
+  BadValue`: the AnyDesk desktop is not on the NVIDIA GPU), leaving no camera and no
+  PX4 data. The sim entrypoint now starts the server with `--headless-rendering` and
+  PX4 attaches (`PX4_GZ_STANDALONE=1`); the GUI uses Mesa. The toolkit mounts
+  `libEGL_nvidia` but no glvnd vendor file, so the server first rendered on llvmpipe
+  (camera ~4.5 Hz of 10 Hz); `compose.gpu.yaml` now mounts `10_nvidia.json`
+  (GPU rendering not yet confirmed).
+* LLM: `qwen3:14b` fully on the GPU (41/41 layers, ~10.6 GB with 16k context, q8 KV).
+  `llm_check` PASS: 1.9 s per request warm; the first load took ~150 s, so the `llm`
+  service now preloads the model and only reports healthy once it is in memory.
+* Next: confirm GPU rendering and camera rate, then re-run the Phase 1 and 2 checks.
 
 ## Phases
 

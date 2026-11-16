@@ -93,12 +93,15 @@ services:
         ollama serve & pid=$$!;
         until ollama list >/dev/null 2>&1; do sleep 1; done;
         echo "[llm] pulling $$LLM_MODEL (first time: several GB; progress: docker compose exec llm ollama pull $$LLM_MODEL)";
-        ollama pull "$$LLM_MODEL" >/tmp/pull.log 2>&1
-        && echo "[llm] $$LLM_MODEL ready"
-        || { echo "[llm] pull FAILED:"; tail -c 600 /tmp/pull.log; };
+        if ollama pull "$$LLM_MODEL" >/tmp/pull.log 2>&1; then
+          echo "[llm] loading $$LLM_MODEL into GPU memory (first load can take ~2 min)";
+          ollama run "$$LLM_MODEL" "Reply with OK." >/dev/null 2>&1;
+          echo "[llm] $$LLM_MODEL ready"; ollama ps;
+        else echo "[llm] pull FAILED:"; tail -c 600 /tmp/pull.log; fi;
         wait $$pid
     healthcheck:
-      test: ["CMD-SHELL", "ollama show \"$$LLM_MODEL\" >/dev/null 2>&1"]
+      # Healthy once the model is loaded in memory, not just downloaded.
+      test: ["CMD-SHELL", "ollama ps | grep -q \"$$LLM_MODEL\""]
       # Each check logs two lines in the llm output: poll fast only until healthy.
       interval: 5m
       start_period: 30m
