@@ -137,7 +137,12 @@ later by pointing `llm.base_url` at it (`llm.provider: vllm`).
 * LLM: `qwen3:14b` fully on the GPU (41/41 layers, ~10.6 GB with 16k context, q8 KV).
   `llm_check` PASS: 1.9 s per request warm; the first load took ~150 s, so the `llm`
   service now preloads the model and only reports healthy once it is in memory.
-* Next: re-run the Phase 1 and 2 checks on the VM.
+* Phase 1 re-check passed: takeoff to 5 m, `NavigateTo` (3, 4, 5) succeeded at 0.47 m
+  (inside the 0.5 m radius), RTL accepted; no failsafes.
+* Phase 2 re-check passed: hovering at (3, 4, 5) facing east, survivor placed at
+  (7.68, 3.91), 0.33 m from its SDF position. Fire placed 1.5 m off (10.88, 4.49 vs
+  12.0, 5.5): ~8 m away near the image edge, depth sees its near surface.
+* Next: Phase 3 mission runs with the local LLM.
 
 ## Phases
 
