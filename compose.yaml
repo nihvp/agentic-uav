@@ -90,7 +90,10 @@ services:
       - >-
         ollama serve & pid=$$!;
         until ollama list >/dev/null 2>&1; do sleep 1; done;
-        ollama pull "$$LLM_MODEL" && echo "[llm] $$LLM_MODEL ready";
+        echo "[llm] pulling $$LLM_MODEL (first time: several GB; progress: docker compose exec llm ollama pull $$LLM_MODEL)";
+        ollama pull "$$LLM_MODEL" >/tmp/pull.log 2>&1
+        && echo "[llm] $$LLM_MODEL ready"
+        || { echo "[llm] pull FAILED:"; tail -c 600 /tmp/pull.log; };
         wait $$pid
     healthcheck:
       test: ["CMD-SHELL", "ollama show \"$$LLM_MODEL\" >/dev/null 2>&1"]
