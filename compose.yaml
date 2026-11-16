@@ -15,6 +15,8 @@ services:
     environment:
       DISPLAY: ${DISPLAY:-:0}
       HEADLESS: ${HEADLESS:-}
+      # 1 = draw the Gazebo window with the NVIDIA driver instead of Mesa software GL.
+      GZ_GUI_GPU: ${GZ_GUI_GPU:-0}
       LIBGL_ALWAYS_SOFTWARE: ${LIBGL_ALWAYS_SOFTWARE:-0}
       PX4_GZ_WORLD: ${PX4_GZ_WORLD:-search_and_rescue}
       PX4_SIM_MODEL: gz_x500_depth

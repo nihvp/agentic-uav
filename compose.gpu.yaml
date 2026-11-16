@@ -13,9 +13,9 @@ services:
   sim:
     <<: *nvidia
     environment:
-      # "graphics" makes the toolkit mount the NVIDIA GL/EGL libraries for Gazebo.
+      # "graphics" makes the toolkit mount the NVIDIA EGL libraries; the Gazebo server
+      # renders the camera through them (see docker/sim_entrypoint.sh).
       NVIDIA_DRIVER_CAPABILITIES: all
-      __GLX_VENDOR_LIBRARY_NAME: nvidia
   agent:
     <<: *nvidia
     environment:

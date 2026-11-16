@@ -45,8 +45,40 @@ MicroXRCEAgent udp4 -p 8888 &
 AGENT_PID=$!
 apply_params &
 PARAMS_PID=$!
-trap 'kill ${AGENT_PID} ${PARAMS_PID} 2>/dev/null || true' EXIT
+GZ_PID="" ; GUI_PID=""
+trap 'kill ${AGENT_PID} ${PARAMS_PID} ${GZ_PID} ${GUI_PID} 2>/dev/null || true' EXIT
 
-export PX4_GZ_WORLD="${WORLD}"
+# Start Gazebo here instead of letting PX4 do it, so the server renders the camera with
+# --headless-rendering (EGL straight on the GPU). PX4's own launch renders over GLX on
+# $DISPLAY, which fails when the desktop is not driven by the NVIDIA GPU (remote VM:
+# "X Error ... NV-GLX BadValue", then no camera and a stalled lockstep clock).
 cd "${PX4_DIR}"
+GZ_ENV="${PX4_DIR}/build/px4_sitl_default/rootfs/gz_env.sh"   # model/world/plugin paths
+[[ -f "${GZ_ENV}" ]] || { echo "[sim_entrypoint] missing ${GZ_ENV}; rebuild the sim image"; exit 1; }
+set +u   # gz_env.sh appends to possibly unset GZ_SIM_* variables
+# shellcheck disable=SC1090
+source "${GZ_ENV}"
+set -u
+gz sim --verbose="${GZ_VERBOSE:-1}" -r -s --headless-rendering "${PX4_GZ_WORLDS}/${WORLD}.sdf" &
+GZ_PID=$!
+for _ in $(seq 120); do
+  # No pipe into grep -q: with pipefail an early grep exit fails the check.
+  [[ "$(gz service -i --service "/world/${WORLD}/scene/info" 2>&1)" == *"Service providers"* ]] && break
+  kill -0 "${GZ_PID}" 2>/dev/null || { echo "[sim_entrypoint] Gazebo server exited"; exit 1; }
+  sleep 1
+done
+echo "[sim_entrypoint] Gazebo server up: world ${WORLD}, camera rendered headless (EGL)"
+
+if [[ -z "${HEADLESS:-}" ]]; then
+  # The GUI only draws the view, so Mesa software rendering is fine and works on any X
+  # server. GZ_GUI_GPU=1 tries the NVIDIA GLX driver instead.
+  (
+    if [[ "${GZ_GUI_GPU:-0}" != 1 ]]; then export __GLX_VENDOR_LIBRARY_NAME=mesa LIBGL_ALWAYS_SOFTWARE=1; fi
+    gz sim -g 2>&1 | sed -u 's/^/[gz gui] /'
+  ) &
+  GUI_PID=$!
+fi
+
+# PX4 connects to the running world and spawns the vehicle into it.
+export PX4_GZ_WORLD="${WORLD}" PX4_GZ_STANDALONE=1
 make px4_sitl "${MODEL}"
