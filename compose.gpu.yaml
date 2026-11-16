@@ -16,6 +16,10 @@ services:
       # "graphics" makes the toolkit mount the NVIDIA EGL libraries; the Gazebo server
       # renders the camera through them (see docker/sim_entrypoint.sh).
       NVIDIA_DRIVER_CAPABILITIES: all
+    volumes:
+      # The toolkit mounts libEGL_nvidia but not its glvnd vendor file, so EGL only
+      # sees Mesa and Gazebo renders on the CPU (llvmpipe). Register NVIDIA first.
+      - ./docker/10_nvidia_egl.json:/usr/share/glvnd/egl_vendor.d/10_nvidia.json:ro
   agent:
     <<: *nvidia
     environment:
