@@ -26,6 +26,7 @@ from agentic_uav.reasoning.flight_waits import wait_landed, wait_takeoff
 from agentic_uav.reasoning.llm import make_provider
 from agentic_uav.reasoning.prompts import SYSTEM_PROMPT
 from agentic_uav.reasoning.scan import compact_nodes, merge_sightings, scan_headings
+from agentic_uav.reasoning.sightings import SightingLog
 from agentic_uav.reasoning.tools import ToolRegistry, obj
 
 NUM = {"type": "number"}
@@ -68,6 +69,8 @@ class ReasoningNode(Node):
         self.scene: Dict[str, Any] = {"nodes": [], "edges": [], "stamp": None}
         self.telemetry: Dict[str, Any] = {}
         self._busy = threading.Lock()
+        # Confirmed sightings for the current mission (reset per mission).
+        self.sightings = SightingLog()
         cb = ReentrantCallbackGroup()
 
         self.create_subscription(ProbabilisticSceneGraph, "/perception/scene_graph", self._on_scene, 10)
@@ -170,7 +173,7 @@ class ReasoningNode(Node):
         self._flight("TAKEOFF", altitude)
         t = wait_takeoff(self._tool_telemetry_or_none, float(altitude), self.nav_timeout)
         return {"message": f"Holding at {t['position'][2]:.1f} m.", "position": t["position"],
-                "scene": self._settled_scene()}
+                "scene": self._settled_scene(), "known_objects": self.sightings.known()}
 
     def _tool_land(self, command: str, what: str):
         self._flight(command)
@@ -199,11 +202,16 @@ class ReasoningNode(Node):
         time.sleep(self.settle_s)
         if self.scene["stamp"] is None:
             return "No scene graph received from the perception layer."
-        return compact_nodes(self.scene["nodes"])
+        nodes = compact_nodes(self.scene["nodes"])
+        self.sightings.add(nodes)
+        return nodes
 
     def _tool_navigate(self, x: float, y: float, z: float, yaw_deg: float = None):
         result = self._navigate(x, y, z, yaw_deg)
         result["scene"] = self._settled_scene()
+        # Known objects the vehicle now hovers over (the camera cannot see straight down).
+        result["above"] = self.sightings.near(result["final_position"])
+        result["known_objects"] = self.sightings.known()
         return result
 
     def _tool_scan(self, step_deg: float = 60.0):
@@ -221,7 +229,8 @@ class ReasoningNode(Node):
                 raise RuntimeError(nodes)
             merge_sightings(seen, nodes, h)
         objects = sorted(seen.values(), key=lambda n: (not n["confirmed"], -n["existence_prob"]))
-        return {"position": [x, y, z], "headings_deg": [t["heading_deg"]] + headings, "objects": objects}
+        return {"position": [x, y, z], "headings_deg": [t["heading_deg"]] + headings, "objects": objects,
+                "known_objects": self.sightings.known()}
 
     def _navigate(self, x: float, y: float, z: float, yaw_deg: float = None):
         self._battery_gate(MIN_BATTERY_NAVIGATE, "navigate")
@@ -269,6 +278,7 @@ class ReasoningNode(Node):
             return response
         try:
             self.get_logger().info(f"Mission: {request.goal}")
+            self.sightings.reset()
             result = self.agent.run(request.goal, max_steps=request.max_steps if request.max_steps > 0 else None)
             response.success, response.summary = result.success, result.summary
             response.trace_json = json.dumps(result.trace, default=str)

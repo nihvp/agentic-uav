@@ -150,6 +150,12 @@ later by pointing `llm.base_url` at it (`llm.provider: vllm`).
   Fixed: scan keeps `confirmed`; prompt says targets below the vehicle are out of view
   and arriving above one achieves "hover above"; `llm.reasoning_effort: none`
   (thinking off, its text kept in the trace when on); size-aware association gate.
+* Phase 3 run 2 (thinking off): all objects now confirmed, ~2 s per step, but no
+  plan: it reached the survivor 5 times (0.2-0.5 m) without finishing, flew to the
+  landing pad ~15 times, and ran out of its 40 steps. Thinking is back on, and a
+  mission sighting log (`reasoning/sightings.py`) now adds `known_objects` (confirmed
+  sightings merged across scans, kept when out of view) and, after navigate_to,
+  `above` (known objects within 1.5 m) to tool results.
 * Next: repeat the mission ~10 times and record the success rate.
 
 ## Phases

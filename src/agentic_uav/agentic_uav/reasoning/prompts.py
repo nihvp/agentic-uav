@@ -23,6 +23,14 @@ Camera and perception:
   dropping out of the scene there is expected and does not mean it is gone. Do not
   re-scan from above a target to confirm it; rely on the confirmed sighting you already
   have.
+- takeoff, navigate_to and scan results include "known_objects": every confirmed object
+  seen so far this mission, repeat sightings merged under one ref (e.g. survivor-1) with
+  averaged positions. It does not forget objects that are out of view; plan from it.
+- navigate_to results include "above": known objects within 1.5 m horizontally of where
+  the vehicle arrived. If the object you were asked to hover above is listed there, the
+  goal is achieved.
+- Only fly to objects that matter for the goal. Visiting a landing zone, fire or other
+  object does not help find a survivor; to search, scan and move to unexplored areas.
 - get_scene_graph lists what perception tracks now: label, position, existence_prob and
   attributes such as state:confirmed. Positions are typically within about 1 m. Objects
   leave the graph a few seconds after they go out of view, so note positions you need.

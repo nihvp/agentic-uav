@@ -34,9 +34,10 @@ reasoning_node:
     llm.model: qwen3:14b
     # -1 = server/model default.
     llm.temperature: -1.0
-    # Sent as reasoning_effort. Ollama: "none" turns thinking off (qwen3 then answers in
-    # ~2 s instead of 25-40 s per step); any other level turns it on. "" = model default.
-    llm.reasoning_effort: none
+    # Sent as reasoning_effort. Ollama: "none" turns thinking off; any other level turns
+    # it on; "" = model default (qwen3: on). Off, qwen3:14b answered in ~2 s but planned
+    # nothing (reached the survivor 5 times without finishing); on, 25-40 s per step.
+    llm.reasoning_effort: ""
     # A local 14B model answers in a few seconds; the first request also loads it into VRAM.
     llm.timeout_s: 180.0
     # Gemini only (llm.provider: gemini, model e.g. gemini-3.5-flash). Free tier = 5 rpm.
