@@ -40,10 +40,12 @@ reasoning_node:
     llm.reasoning_effort: ""
     # A local 14B model answers in a few seconds; the first request also loads it into VRAM.
     llm.timeout_s: 180.0
+    # Context window for the prompt-size warning; -1 = LLM_CONTEXT env (ollama/vllm), 0 = none.
+    llm.context_tokens: -1
     # Gemini only (llm.provider: gemini, model e.g. gemini-3.5-flash). Free tier = 5 rpm.
     llm.requests_per_minute: 0.0
     llm.thinking_level: low
-    # A 360 deg scan alone takes ~12 steps.
+    # LLM turns per mission (scan is one tool call; a turn can call several tools).
     max_steps: 40
     service_timeout_s: 10.0
     nav_timeout_s: 180.0

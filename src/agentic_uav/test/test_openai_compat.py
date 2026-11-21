@@ -63,8 +63,19 @@ def test_unclosed_think_is_dropped():
     assert strip_thinking("plain") == "plain"
 
 
-def test_reasoning_field_becomes_the_thought_when_content_is_empty():
+def test_reasoning_field_is_kept_apart_from_the_text():
     client = FakeClient([reply("", [("c1", "scan", "{}")], reasoning="Survivor seen at 8,4; fly there.")])
     resp = OpenAICompatProvider("m", client=client, reasoning_effort="none").complete("s", [Message("user", "go")], TOOLS)
-    assert resp.text == "[thinking] Survivor seen at 8,4; fly there."
+    assert resp.text == ""
+    assert resp.thinking == "Survivor seen at 8,4; fly there."
     assert client.requests[0]["reasoning_effort"] == "none"
+
+
+def test_usage_is_reported_when_the_server_sends_it():
+    with_usage = reply("ok")
+    with_usage.usage = NS(prompt_tokens=1234, completion_tokens=56, total_tokens=1290)
+    client = FakeClient([with_usage, reply("ok")])
+    provider = OpenAICompatProvider("m", client=client)
+    assert provider.complete("s", [Message("user", "go")], TOOLS).usage == {"prompt_tokens": 1234,
+                                                                           "completion_tokens": 56}
+    assert provider.complete("s", [Message("user", "go")], TOOLS).usage == {}

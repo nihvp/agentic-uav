@@ -59,6 +59,11 @@ class ReasoningNode(Node):
         rpm = float(self.declare_parameter("llm.requests_per_minute", 0.0).value)
         thinking = self.declare_parameter("llm.thinking_level", "low").value
         llm_timeout = float(self.declare_parameter("llm.timeout_s", 90.0).value)
+        # Context window of the served model, for the prompt-size warning. -1 = LLM_CONTEXT
+        # (compose, from .env; what the llm service runs with), 0 = unknown / no warning.
+        context = int(self.declare_parameter("llm.context_tokens", -1).value)
+        if context < 0:
+            context = int(os.environ.get("LLM_CONTEXT", "0") or 0) if provider_name != "gemini" else 0
         self.max_steps = self.declare_parameter("max_steps", 20).value
         self.service_timeout = self.declare_parameter("service_timeout_s", 10.0).value
         self.nav_timeout = self.declare_parameter("nav_timeout_s", 180.0).value
@@ -90,16 +95,24 @@ class ReasoningNode(Node):
                           reasoning_effort=reasoning_effort), registry, SYSTEM_PROMPT,
             max_steps=self.max_steps,
             on_event=self._log_event,
+            context_tokens=context,
         )
         self.get_logger().info(f"Reasoning layer up (provider={provider_name}, model={model}, "
-                               f"thinking={thinking or 'default'}).")
+                               f"thinking={thinking or 'default'}, context={context or 'unknown'} tokens).")
 
     def _log_event(self, e):
         if e["phase"] == "llm":
-            self.get_logger().info(f"[step {e['step']}] asking the LLM for the next action...")
+            self.get_logger().info(f"[step {e['step']}] asking the LLM for the next action "
+                                   f"(prompt ~{e['approx_prompt_tokens']} tokens est.)...")
+        elif e["phase"] == "context":
+            self.get_logger().warn(
+                f"[step {e['step']}] prompt near the context window: server {e['prompt_tokens']}, "
+                f"estimate {e['approx_prompt_tokens']} of {e['context_tokens']} tokens. The server may "
+                f"drop the oldest messages; raise LLM_CONTEXT or shorten tool results.")
         elif e["phase"] == "start":
             thought = f" | thought: {e['thought']}" if e["thought"] else ""
-            self.get_logger().info(f"[step {e['step']}] calling {e['tool']}({e['arguments']}){thought}")
+            self.get_logger().info(f"[step {e['step']}] [prompt {e['prompt_tokens']} tokens] "
+                                   f"calling {e['tool']}({e['arguments']}){thought}")
         else:
             self.get_logger().info(f"[step {e['step']}] {e['tool']} -> ok={e['ok']}: {e['result']}")
 
@@ -267,7 +280,7 @@ class ReasoningNode(Node):
             path = os.path.join(self.trace_dir, time.strftime("mission_%Y%m%d_%H%M%S.json"))
             with open(path, "w") as f:
                 json.dump({"goal": goal, "success": result.success, "summary": result.summary,
-                           "trace": result.trace}, f, indent=2, default=str)
+                           "stats": result.stats, "trace": result.trace}, f, indent=2, default=str)
             self.get_logger().info(f"Trace saved to {path}")
         except OSError as ex:
             self.get_logger().warn(f"Could not save mission trace: {ex}")
@@ -282,7 +295,10 @@ class ReasoningNode(Node):
             result = self.agent.run(request.goal, max_steps=request.max_steps if request.max_steps > 0 else None)
             response.success, response.summary = result.success, result.summary
             response.trace_json = json.dumps(result.trace, default=str)
-            self.get_logger().info(f"Mission finished: success={result.success} - {result.summary}")
+            self.get_logger().info(f"Mission finished: success={result.success} - {result.summary} "
+                                   f"(largest prompt: server {result.stats.get('max_prompt_tokens')}, "
+                                   f"estimate {result.stats.get('max_approx_prompt_tokens')}, "
+                                   f"context {result.stats.get('context_tokens') or 'unknown'})")
             self._save_trace(request.goal, result)
         except Exception as ex:
             response.success, response.summary = False, f"Mission error: {ex}"

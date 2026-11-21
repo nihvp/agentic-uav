@@ -47,11 +47,20 @@ class OpenAICompatProvider(LLMProvider):
                  for c in (msg.tool_calls or [])]
         text = strip_thinking(msg.content or "")
         # Ollama returns the model's thinking in a separate "reasoning" field. Keep a short
-        # version as the thought when the model said nothing else, so traces show why.
+        # version for the trace, so it shows why.
         reasoning = (getattr(msg, "reasoning", None) or "").strip()
-        if not text and reasoning:
-            text = "[thinking] " + shorten(reasoning)
-        return LLMResponse(text=text, tool_calls=calls)
+        return LLMResponse(text=text, tool_calls=calls, thinking=shorten(reasoning) if reasoning else "",
+                           usage=usage_counts(getattr(resp, "usage", None)))
+
+
+def usage_counts(usage: Any) -> Dict[str, int]:
+    """prompt/completion token counts from an OpenAI-style usage object, if present."""
+    out = {}
+    for key in ("prompt_tokens", "completion_tokens"):
+        value = getattr(usage, key, None) if usage is not None else None
+        if isinstance(value, int):
+            out[key] = value
+    return out
 
 
 def to_openai_tool(spec: ToolSpec) -> Dict[str, Any]:

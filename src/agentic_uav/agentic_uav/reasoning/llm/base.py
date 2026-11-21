@@ -35,6 +35,11 @@ class LLMResponse:
     text: str
     tool_calls: List[ToolCall]
     provider_raw: Any = None
+    # The model's reasoning, if the server returns it separately. Kept for the trace,
+    # not replayed into the history (it would only fill the context window).
+    thinking: str = ""
+    # Token counts the server reported: prompt_tokens, completion_tokens (empty if none).
+    usage: Dict[str, int] = field(default_factory=dict)
 
 
 class LLMProvider(ABC):

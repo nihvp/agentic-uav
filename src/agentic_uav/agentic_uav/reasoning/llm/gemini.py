@@ -68,7 +68,11 @@ class GeminiProvider(LLMProvider):
         text = "".join(p.text for p in resp.candidates[0].content.parts if getattr(p, "text", None)) \
             if resp.candidates and resp.candidates[0].content else ""
         raw = resp.candidates[0].content if resp.candidates else None
-        return LLMResponse(text=text, tool_calls=calls, provider_raw=raw)
+        meta = getattr(resp, "usage_metadata", None)
+        usage = {k: v for k, v in (("prompt_tokens", getattr(meta, "prompt_token_count", None)),
+                                   ("completion_tokens", getattr(meta, "candidates_token_count", None)))
+                 if isinstance(v, int)}
+        return LLMResponse(text=text, tool_calls=calls, provider_raw=raw, usage=usage)
 
     def _generate(self, contents, config):
         for attempt in range(self._rate_limit_retries + 1):

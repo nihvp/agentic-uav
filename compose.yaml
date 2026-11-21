@@ -63,6 +63,8 @@ services:
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       # Model the llm service serves; reasoning_node asks for the same one.
       LLM_MODEL: ${LLM_MODEL:-qwen3:14b}
+      # Context window the llm service runs with; reasoning_node warns near it.
+      LLM_CONTEXT: ${LLM_CONTEXT:-16384}
       REBUILD_ON_START: ${REBUILD_ON_START:-1}
     volumes:
       - ./src:/ws/src:rw,z

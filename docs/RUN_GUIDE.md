@@ -229,6 +229,14 @@ Per step terminal C shows `asking the LLM for the next action...`,
 
 **Success** = the response says `success: True` and telemetry is close to x 8, y 4, z 5.
 
+Each step logs `[prompt N tokens]`. A `prompt near the context window` warning means
+Ollama may be dropping the oldest messages; the trace's `stats` records the largest
+prompt of the mission. Check whether Ollama truncated anything:
+
+```bash
+docker compose logs llm | grep -i truncat
+```
+
 Save the trace into the repo so it can be pushed and read on the Mac:
 
 ```bash
