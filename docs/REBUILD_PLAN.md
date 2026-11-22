@@ -156,16 +156,16 @@ later by pointing `llm.base_url` at it (`llm.provider: vllm`).
   mission sighting log (`reasoning/sightings.py`) now adds `known_objects` (confirmed
   sightings merged across scans, kept when out of view) and, after navigate_to,
   `above` (known objects within 1.5 m) to tool results.
-* Context budget (suspected cause of run 2's aimless flying): the 16k context holds the
-  system prompt, 10 tool schemas and up to 40 steps whose results each repeat `scene`
-  and `known_objects`; Ollama drops the oldest messages when the prompt overflows,
-  without an error, and the oldest message is the mission goal. Now: the goal is also in
-  the system prompt (kept on truncation); only the newest `known_objects` stays in the
-  history and `scene` / scan `objects` older than 2 steps are replaced by a note
-  (`reasoning/history.py`; the saved trace keeps everything); thinking text goes to the
-  trace only. Each step logs the server's prompt token count and an estimate, warns at
-  85% of `LLM_CONTEXT`, and the trace file records the largest prompt (`stats`).
-  To check on the VM: `docker compose logs llm | grep -i truncat` for runs 1-2.
+* Context budget: checked and **not** the cause of run 2. Ollama's log
+  (`docker compose logs llm | grep -i truncat`) shows every request of runs 1 and 2 with
+  `truncated = 0`; run 2's prompt grew ~200 tokens per step to 7.9k at step 40, half of
+  the 16k context. Run 2 failed on planning (thinking off), not lost history. The
+  safeguards added while checking stay: the goal is also in the system prompt; only the
+  newest `known_objects` stays in the history and `scene` / scan `objects` older than 2
+  steps are replaced by a note (`reasoning/history.py`; the saved trace keeps
+  everything); thinking text goes to the trace only. Each step logs the prompt token
+  count and an estimate, warns at 85% of `LLM_CONTEXT`, and the trace records the
+  largest prompt (`stats`).
 * Next: repeat the mission ~10 times and record the success rate and the largest prompt.
 
 ## Phases
