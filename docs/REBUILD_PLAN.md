@@ -177,11 +177,14 @@ later by pointing `llm.base_url` at it (`llm.provider: vllm`).
   A first guess, a fixed declination mismatch, was wrong: setting the declination alone
   changed nothing. Heading-only fusion (`EKF2_MAG_TYPE=1`) held the error at -6.2 to -7.4
   deg over a minute; the declination was then calibrated to 8.0 deg (`EKF2_DECL_TYPE=0`,
-  `EKF2_MAG_DECL=8.0`, in compose). Still to verify after a restart: error near 0 at
-  several headings and after several minutes in the air.
+  `EKF2_MAG_DECL=8.0`, in compose). Verified after a fresh boot: facing north -4.5 to
+  -3.8 deg in the first minute after takeoff, facing east -0.9 to -0.6 deg steady over
+  3 min (no drift). Phase 2 re-check at (3, 4, 5) facing east: survivor placed at
+  (7.83, 3.96), 0.18 m from its SDF position; fire at (11.13, 4.59), 1.3 m off (near
+  surface, ~8 m away). Possibly a few degrees of heading-dependent offset remain.
   Score missions by the final position vs the SDF, not the agent's success flag.
-* Next: confirm the heading fix, then repeat the mission ~10 times and record the
-  success rate (final position vs (8, 4)) and the largest prompt.
+* Next: repeat the mission ~10 times and record the success rate (final position vs
+  (8, 4)) and the largest prompt.
 
 ## Phases
 
