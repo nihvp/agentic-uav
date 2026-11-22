@@ -14,7 +14,12 @@ action_node:
 
 perception_node:
   ros__parameters:
-    detector: color   # HSV blobs matched to the search_and_rescue world; or none
+    # color (HSV blobs matched to the search_and_rescue world) | yolo (YOLOv11 person) |
+    # color+yolo | none
+    detector: color+yolo
+    # Ultralytics weights name (downloaded on first use) or a path under /data.
+    yolo.model: yolo11s.pt
+    yolo.confidence: 0.25
     rate_hz: 5.0
     # Camera on the body (FLU, m) and its downward pitch (rad). The pitch must match
     # CAMERA_PITCH_RAD in compose.yaml, which the sim applies to the x500_depth model.
@@ -31,7 +36,7 @@ reasoning_node:
     llm.provider: ollama
     llm.base_url: http://127.0.0.1:11434/v1
     # For ollama/vllm the LLM_MODEL env var (compose, from .env) overrides this.
-    llm.model: qwen3:14b
+    llm.model: qwen3-vl:8b
     # -1 = server/model default.
     llm.temperature: -1.0
     # Sent as reasoning_effort. Ollama: "none" turns thinking off; any other level turns

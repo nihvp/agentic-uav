@@ -1,0 +1,3640 @@
+{
+ "config": {
+  "n": 44,
+  "seed": 0,
+  "site": [
+   30.0,
+   -20.0
+  ],
+  "altitude": 6.0,
+  "crowd_min": 6,
+  "crowd_max": 12,
+  "crowd_radius": 2.0,
+  "crowd_ahead": 1.5,
+  "min_spacing": 0.8,
+  "lying_u": [
+   -2.5,
+   -1.5
+  ],
+  "lying_v_abs": [
+   2.5,
+   3.5
+  ],
+  "lying_isolation": 2.0
+ },
+ "scenes": [
+  {
+   "id": 1,
+   "label": "emergency",
+   "look_at": [
+    31.36,
+    -19.159
+   ],
+   "viewpoint": [
+    26.362,
+    -22.479,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 33.6,
+   "people": [
+    {
+     "name": "exp01_p1",
+     "posture": "standing",
+     "x": 33.965,
+     "y": -17.414,
+     "yaw": -0.04
+    },
+    {
+     "name": "exp01_p2",
+     "posture": "standing",
+     "x": 31.639,
+     "y": -16.739,
+     "yaw": -1.098
+    },
+    {
+     "name": "exp01_p3",
+     "posture": "standing",
+     "x": 34.175,
+     "y": -19.52,
+     "yaw": -0.327
+    },
+    {
+     "name": "exp01_p4",
+     "posture": "standing",
+     "x": 32.124,
+     "y": -18.035,
+     "yaw": 0.05
+    },
+    {
+     "name": "exp01_p5",
+     "posture": "standing",
+     "x": 33.179,
+     "y": -16.483,
+     "yaw": 0.322
+    },
+    {
+     "name": "exp01_p6",
+     "posture": "standing",
+     "x": 31.544,
+     "y": -19.629,
+     "yaw": 1.976
+    },
+    {
+     "name": "exp01_p7",
+     "posture": "standing",
+     "x": 32.389,
+     "y": -17.274,
+     "yaw": -1.968
+    },
+    {
+     "name": "exp01_p8",
+     "posture": "standing",
+     "x": 32.609,
+     "y": -19.895,
+     "yaw": -0.147
+    },
+    {
+     "name": "exp01_p9",
+     "posture": "standing",
+     "x": 32.965,
+     "y": -18.812,
+     "yaw": 2.367
+    },
+    {
+     "name": "exp01_p10",
+     "posture": "standing",
+     "x": 34.495,
+     "y": -18.134,
+     "yaw": 0.255
+    },
+    {
+     "name": "exp01_p11",
+     "posture": "standing",
+     "x": 31.144,
+     "y": -18.744,
+     "yaw": 1.007
+    },
+    {
+     "name": "exp01_p12",
+     "posture": "standing",
+     "x": 31.017,
+     "y": -17.528,
+     "yaw": 1.985
+    },
+    {
+     "name": "exp01_lying",
+     "posture": "lying",
+     "x": 31.218,
+     "y": -23.282,
+     "yaw": -1.767
+    }
+   ],
+   "num_standing": 12,
+   "num_lying": 1
+  },
+  {
+   "id": 2,
+   "label": "normal",
+   "look_at": [
+    30.537,
+    -18.254
+   ],
+   "viewpoint": [
+    28.077,
+    -12.781,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 294.2,
+   "people": [
+    {
+     "name": "exp02_p1",
+     "posture": "standing",
+     "x": 32.07,
+     "y": -20.993,
+     "yaw": 0.848
+    },
+    {
+     "name": "exp02_p2",
+     "posture": "standing",
+     "x": 29.932,
+     "y": -18.654,
+     "yaw": -0.684
+    },
+    {
+     "name": "exp02_p3",
+     "posture": "standing",
+     "x": 31.354,
+     "y": -19.946,
+     "yaw": 2.897
+    },
+    {
+     "name": "exp02_p4",
+     "posture": "standing",
+     "x": 30.475,
+     "y": -20.242,
+     "yaw": 2.746
+    },
+    {
+     "name": "exp02_p5",
+     "posture": "standing",
+     "x": 30.236,
+     "y": -19.412,
+     "yaw": -0.941
+    },
+    {
+     "name": "exp02_p6",
+     "posture": "standing",
+     "x": 33.129,
+     "y": -19.415,
+     "yaw": -0.889
+    },
+    {
+     "name": "exp02_p7",
+     "posture": "standing",
+     "x": 30.195,
+     "y": -21.04,
+     "yaw": 2.629
+    },
+    {
+     "name": "exp02_p8",
+     "posture": "standing",
+     "x": 32.217,
+     "y": -19.138,
+     "yaw": 0.608
+    },
+    {
+     "name": "exp02_p9",
+     "posture": "standing",
+     "x": 31.349,
+     "y": -18.263,
+     "yaw": 0.434
+    },
+    {
+     "name": "exp02_p10",
+     "posture": "standing",
+     "x": 32.098,
+     "y": -17.914,
+     "yaw": -1.333
+    }
+   ],
+   "num_standing": 10,
+   "num_lying": 0
+  },
+  {
+   "id": 3,
+   "label": "emergency",
+   "look_at": [
+    31.788,
+    -19.465
+   ],
+   "viewpoint": [
+    35.588,
+    -24.108,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 129.3,
+   "people": [
+    {
+     "name": "exp03_p1",
+     "posture": "standing",
+     "x": 30.485,
+     "y": -18.941,
+     "yaw": 1.561
+    },
+    {
+     "name": "exp03_p2",
+     "posture": "standing",
+     "x": 29.145,
+     "y": -17.633,
+     "yaw": 0.594
+    },
+    {
+     "name": "exp03_p3",
+     "posture": "standing",
+     "x": 29.179,
+     "y": -18.506,
+     "yaw": -1.74
+    },
+    {
+     "name": "exp03_p4",
+     "posture": "standing",
+     "x": 32.051,
+     "y": -17.738,
+     "yaw": 1.092
+    },
+    {
+     "name": "exp03_p5",
+     "posture": "standing",
+     "x": 32.51,
+     "y": -19.135,
+     "yaw": 1.71
+    },
+    {
+     "name": "exp03_p6",
+     "posture": "standing",
+     "x": 31.307,
+     "y": -18.116,
+     "yaw": -0.337
+    },
+    {
+     "name": "exp03_p7",
+     "posture": "standing",
+     "x": 30.635,
+     "y": -16.434,
+     "yaw": 0.653
+    },
+    {
+     "name": "exp03_p8",
+     "posture": "standing",
+     "x": 31.212,
+     "y": -17.225,
+     "yaw": -2.828
+    },
+    {
+     "name": "exp03_p9",
+     "posture": "standing",
+     "x": 29.81,
+     "y": -16.632,
+     "yaw": 2.12
+    },
+    {
+     "name": "exp03_p10",
+     "posture": "standing",
+     "x": 30.331,
+     "y": -17.79,
+     "yaw": 2.825
+    },
+    {
+     "name": "exp03_lying",
+     "posture": "lying",
+     "x": 35.207,
+     "y": -19.358,
+     "yaw": 1.365
+    }
+   ],
+   "num_standing": 10,
+   "num_lying": 1
+  },
+  {
+   "id": 4,
+   "label": "normal",
+   "look_at": [
+    31.291,
+    -19.887
+   ],
+   "viewpoint": [
+    25.292,
+    -19.971,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 0.8,
+   "people": [
+    {
+     "name": "exp04_p1",
+     "posture": "standing",
+     "x": 32.12,
+     "y": -20.425,
+     "yaw": -1.894
+    },
+    {
+     "name": "exp04_p2",
+     "posture": "standing",
+     "x": 31.474,
+     "y": -21.265,
+     "yaw": -3.004
+    },
+    {
+     "name": "exp04_p3",
+     "posture": "standing",
+     "x": 33.405,
+     "y": -21.677,
+     "yaw": -2.414
+    },
+    {
+     "name": "exp04_p4",
+     "posture": "standing",
+     "x": 33.166,
+     "y": -19.301,
+     "yaw": 2.207
+    },
+    {
+     "name": "exp04_p5",
+     "posture": "standing",
+     "x": 32.375,
+     "y": -18.936,
+     "yaw": -0.836
+    },
+    {
+     "name": "exp04_p6",
+     "posture": "standing",
+     "x": 34.582,
+     "y": -20.285,
+     "yaw": 0.676
+    }
+   ],
+   "num_standing": 6,
+   "num_lying": 0
+  },
+  {
+   "id": 5,
+   "label": "emergency",
+   "look_at": [
+    30.577,
+    -20.165
+   ],
+   "viewpoint": [
+    36.573,
+    -20.374,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 178.0,
+   "people": [
+    {
+     "name": "exp05_p1",
+     "posture": "standing",
+     "x": 30.273,
+     "y": -19.866,
+     "yaw": -1.836
+    },
+    {
+     "name": "exp05_p2",
+     "posture": "standing",
+     "x": 27.546,
+     "y": -20.145,
+     "yaw": -2.193
+    },
+    {
+     "name": "exp05_p3",
+     "posture": "standing",
+     "x": 28.833,
+     "y": -18.984,
+     "yaw": 1.373
+    },
+    {
+     "name": "exp05_p4",
+     "posture": "standing",
+     "x": 28.857,
+     "y": -20.453,
+     "yaw": 3.028
+    },
+    {
+     "name": "exp05_p5",
+     "posture": "standing",
+     "x": 29.904,
+     "y": -20.803,
+     "yaw": 0.305
+    },
+    {
+     "name": "exp05_p6",
+     "posture": "standing",
+     "x": 30.117,
+     "y": -21.794,
+     "yaw": -0.131
+    },
+    {
+     "name": "exp05_p7",
+     "posture": "standing",
+     "x": 27.455,
+     "y": -19.141,
+     "yaw": 0.796
+    },
+    {
+     "name": "exp05_p8",
+     "posture": "standing",
+     "x": 29.783,
+     "y": -18.755,
+     "yaw": -0.484
+    },
+    {
+     "name": "exp05_p9",
+     "posture": "standing",
+     "x": 28.598,
+     "y": -22.0,
+     "yaw": -2.222
+    },
+    {
+     "name": "exp05_lying",
+     "posture": "lying",
+     "x": 32.778,
+     "y": -23.105,
+     "yaw": 2.055
+    }
+   ],
+   "num_standing": 9,
+   "num_lying": 1
+  },
+  {
+   "id": 6,
+   "label": "normal",
+   "look_at": [
+    30.385,
+    -20.048
+   ],
+   "viewpoint": [
+    25.638,
+    -23.717,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 37.7,
+   "people": [
+    {
+     "name": "exp06_p1",
+     "posture": "standing",
+     "x": 31.847,
+     "y": -20.375,
+     "yaw": 2.373
+    },
+    {
+     "name": "exp06_p2",
+     "posture": "standing",
+     "x": 32.966,
+     "y": -18.939,
+     "yaw": -1.116
+    },
+    {
+     "name": "exp06_p3",
+     "posture": "standing",
+     "x": 30.447,
+     "y": -19.985,
+     "yaw": 1.069
+    },
+    {
+     "name": "exp06_p4",
+     "posture": "standing",
+     "x": 30.692,
+     "y": -18.814,
+     "yaw": 2.906
+    },
+    {
+     "name": "exp06_p5",
+     "posture": "standing",
+     "x": 33.25,
+     "y": -20.014,
+     "yaw": -2.919
+    },
+    {
+     "name": "exp06_p6",
+     "posture": "standing",
+     "x": 32.427,
+     "y": -17.55,
+     "yaw": -2.61
+    },
+    {
+     "name": "exp06_p7",
+     "posture": "standing",
+     "x": 32.152,
+     "y": -18.38,
+     "yaw": -3.046
+    },
+    {
+     "name": "exp06_p8",
+     "posture": "standing",
+     "x": 29.884,
+     "y": -18.404,
+     "yaw": -2.132
+    },
+    {
+     "name": "exp06_p9",
+     "posture": "standing",
+     "x": 32.759,
+     "y": -20.729,
+     "yaw": 2.55
+    },
+    {
+     "name": "exp06_p10",
+     "posture": "standing",
+     "x": 31.509,
+     "y": -17.491,
+     "yaw": 3.058
+    }
+   ],
+   "num_standing": 10,
+   "num_lying": 0
+  },
+  {
+   "id": 7,
+   "label": "normal",
+   "look_at": [
+    30.447,
+    -20.453
+   ],
+   "viewpoint": [
+    35.535,
+    -23.633,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 148.0,
+   "people": [
+    {
+     "name": "exp07_p1",
+     "posture": "standing",
+     "x": 29.412,
+     "y": -19.067,
+     "yaw": -3.014
+    },
+    {
+     "name": "exp07_p2",
+     "posture": "standing",
+     "x": 27.686,
+     "y": -20.079,
+     "yaw": -1.106
+    },
+    {
+     "name": "exp07_p3",
+     "posture": "standing",
+     "x": 30.73,
+     "y": -19.041,
+     "yaw": -1.917
+    },
+    {
+     "name": "exp07_p4",
+     "posture": "standing",
+     "x": 29.841,
+     "y": -18.018,
+     "yaw": -2.444
+    },
+    {
+     "name": "exp07_p5",
+     "posture": "standing",
+     "x": 28.294,
+     "y": -18.362,
+     "yaw": 0.945
+    },
+    {
+     "name": "exp07_p6",
+     "posture": "standing",
+     "x": 29.765,
+     "y": -21.525,
+     "yaw": -1.296
+    }
+   ],
+   "num_standing": 6,
+   "num_lying": 0
+  },
+  {
+   "id": 8,
+   "label": "normal",
+   "look_at": [
+    31.83,
+    -18.066
+   ],
+   "viewpoint": [
+    31.987,
+    -12.068,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 268.5,
+   "people": [
+    {
+     "name": "exp08_p1",
+     "posture": "standing",
+     "x": 30.378,
+     "y": -19.847,
+     "yaw": -1.953
+    },
+    {
+     "name": "exp08_p2",
+     "posture": "standing",
+     "x": 32.438,
+     "y": -17.919,
+     "yaw": 1.612
+    },
+    {
+     "name": "exp08_p3",
+     "posture": "standing",
+     "x": 31.929,
+     "y": -20.097,
+     "yaw": 2.729
+    },
+    {
+     "name": "exp08_p4",
+     "posture": "standing",
+     "x": 30.949,
+     "y": -20.678,
+     "yaw": 2.795
+    },
+    {
+     "name": "exp08_p5",
+     "posture": "standing",
+     "x": 31.118,
+     "y": -18.078,
+     "yaw": -1.785
+    },
+    {
+     "name": "exp08_p6",
+     "posture": "standing",
+     "x": 31.914,
+     "y": -19.238,
+     "yaw": 1.171
+    }
+   ],
+   "num_standing": 6,
+   "num_lying": 0
+  },
+  {
+   "id": 9,
+   "label": "normal",
+   "look_at": [
+    31.677,
+    -18.151
+   ],
+   "viewpoint": [
+    25.783,
+    -19.275,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 10.8,
+   "people": [
+    {
+     "name": "exp09_p1",
+     "posture": "standing",
+     "x": 32.407,
+     "y": -17.193,
+     "yaw": -2.379
+    },
+    {
+     "name": "exp09_p2",
+     "posture": "standing",
+     "x": 33.689,
+     "y": -18.519,
+     "yaw": -1.693
+    },
+    {
+     "name": "exp09_p3",
+     "posture": "standing",
+     "x": 32.304,
+     "y": -18.734,
+     "yaw": -2.241
+    },
+    {
+     "name": "exp09_p4",
+     "posture": "standing",
+     "x": 34.703,
+     "y": -18.59,
+     "yaw": 1.558
+    },
+    {
+     "name": "exp09_p5",
+     "posture": "standing",
+     "x": 32.994,
+     "y": -15.945,
+     "yaw": -2.25
+    },
+    {
+     "name": "exp09_p6",
+     "posture": "standing",
+     "x": 31.804,
+     "y": -17.927,
+     "yaw": 1.304
+    },
+    {
+     "name": "exp09_p7",
+     "posture": "standing",
+     "x": 34.1,
+     "y": -17.508,
+     "yaw": -1.834
+    },
+    {
+     "name": "exp09_p8",
+     "posture": "standing",
+     "x": 33.694,
+     "y": -16.77,
+     "yaw": -2.355
+    },
+    {
+     "name": "exp09_p9",
+     "posture": "standing",
+     "x": 33.01,
+     "y": -19.117,
+     "yaw": -2.312
+    },
+    {
+     "name": "exp09_p10",
+     "posture": "standing",
+     "x": 34.564,
+     "y": -16.524,
+     "yaw": -1.976
+    },
+    {
+     "name": "exp09_p11",
+     "posture": "standing",
+     "x": 32.185,
+     "y": -16.143,
+     "yaw": 0.686
+    }
+   ],
+   "num_standing": 11,
+   "num_lying": 0
+  },
+  {
+   "id": 10,
+   "label": "normal",
+   "look_at": [
+    31.005,
+    -21.63
+   ],
+   "viewpoint": [
+    36.337,
+    -24.382,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 152.7,
+   "people": [
+    {
+     "name": "exp10_p1",
+     "posture": "standing",
+     "x": 28.706,
+     "y": -22.394,
+     "yaw": 1.646
+    },
+    {
+     "name": "exp10_p2",
+     "posture": "standing",
+     "x": 28.785,
+     "y": -20.365,
+     "yaw": -2.382
+    },
+    {
+     "name": "exp10_p3",
+     "posture": "standing",
+     "x": 27.838,
+     "y": -20.529,
+     "yaw": -1.529
+    },
+    {
+     "name": "exp10_p4",
+     "posture": "standing",
+     "x": 31.122,
+     "y": -20.889,
+     "yaw": -0.652
+    },
+    {
+     "name": "exp10_p5",
+     "posture": "standing",
+     "x": 29.388,
+     "y": -21.514,
+     "yaw": -1.361
+    },
+    {
+     "name": "exp10_p6",
+     "posture": "standing",
+     "x": 28.807,
+     "y": -19.435,
+     "yaw": 0.599
+    },
+    {
+     "name": "exp10_p7",
+     "posture": "standing",
+     "x": 29.751,
+     "y": -20.574,
+     "yaw": -1.221
+    },
+    {
+     "name": "exp10_p8",
+     "posture": "standing",
+     "x": 30.414,
+     "y": -22.197,
+     "yaw": 0.846
+    },
+    {
+     "name": "exp10_p9",
+     "posture": "standing",
+     "x": 30.044,
+     "y": -19.727,
+     "yaw": 1.811
+    }
+   ],
+   "num_standing": 9,
+   "num_lying": 0
+  },
+  {
+   "id": 11,
+   "label": "normal",
+   "look_at": [
+    29.487,
+    -19.485
+   ],
+   "viewpoint": [
+    31.06,
+    -25.275,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 105.2,
+   "people": [
+    {
+     "name": "exp11_p1",
+     "posture": "standing",
+     "x": 28.494,
+     "y": -17.671,
+     "yaw": -0.621
+    },
+    {
+     "name": "exp11_p2",
+     "posture": "standing",
+     "x": 29.911,
+     "y": -19.135,
+     "yaw": -1.263
+    },
+    {
+     "name": "exp11_p3",
+     "posture": "standing",
+     "x": 30.646,
+     "y": -17.695,
+     "yaw": -1.772
+    },
+    {
+     "name": "exp11_p4",
+     "posture": "standing",
+     "x": 29.088,
+     "y": -16.634,
+     "yaw": -0.352
+    },
+    {
+     "name": "exp11_p5",
+     "posture": "standing",
+     "x": 27.212,
+     "y": -18.131,
+     "yaw": -0.909
+    },
+    {
+     "name": "exp11_p6",
+     "posture": "standing",
+     "x": 27.932,
+     "y": -16.855,
+     "yaw": 2.823
+    },
+    {
+     "name": "exp11_p7",
+     "posture": "standing",
+     "x": 28.356,
+     "y": -19.813,
+     "yaw": -0.872
+    }
+   ],
+   "num_standing": 7,
+   "num_lying": 0
+  },
+  {
+   "id": 12,
+   "label": "normal",
+   "look_at": [
+    28.015,
+    -20.919
+   ],
+   "viewpoint": [
+    23.542,
+    -24.918,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 41.8,
+   "people": [
+    {
+     "name": "exp12_p1",
+     "posture": "standing",
+     "x": 30.058,
+     "y": -21.313,
+     "yaw": -1.717
+    },
+    {
+     "name": "exp12_p2",
+     "posture": "standing",
+     "x": 27.705,
+     "y": -18.936,
+     "yaw": -2.479
+    },
+    {
+     "name": "exp12_p3",
+     "posture": "standing",
+     "x": 28.336,
+     "y": -20.112,
+     "yaw": 2.496
+    },
+    {
+     "name": "exp12_p4",
+     "posture": "standing",
+     "x": 28.062,
+     "y": -21.218,
+     "yaw": -2.33
+    },
+    {
+     "name": "exp12_p5",
+     "posture": "standing",
+     "x": 27.36,
+     "y": -20.624,
+     "yaw": 1.818
+    },
+    {
+     "name": "exp12_p6",
+     "posture": "standing",
+     "x": 30.237,
+     "y": -20.5,
+     "yaw": -0.694
+    },
+    {
+     "name": "exp12_p7",
+     "posture": "standing",
+     "x": 28.775,
+     "y": -19.052,
+     "yaw": 2.765
+    },
+    {
+     "name": "exp12_p8",
+     "posture": "standing",
+     "x": 29.905,
+     "y": -18.596,
+     "yaw": -0.702
+    },
+    {
+     "name": "exp12_p9",
+     "posture": "standing",
+     "x": 28.924,
+     "y": -21.468,
+     "yaw": 1.288
+    },
+    {
+     "name": "exp12_p10",
+     "posture": "standing",
+     "x": 30.423,
+     "y": -19.286,
+     "yaw": 2.857
+    },
+    {
+     "name": "exp12_p11",
+     "posture": "standing",
+     "x": 29.067,
+     "y": -18.302,
+     "yaw": 1.801
+    }
+   ],
+   "num_standing": 11,
+   "num_lying": 0
+  },
+  {
+   "id": 13,
+   "label": "normal",
+   "look_at": [
+    31.883,
+    -20.414
+   ],
+   "viewpoint": [
+    34.419,
+    -14.976,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 245.0,
+   "people": [
+    {
+     "name": "exp13_p1",
+     "posture": "standing",
+     "x": 32.586,
+     "y": -21.604,
+     "yaw": -2.499
+    },
+    {
+     "name": "exp13_p2",
+     "posture": "standing",
+     "x": 29.392,
+     "y": -21.484,
+     "yaw": -1.113
+    },
+    {
+     "name": "exp13_p3",
+     "posture": "standing",
+     "x": 31.196,
+     "y": -22.109,
+     "yaw": -0.825
+    },
+    {
+     "name": "exp13_p4",
+     "posture": "standing",
+     "x": 31.504,
+     "y": -20.894,
+     "yaw": -1.962
+    },
+    {
+     "name": "exp13_p5",
+     "posture": "standing",
+     "x": 30.707,
+     "y": -21.058,
+     "yaw": 1.48
+    },
+    {
+     "name": "exp13_p6",
+     "posture": "standing",
+     "x": 30.168,
+     "y": -22.055,
+     "yaw": -1.542
+    },
+    {
+     "name": "exp13_p7",
+     "posture": "standing",
+     "x": 31.015,
+     "y": -23.46,
+     "yaw": 1.942
+    }
+   ],
+   "num_standing": 7,
+   "num_lying": 0
+  },
+  {
+   "id": 14,
+   "label": "normal",
+   "look_at": [
+    29.842,
+    -21.528
+   ],
+   "viewpoint": [
+    23.895,
+    -20.734,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 352.4,
+   "people": [
+    {
+     "name": "exp14_p1",
+     "posture": "standing",
+     "x": 31.662,
+     "y": -22.65,
+     "yaw": -2.175
+    },
+    {
+     "name": "exp14_p2",
+     "posture": "standing",
+     "x": 31.995,
+     "y": -19.968,
+     "yaw": 0.708
+    },
+    {
+     "name": "exp14_p3",
+     "posture": "standing",
+     "x": 29.571,
+     "y": -22.153,
+     "yaw": 2.429
+    },
+    {
+     "name": "exp14_p4",
+     "posture": "standing",
+     "x": 32.49,
+     "y": -22.205,
+     "yaw": -1.573
+    },
+    {
+     "name": "exp14_p5",
+     "posture": "standing",
+     "x": 30.814,
+     "y": -20.804,
+     "yaw": 3.108
+    },
+    {
+     "name": "exp14_p6",
+     "posture": "standing",
+     "x": 31.396,
+     "y": -23.412,
+     "yaw": 0.088
+    }
+   ],
+   "num_standing": 6,
+   "num_lying": 0
+  },
+  {
+   "id": 15,
+   "label": "emergency",
+   "look_at": [
+    30.537,
+    -20.91
+   ],
+   "viewpoint": [
+    36.366,
+    -22.331,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 166.3,
+   "people": [
+    {
+     "name": "exp15_p1",
+     "posture": "standing",
+     "x": 29.099,
+     "y": -19.866,
+     "yaw": -2.52
+    },
+    {
+     "name": "exp15_p2",
+     "posture": "standing",
+     "x": 28.661,
+     "y": -22.215,
+     "yaw": -1.354
+    },
+    {
+     "name": "exp15_p3",
+     "posture": "standing",
+     "x": 30.319,
+     "y": -19.368,
+     "yaw": 1.52
+    },
+    {
+     "name": "exp15_p4",
+     "posture": "standing",
+     "x": 28.46,
+     "y": -19.26,
+     "yaw": -2.376
+    },
+    {
+     "name": "exp15_p5",
+     "posture": "standing",
+     "x": 27.673,
+     "y": -21.33,
+     "yaw": 1.491
+    },
+    {
+     "name": "exp15_p6",
+     "posture": "standing",
+     "x": 30.052,
+     "y": -20.677,
+     "yaw": 1.097
+    },
+    {
+     "name": "exp15_lying",
+     "posture": "lying",
+     "x": 32.079,
+     "y": -24.154,
+     "yaw": -2.065
+    }
+   ],
+   "num_standing": 6,
+   "num_lying": 1
+  },
+  {
+   "id": 16,
+   "label": "normal",
+   "look_at": [
+    30.212,
+    -20.688
+   ],
+   "viewpoint": [
+    28.013,
+    -15.105,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 291.5,
+   "people": [
+    {
+     "name": "exp16_p1",
+     "posture": "standing",
+     "x": 29.612,
+     "y": -23.187,
+     "yaw": 2.368
+    },
+    {
+     "name": "exp16_p2",
+     "posture": "standing",
+     "x": 31.547,
+     "y": -22.15,
+     "yaw": 3.086
+    },
+    {
+     "name": "exp16_p3",
+     "posture": "standing",
+     "x": 30.097,
+     "y": -20.29,
+     "yaw": 1.679
+    },
+    {
+     "name": "exp16_p4",
+     "posture": "standing",
+     "x": 32.653,
+     "y": -21.534,
+     "yaw": -2.311
+    },
+    {
+     "name": "exp16_p5",
+     "posture": "standing",
+     "x": 31.093,
+     "y": -21.175,
+     "yaw": 0.682
+    },
+    {
+     "name": "exp16_p6",
+     "posture": "standing",
+     "x": 29.05,
+     "y": -21.222,
+     "yaw": -2.978
+    },
+    {
+     "name": "exp16_p7",
+     "posture": "standing",
+     "x": 30.89,
+     "y": -23.187,
+     "yaw": 0.349
+    },
+    {
+     "name": "exp16_p8",
+     "posture": "standing",
+     "x": 29.041,
+     "y": -22.608,
+     "yaw": 0.289
+    },
+    {
+     "name": "exp16_p9",
+     "posture": "standing",
+     "x": 32.045,
+     "y": -23.166,
+     "yaw": -2.278
+    },
+    {
+     "name": "exp16_p10",
+     "posture": "standing",
+     "x": 32.035,
+     "y": -20.614,
+     "yaw": 2.017
+    }
+   ],
+   "num_standing": 10,
+   "num_lying": 0
+  },
+  {
+   "id": 17,
+   "label": "normal",
+   "look_at": [
+    30.656,
+    -21.457
+   ],
+   "viewpoint": [
+    34.029,
+    -26.419,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 124.2,
+   "people": [
+    {
+     "name": "exp17_p1",
+     "posture": "standing",
+     "x": 28.477,
+     "y": -20.108,
+     "yaw": -1.182
+    },
+    {
+     "name": "exp17_p2",
+     "posture": "standing",
+     "x": 31.257,
+     "y": -19.502,
+     "yaw": 1.792
+    },
+    {
+     "name": "exp17_p3",
+     "posture": "standing",
+     "x": 29.032,
+     "y": -19.204,
+     "yaw": 2.456
+    },
+    {
+     "name": "exp17_p4",
+     "posture": "standing",
+     "x": 31.283,
+     "y": -21.153,
+     "yaw": -2.371
+    },
+    {
+     "name": "exp17_p5",
+     "posture": "standing",
+     "x": 30.459,
+     "y": -18.723,
+     "yaw": 1.254
+    },
+    {
+     "name": "exp17_p6",
+     "posture": "standing",
+     "x": 29.322,
+     "y": -20.496,
+     "yaw": 2.062
+    },
+    {
+     "name": "exp17_p7",
+     "posture": "standing",
+     "x": 30.448,
+     "y": -20.323,
+     "yaw": 1.32
+    }
+   ],
+   "num_standing": 7,
+   "num_lying": 0
+  },
+  {
+   "id": 18,
+   "label": "emergency",
+   "look_at": [
+    28.16,
+    -20.639
+   ],
+   "viewpoint": [
+    32.661,
+    -16.671,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 221.4,
+   "people": [
+    {
+     "name": "exp18_p1",
+     "posture": "standing",
+     "x": 25.962,
+     "y": -22.965,
+     "yaw": 2.717
+    },
+    {
+     "name": "exp18_p2",
+     "posture": "standing",
+     "x": 26.928,
+     "y": -21.997,
+     "yaw": -1.302
+    },
+    {
+     "name": "exp18_p3",
+     "posture": "standing",
+     "x": 26.331,
+     "y": -20.668,
+     "yaw": -0.599
+    },
+    {
+     "name": "exp18_p4",
+     "posture": "standing",
+     "x": 27.846,
+     "y": -20.982,
+     "yaw": -0.675
+    },
+    {
+     "name": "exp18_p5",
+     "posture": "standing",
+     "x": 25.925,
+     "y": -21.74,
+     "yaw": 0.317
+    },
+    {
+     "name": "exp18_p6",
+     "posture": "standing",
+     "x": 25.528,
+     "y": -20.351,
+     "yaw": 0.443
+    },
+    {
+     "name": "exp18_p7",
+     "posture": "standing",
+     "x": 27.919,
+     "y": -23.393,
+     "yaw": 0.415
+    },
+    {
+     "name": "exp18_p8",
+     "posture": "standing",
+     "x": 27.616,
+     "y": -19.798,
+     "yaw": 1.383
+    },
+    {
+     "name": "exp18_p9",
+     "posture": "standing",
+     "x": 28.653,
+     "y": -21.957,
+     "yaw": 2.616
+    },
+    {
+     "name": "exp18_p10",
+     "posture": "standing",
+     "x": 28.643,
+     "y": -20.532,
+     "yaw": 2.807
+    },
+    {
+     "name": "exp18_p11",
+     "posture": "standing",
+     "x": 27.869,
+     "y": -22.237,
+     "yaw": -0.448
+    },
+    {
+     "name": "exp18_lying",
+     "posture": "lying",
+     "x": 31.571,
+     "y": -22.226,
+     "yaw": 0.238
+    }
+   ],
+   "num_standing": 11,
+   "num_lying": 1
+  },
+  {
+   "id": 19,
+   "label": "emergency",
+   "look_at": [
+    31.96,
+    -21.24
+   ],
+   "viewpoint": [
+    37.612,
+    -19.227,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 199.6,
+   "people": [
+    {
+     "name": "exp19_p1",
+     "posture": "standing",
+     "x": 30.111,
+     "y": -22.983,
+     "yaw": -3.104
+    },
+    {
+     "name": "exp19_p2",
+     "posture": "standing",
+     "x": 29.787,
+     "y": -20.531,
+     "yaw": 1.265
+    },
+    {
+     "name": "exp19_p3",
+     "posture": "standing",
+     "x": 32.185,
+     "y": -22.409,
+     "yaw": -0.225
+    },
+    {
+     "name": "exp19_p4",
+     "posture": "standing",
+     "x": 30.174,
+     "y": -21.664,
+     "yaw": 0.859
+    },
+    {
+     "name": "exp19_p5",
+     "posture": "standing",
+     "x": 31.288,
+     "y": -22.221,
+     "yaw": 1.257
+    },
+    {
+     "name": "exp19_p6",
+     "posture": "standing",
+     "x": 30.983,
+     "y": -23.191,
+     "yaw": -1.978
+    },
+    {
+     "name": "exp19_p7",
+     "posture": "standing",
+     "x": 29.075,
+     "y": -20.913,
+     "yaw": 2.482
+    },
+    {
+     "name": "exp19_p8",
+     "posture": "standing",
+     "x": 31.607,
+     "y": -21.421,
+     "yaw": 1.65
+    },
+    {
+     "name": "exp19_p9",
+     "posture": "standing",
+     "x": 31.034,
+     "y": -20.516,
+     "yaw": 1.087
+    },
+    {
+     "name": "exp19_p10",
+     "posture": "standing",
+     "x": 28.834,
+     "y": -22.683,
+     "yaw": -0.675
+    },
+    {
+     "name": "exp19_p11",
+     "posture": "standing",
+     "x": 30.43,
+     "y": -19.838,
+     "yaw": 1.359
+    },
+    {
+     "name": "exp19_p12",
+     "posture": "standing",
+     "x": 28.898,
+     "y": -21.718,
+     "yaw": 2.728
+    },
+    {
+     "name": "exp19_lying",
+     "posture": "lying",
+     "x": 33.005,
+     "y": -17.701,
+     "yaw": 2.437
+    }
+   ],
+   "num_standing": 12,
+   "num_lying": 1
+  },
+  {
+   "id": 20,
+   "label": "emergency",
+   "look_at": [
+    28.177,
+    -21.039
+   ],
+   "viewpoint": [
+    30.788,
+    -15.637,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 244.2,
+   "people": [
+    {
+     "name": "exp20_p1",
+     "posture": "standing",
+     "x": 26.819,
+     "y": -23.293,
+     "yaw": -0.929
+    },
+    {
+     "name": "exp20_p2",
+     "posture": "standing",
+     "x": 28.181,
+     "y": -21.918,
+     "yaw": -0.859
+    },
+    {
+     "name": "exp20_p3",
+     "posture": "standing",
+     "x": 28.469,
+     "y": -23.869,
+     "yaw": 0.526
+    },
+    {
+     "name": "exp20_p4",
+     "posture": "standing",
+     "x": 26.203,
+     "y": -21.388,
+     "yaw": -2.061
+    },
+    {
+     "name": "exp20_p5",
+     "posture": "standing",
+     "x": 26.76,
+     "y": -22.22,
+     "yaw": 1.808
+    },
+    {
+     "name": "exp20_p6",
+     "posture": "standing",
+     "x": 27.554,
+     "y": -21.096,
+     "yaw": 1.171
+    },
+    {
+     "name": "exp20_p7",
+     "posture": "standing",
+     "x": 29.004,
+     "y": -22.117,
+     "yaw": -2.535
+    },
+    {
+     "name": "exp20_p8",
+     "posture": "standing",
+     "x": 29.205,
+     "y": -23.26,
+     "yaw": -0.743
+    },
+    {
+     "name": "exp20_lying",
+     "posture": "lying",
+     "x": 26.035,
+     "y": -18.244,
+     "yaw": -0.647
+    }
+   ],
+   "num_standing": 8,
+   "num_lying": 1
+  },
+  {
+   "id": 21,
+   "label": "emergency",
+   "look_at": [
+    31.342,
+    -18.008
+   ],
+   "viewpoint": [
+    36.574,
+    -15.072,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 209.3,
+   "people": [
+    {
+     "name": "exp21_p1",
+     "posture": "standing",
+     "x": 29.062,
+     "y": -19.478,
+     "yaw": 0.701
+    },
+    {
+     "name": "exp21_p2",
+     "posture": "standing",
+     "x": 30.608,
+     "y": -19.995,
+     "yaw": -2.888
+    },
+    {
+     "name": "exp21_p3",
+     "posture": "standing",
+     "x": 29.21,
+     "y": -17.963,
+     "yaw": 2.916
+    },
+    {
+     "name": "exp21_p4",
+     "posture": "standing",
+     "x": 30.361,
+     "y": -18.737,
+     "yaw": 2.326
+    },
+    {
+     "name": "exp21_p5",
+     "posture": "standing",
+     "x": 30.699,
+     "y": -17.19,
+     "yaw": -2.128
+    },
+    {
+     "name": "exp21_p6",
+     "posture": "standing",
+     "x": 31.2,
+     "y": -18.797,
+     "yaw": 0.567
+    },
+    {
+     "name": "exp21_p7",
+     "posture": "standing",
+     "x": 30.136,
+     "y": -20.696,
+     "yaw": 0.526
+    },
+    {
+     "name": "exp21_p8",
+     "posture": "standing",
+     "x": 29.905,
+     "y": -17.061,
+     "yaw": 1.745
+    },
+    {
+     "name": "exp21_p9",
+     "posture": "standing",
+     "x": 31.71,
+     "y": -19.426,
+     "yaw": 2.399
+    },
+    {
+     "name": "exp21_p10",
+     "posture": "standing",
+     "x": 28.228,
+     "y": -17.974,
+     "yaw": -0.573
+    },
+    {
+     "name": "exp21_lying",
+     "posture": "lying",
+     "x": 31.378,
+     "y": -14.728,
+     "yaw": 0.01
+    }
+   ],
+   "num_standing": 10,
+   "num_lying": 1
+  },
+  {
+   "id": 22,
+   "label": "emergency",
+   "look_at": [
+    30.781,
+    -18.351
+   ],
+   "viewpoint": [
+    33.726,
+    -23.578,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 119.4,
+   "people": [
+    {
+     "name": "exp22_p1",
+     "posture": "standing",
+     "x": 28.92,
+     "y": -18.352,
+     "yaw": 2.391
+    },
+    {
+     "name": "exp22_p2",
+     "posture": "standing",
+     "x": 31.121,
+     "y": -18.668,
+     "yaw": 2.919
+    },
+    {
+     "name": "exp22_p3",
+     "posture": "standing",
+     "x": 31.272,
+     "y": -15.47,
+     "yaw": 1.153
+    },
+    {
+     "name": "exp22_p4",
+     "posture": "standing",
+     "x": 29.638,
+     "y": -16.373,
+     "yaw": 0.6
+    },
+    {
+     "name": "exp22_p5",
+     "posture": "standing",
+     "x": 29.864,
+     "y": -15.375,
+     "yaw": 0.108
+    },
+    {
+     "name": "exp22_p6",
+     "posture": "standing",
+     "x": 31.7,
+     "y": -17.264,
+     "yaw": -1.854
+    },
+    {
+     "name": "exp22_p7",
+     "posture": "standing",
+     "x": 30.706,
+     "y": -16.96,
+     "yaw": 0.718
+    },
+    {
+     "name": "exp22_p8",
+     "posture": "standing",
+     "x": 30.185,
+     "y": -17.687,
+     "yaw": 0.529
+    },
+    {
+     "name": "exp22_p9",
+     "posture": "standing",
+     "x": 28.125,
+     "y": -17.04,
+     "yaw": 2.058
+    },
+    {
+     "name": "exp22_p10",
+     "posture": "standing",
+     "x": 29.09,
+     "y": -17.431,
+     "yaw": -2.445
+    },
+    {
+     "name": "exp22_p11",
+     "posture": "standing",
+     "x": 31.774,
+     "y": -16.176,
+     "yaw": -0.119
+    },
+    {
+     "name": "exp22_lying",
+     "posture": "lying",
+     "x": 29.152,
+     "y": -21.128,
+     "yaw": 0.706
+    }
+   ],
+   "num_standing": 11,
+   "num_lying": 1
+  },
+  {
+   "id": 23,
+   "label": "emergency",
+   "look_at": [
+    28.478,
+    -20.58
+   ],
+   "viewpoint": [
+    25.551,
+    -15.342,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 299.2,
+   "people": [
+    {
+     "name": "exp23_p1",
+     "posture": "standing",
+     "x": 27.842,
+     "y": -21.78,
+     "yaw": -0.792
+    },
+    {
+     "name": "exp23_p2",
+     "posture": "standing",
+     "x": 29.053,
+     "y": -19.982,
+     "yaw": -0.885
+    },
+    {
+     "name": "exp23_p3",
+     "posture": "standing",
+     "x": 28.173,
+     "y": -22.617,
+     "yaw": 3.098
+    },
+    {
+     "name": "exp23_p4",
+     "posture": "standing",
+     "x": 29.027,
+     "y": -20.825,
+     "yaw": -0.98
+    },
+    {
+     "name": "exp23_p5",
+     "posture": "standing",
+     "x": 30.19,
+     "y": -21.778,
+     "yaw": 2.864
+    },
+    {
+     "name": "exp23_p6",
+     "posture": "standing",
+     "x": 29.747,
+     "y": -23.218,
+     "yaw": 2.995
+    },
+    {
+     "name": "exp23_p7",
+     "posture": "standing",
+     "x": 30.061,
+     "y": -20.784,
+     "yaw": 1.156
+    },
+    {
+     "name": "exp23_p8",
+     "posture": "standing",
+     "x": 30.972,
+     "y": -21.211,
+     "yaw": 2.938
+    },
+    {
+     "name": "exp23_p9",
+     "posture": "standing",
+     "x": 27.558,
+     "y": -20.79,
+     "yaw": -2.888
+    },
+    {
+     "name": "exp23_p10",
+     "posture": "standing",
+     "x": 29.199,
+     "y": -21.966,
+     "yaw": 2.175
+    },
+    {
+     "name": "exp23_p11",
+     "posture": "standing",
+     "x": 30.577,
+     "y": -22.606,
+     "yaw": 2.797
+    },
+    {
+     "name": "exp23_p12",
+     "posture": "standing",
+     "x": 28.828,
+     "y": -23.813,
+     "yaw": 1.144
+    },
+    {
+     "name": "exp23_lying",
+     "posture": "lying",
+     "x": 29.855,
+     "y": -17.543,
+     "yaw": 2.658
+    }
+   ],
+   "num_standing": 12,
+   "num_lying": 1
+  },
+  {
+   "id": 24,
+   "label": "normal",
+   "look_at": [
+    30.378,
+    -20.264
+   ],
+   "viewpoint": [
+    31.779,
+    -14.43,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 256.5,
+   "people": [
+    {
+     "name": "exp24_p1",
+     "posture": "standing",
+     "x": 30.481,
+     "y": -20.126,
+     "yaw": 1.025
+    },
+    {
+     "name": "exp24_p2",
+     "posture": "standing",
+     "x": 29.312,
+     "y": -19.933,
+     "yaw": -2.935
+    },
+    {
+     "name": "exp24_p3",
+     "posture": "standing",
+     "x": 28.971,
+     "y": -21.331,
+     "yaw": -3.138
+    },
+    {
+     "name": "exp24_p4",
+     "posture": "standing",
+     "x": 30.507,
+     "y": -21.861,
+     "yaw": 2.351
+    },
+    {
+     "name": "exp24_p5",
+     "posture": "standing",
+     "x": 29.74,
+     "y": -22.317,
+     "yaw": 0.099
+    },
+    {
+     "name": "exp24_p6",
+     "posture": "standing",
+     "x": 31.188,
+     "y": -22.515,
+     "yaw": -0.8
+    },
+    {
+     "name": "exp24_p7",
+     "posture": "standing",
+     "x": 29.024,
+     "y": -23.377,
+     "yaw": 1.305
+    },
+    {
+     "name": "exp24_p8",
+     "posture": "standing",
+     "x": 28.588,
+     "y": -20.392,
+     "yaw": 0.194
+    },
+    {
+     "name": "exp24_p9",
+     "posture": "standing",
+     "x": 31.915,
+     "y": -21.47,
+     "yaw": 0.276
+    },
+    {
+     "name": "exp24_p10",
+     "posture": "standing",
+     "x": 29.817,
+     "y": -21.254,
+     "yaw": 1.448
+    },
+    {
+     "name": "exp24_p11",
+     "posture": "standing",
+     "x": 28.901,
+     "y": -22.443,
+     "yaw": 3.022
+    }
+   ],
+   "num_standing": 11,
+   "num_lying": 0
+  },
+  {
+   "id": 25,
+   "label": "emergency",
+   "look_at": [
+    30.984,
+    -18.29
+   ],
+   "viewpoint": [
+    35.429,
+    -22.32,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 137.8,
+   "people": [
+    {
+     "name": "exp25_p1",
+     "posture": "standing",
+     "x": 28.775,
+     "y": -18.729,
+     "yaw": -2.583
+    },
+    {
+     "name": "exp25_p2",
+     "posture": "standing",
+     "x": 30.658,
+     "y": -17.234,
+     "yaw": 0.399
+    },
+    {
+     "name": "exp25_p3",
+     "posture": "standing",
+     "x": 29.515,
+     "y": -16.928,
+     "yaw": -0.129
+    },
+    {
+     "name": "exp25_p4",
+     "posture": "standing",
+     "x": 28.957,
+     "y": -15.934,
+     "yaw": 1.644
+    },
+    {
+     "name": "exp25_p5",
+     "posture": "standing",
+     "x": 27.991,
+     "y": -17.302,
+     "yaw": -0.441
+    },
+    {
+     "name": "exp25_p6",
+     "posture": "standing",
+     "x": 29.691,
+     "y": -18.509,
+     "yaw": -0.793
+    },
+    {
+     "name": "exp25_p7",
+     "posture": "standing",
+     "x": 28.262,
+     "y": -18.069,
+     "yaw": 2.039
+    },
+    {
+     "name": "exp25_lying",
+     "posture": "lying",
+     "x": 30.409,
+     "y": -21.839,
+     "yaw": -3.054
+    }
+   ],
+   "num_standing": 7,
+   "num_lying": 1
+  },
+  {
+   "id": 26,
+   "label": "emergency",
+   "look_at": [
+    31.278,
+    -19.451
+   ],
+   "viewpoint": [
+    26.252,
+    -16.174,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 326.9,
+   "people": [
+    {
+     "name": "exp26_p1",
+     "posture": "standing",
+     "x": 32.519,
+     "y": -19.119,
+     "yaw": 3.111
+    },
+    {
+     "name": "exp26_p2",
+     "posture": "standing",
+     "x": 34.292,
+     "y": -20.54,
+     "yaw": 0.443
+    },
+    {
+     "name": "exp26_p3",
+     "posture": "standing",
+     "x": 32.709,
+     "y": -21.703,
+     "yaw": 0.542
+    },
+    {
+     "name": "exp26_p4",
+     "posture": "standing",
+     "x": 31.28,
+     "y": -19.663,
+     "yaw": 1.771
+    },
+    {
+     "name": "exp26_p5",
+     "posture": "standing",
+     "x": 33.674,
+     "y": -21.485,
+     "yaw": -0.634
+    },
+    {
+     "name": "exp26_p6",
+     "posture": "standing",
+     "x": 31.644,
+     "y": -21.552,
+     "yaw": -0.952
+    },
+    {
+     "name": "exp26_p7",
+     "posture": "standing",
+     "x": 33.847,
+     "y": -18.972,
+     "yaw": 2.062
+    },
+    {
+     "name": "exp26_p8",
+     "posture": "standing",
+     "x": 32.453,
+     "y": -20.842,
+     "yaw": -1.204
+    },
+    {
+     "name": "exp26_lying",
+     "posture": "lying",
+     "x": 31.16,
+     "y": -16.348,
+     "yaw": 0.702
+    }
+   ],
+   "num_standing": 8,
+   "num_lying": 1
+  },
+  {
+   "id": 27,
+   "label": "emergency",
+   "look_at": [
+    28.459,
+    -19.153
+   ],
+   "viewpoint": [
+    30.042,
+    -24.94,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 105.3,
+   "people": [
+    {
+     "name": "exp27_p1",
+     "posture": "standing",
+     "x": 27.142,
+     "y": -18.803,
+     "yaw": -0.32
+    },
+    {
+     "name": "exp27_p2",
+     "posture": "standing",
+     "x": 28.644,
+     "y": -18.856,
+     "yaw": -0.571
+    },
+    {
+     "name": "exp27_p3",
+     "posture": "standing",
+     "x": 27.985,
+     "y": -17.145,
+     "yaw": 3.121
+    },
+    {
+     "name": "exp27_p4",
+     "posture": "standing",
+     "x": 27.247,
+     "y": -17.881,
+     "yaw": -0.396
+    },
+    {
+     "name": "exp27_p5",
+     "posture": "standing",
+     "x": 27.315,
+     "y": -16.211,
+     "yaw": 2.108
+    },
+    {
+     "name": "exp27_p6",
+     "posture": "standing",
+     "x": 29.851,
+     "y": -18.241,
+     "yaw": -1.15
+    },
+    {
+     "name": "exp27_p7",
+     "posture": "standing",
+     "x": 28.964,
+     "y": -17.043,
+     "yaw": -0.066
+    },
+    {
+     "name": "exp27_lying",
+     "posture": "lying",
+     "x": 31.82,
+     "y": -20.36,
+     "yaw": -2.076
+    }
+   ],
+   "num_standing": 7,
+   "num_lying": 1
+  },
+  {
+   "id": 28,
+   "label": "normal",
+   "look_at": [
+    30.825,
+    -20.091
+   ],
+   "viewpoint": [
+    25.135,
+    -21.995,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 18.5,
+   "people": [
+    {
+     "name": "exp28_p1",
+     "posture": "standing",
+     "x": 31.626,
+     "y": -18.861,
+     "yaw": 2.039
+    },
+    {
+     "name": "exp28_p2",
+     "posture": "standing",
+     "x": 34.144,
+     "y": -19.476,
+     "yaw": -3.046
+    },
+    {
+     "name": "exp28_p3",
+     "posture": "standing",
+     "x": 30.71,
+     "y": -20.422,
+     "yaw": -2.359
+    },
+    {
+     "name": "exp28_p4",
+     "posture": "standing",
+     "x": 33.741,
+     "y": -18.384,
+     "yaw": 1.314
+    },
+    {
+     "name": "exp28_p5",
+     "posture": "standing",
+     "x": 30.695,
+     "y": -18.612,
+     "yaw": -1.576
+    },
+    {
+     "name": "exp28_p6",
+     "posture": "standing",
+     "x": 31.639,
+     "y": -20.075,
+     "yaw": -1.568
+    }
+   ],
+   "num_standing": 6,
+   "num_lying": 0
+  },
+  {
+   "id": 29,
+   "label": "emergency",
+   "look_at": [
+    28.931,
+    -18.717
+   ],
+   "viewpoint": [
+    23.019,
+    -19.738,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 9.8,
+   "people": [
+    {
+     "name": "exp29_p1",
+     "posture": "standing",
+     "x": 30.197,
+     "y": -20.374,
+     "yaw": -2.156
+    },
+    {
+     "name": "exp29_p2",
+     "posture": "standing",
+     "x": 31.379,
+     "y": -17.015,
+     "yaw": 2.094
+    },
+    {
+     "name": "exp29_p3",
+     "posture": "standing",
+     "x": 30.867,
+     "y": -19.835,
+     "yaw": 1.876
+    },
+    {
+     "name": "exp29_p4",
+     "posture": "standing",
+     "x": 30.12,
+     "y": -18.44,
+     "yaw": 2.544
+    },
+    {
+     "name": "exp29_p5",
+     "posture": "standing",
+     "x": 29.346,
+     "y": -17.834,
+     "yaw": -0.724
+    },
+    {
+     "name": "exp29_p6",
+     "posture": "standing",
+     "x": 28.689,
+     "y": -19.143,
+     "yaw": 2.508
+    },
+    {
+     "name": "exp29_p7",
+     "posture": "standing",
+     "x": 32.247,
+     "y": -18.017,
+     "yaw": 1.551
+    },
+    {
+     "name": "exp29_p8",
+     "posture": "standing",
+     "x": 31.217,
+     "y": -17.845,
+     "yaw": 1.647
+    },
+    {
+     "name": "exp29_p9",
+     "posture": "standing",
+     "x": 30.136,
+     "y": -16.819,
+     "yaw": 1.32
+    },
+    {
+     "name": "exp29_lying",
+     "posture": "lying",
+     "x": 27.879,
+     "y": -22.044,
+     "yaw": 2.388
+    }
+   ],
+   "num_standing": 9,
+   "num_lying": 1
+  },
+  {
+   "id": 30,
+   "label": "normal",
+   "look_at": [
+    30.393,
+    -20.595
+   ],
+   "viewpoint": [
+    31.855,
+    -26.414,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 104.1,
+   "people": [
+    {
+     "name": "exp30_p1",
+     "posture": "standing",
+     "x": 30.006,
+     "y": -17.929,
+     "yaw": 0.011
+    },
+    {
+     "name": "exp30_p2",
+     "posture": "standing",
+     "x": 28.56,
+     "y": -18.366,
+     "yaw": -0.129
+    },
+    {
+     "name": "exp30_p3",
+     "posture": "standing",
+     "x": 31.257,
+     "y": -17.947,
+     "yaw": -1.887
+    },
+    {
+     "name": "exp30_p4",
+     "posture": "standing",
+     "x": 30.128,
+     "y": -20.396,
+     "yaw": -0.375
+    },
+    {
+     "name": "exp30_p5",
+     "posture": "standing",
+     "x": 28.841,
+     "y": -19.843,
+     "yaw": 1.94
+    },
+    {
+     "name": "exp30_p6",
+     "posture": "standing",
+     "x": 29.257,
+     "y": -20.539,
+     "yaw": 0.495
+    },
+    {
+     "name": "exp30_p7",
+     "posture": "standing",
+     "x": 31.283,
+     "y": -19.64,
+     "yaw": -2.814
+    },
+    {
+     "name": "exp30_p8",
+     "posture": "standing",
+     "x": 30.061,
+     "y": -19.085,
+     "yaw": 2.762
+    }
+   ],
+   "num_standing": 8,
+   "num_lying": 0
+  },
+  {
+   "id": 31,
+   "label": "normal",
+   "look_at": [
+    28.694,
+    -18.137
+   ],
+   "viewpoint": [
+    26.311,
+    -23.644,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 66.6,
+   "people": [
+    {
+     "name": "exp31_p1",
+     "posture": "standing",
+     "x": 27.797,
+     "y": -16.303,
+     "yaw": 1.096
+    },
+    {
+     "name": "exp31_p2",
+     "posture": "standing",
+     "x": 29.736,
+     "y": -15.202,
+     "yaw": 2.617
+    },
+    {
+     "name": "exp31_p3",
+     "posture": "standing",
+     "x": 30.06,
+     "y": -16.482,
+     "yaw": 2.905
+    },
+    {
+     "name": "exp31_p4",
+     "posture": "standing",
+     "x": 30.945,
+     "y": -16.299,
+     "yaw": -2.59
+    },
+    {
+     "name": "exp31_p5",
+     "posture": "standing",
+     "x": 28.881,
+     "y": -15.511,
+     "yaw": -2.986
+    },
+    {
+     "name": "exp31_p6",
+     "posture": "standing",
+     "x": 29.439,
+     "y": -17.577,
+     "yaw": -1.429
+    },
+    {
+     "name": "exp31_p7",
+     "posture": "standing",
+     "x": 28.543,
+     "y": -18.381,
+     "yaw": -2.192
+    },
+    {
+     "name": "exp31_p8",
+     "posture": "standing",
+     "x": 28.005,
+     "y": -17.606,
+     "yaw": 0.801
+    }
+   ],
+   "num_standing": 8,
+   "num_lying": 0
+  },
+  {
+   "id": 32,
+   "label": "normal",
+   "look_at": [
+    28.907,
+    -21.989
+   ],
+   "viewpoint": [
+    23.83,
+    -18.792,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 327.8,
+   "people": [
+    {
+     "name": "exp32_p1",
+     "posture": "standing",
+     "x": 31.946,
+     "y": -23.465,
+     "yaw": 0.928
+    },
+    {
+     "name": "exp32_p2",
+     "posture": "standing",
+     "x": 28.528,
+     "y": -21.785,
+     "yaw": -0.507
+    },
+    {
+     "name": "exp32_p3",
+     "posture": "standing",
+     "x": 30.71,
+     "y": -23.809,
+     "yaw": 2.676
+    },
+    {
+     "name": "exp32_p4",
+     "posture": "standing",
+     "x": 29.063,
+     "y": -23.901,
+     "yaw": -1.011
+    },
+    {
+     "name": "exp32_p5",
+     "posture": "standing",
+     "x": 30.821,
+     "y": -21.301,
+     "yaw": 2.998
+    },
+    {
+     "name": "exp32_p6",
+     "posture": "standing",
+     "x": 31.798,
+     "y": -22.023,
+     "yaw": -2.465
+    },
+    {
+     "name": "exp32_p7",
+     "posture": "standing",
+     "x": 29.409,
+     "y": -21.43,
+     "yaw": -2.142
+    },
+    {
+     "name": "exp32_p8",
+     "posture": "standing",
+     "x": 29.901,
+     "y": -24.422,
+     "yaw": 1.723
+    },
+    {
+     "name": "exp32_p9",
+     "posture": "standing",
+     "x": 29.906,
+     "y": -23.402,
+     "yaw": 2.128
+    }
+   ],
+   "num_standing": 9,
+   "num_lying": 0
+  },
+  {
+   "id": 33,
+   "label": "emergency",
+   "look_at": [
+    29.929,
+    -19.254
+   ],
+   "viewpoint": [
+    30.055,
+    -13.255,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 268.8,
+   "people": [
+    {
+     "name": "exp33_p1",
+     "posture": "standing",
+     "x": 30.673,
+     "y": -19.292,
+     "yaw": -1.407
+    },
+    {
+     "name": "exp33_p2",
+     "posture": "standing",
+     "x": 30.43,
+     "y": -20.355,
+     "yaw": 2.043
+    },
+    {
+     "name": "exp33_p3",
+     "posture": "standing",
+     "x": 29.951,
+     "y": -22.544,
+     "yaw": 0.678
+    },
+    {
+     "name": "exp33_p4",
+     "posture": "standing",
+     "x": 29.185,
+     "y": -20.52,
+     "yaw": 0.904
+    },
+    {
+     "name": "exp33_p5",
+     "posture": "standing",
+     "x": 31.602,
+     "y": -21.059,
+     "yaw": -1.827
+    },
+    {
+     "name": "exp33_p6",
+     "posture": "standing",
+     "x": 28.765,
+     "y": -22.295,
+     "yaw": -2.845
+    },
+    {
+     "name": "exp33_lying",
+     "posture": "lying",
+     "x": 26.905,
+     "y": -17.472,
+     "yaw": 1.278
+    }
+   ],
+   "num_standing": 6,
+   "num_lying": 1
+  },
+  {
+   "id": 34,
+   "label": "normal",
+   "look_at": [
+    31.568,
+    -18.177
+   ],
+   "viewpoint": [
+    36.566,
+    -21.497,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 146.4,
+   "people": [
+    {
+     "name": "exp34_p1",
+     "posture": "standing",
+     "x": 30.338,
+     "y": -16.879,
+     "yaw": 2.377
+    },
+    {
+     "name": "exp34_p2",
+     "posture": "standing",
+     "x": 29.781,
+     "y": -17.815,
+     "yaw": 2.862
+    },
+    {
+     "name": "exp34_p3",
+     "posture": "standing",
+     "x": 32.131,
+     "y": -17.539,
+     "yaw": -1.333
+    },
+    {
+     "name": "exp34_p4",
+     "posture": "standing",
+     "x": 30.688,
+     "y": -18.282,
+     "yaw": -3.085
+    },
+    {
+     "name": "exp34_p5",
+     "posture": "standing",
+     "x": 28.778,
+     "y": -16.933,
+     "yaw": 1.721
+    },
+    {
+     "name": "exp34_p6",
+     "posture": "standing",
+     "x": 31.014,
+     "y": -16.427,
+     "yaw": -1.11
+    },
+    {
+     "name": "exp34_p7",
+     "posture": "standing",
+     "x": 31.078,
+     "y": -17.419,
+     "yaw": -2.748
+    },
+    {
+     "name": "exp34_p8",
+     "posture": "standing",
+     "x": 31.65,
+     "y": -18.705,
+     "yaw": -0.972
+    },
+    {
+     "name": "exp34_p9",
+     "posture": "standing",
+     "x": 28.657,
+     "y": -18.351,
+     "yaw": -1.45
+    },
+    {
+     "name": "exp34_p10",
+     "posture": "standing",
+     "x": 29.72,
+     "y": -16.092,
+     "yaw": 2.808
+    }
+   ],
+   "num_standing": 10,
+   "num_lying": 0
+  },
+  {
+   "id": 35,
+   "label": "emergency",
+   "look_at": [
+    30.592,
+    -21.055
+   ],
+   "viewpoint": [
+    24.592,
+    -21.107,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 0.5,
+   "people": [
+    {
+     "name": "exp35_p1",
+     "posture": "standing",
+     "x": 31.89,
+     "y": -22.409,
+     "yaw": -0.979
+    },
+    {
+     "name": "exp35_p2",
+     "posture": "standing",
+     "x": 32.929,
+     "y": -22.627,
+     "yaw": 1.418
+    },
+    {
+     "name": "exp35_p3",
+     "posture": "standing",
+     "x": 32.43,
+     "y": -19.556,
+     "yaw": -2.97
+    },
+    {
+     "name": "exp35_p4",
+     "posture": "standing",
+     "x": 31.136,
+     "y": -21.992,
+     "yaw": 2.048
+    },
+    {
+     "name": "exp35_p5",
+     "posture": "standing",
+     "x": 31.556,
+     "y": -20.055,
+     "yaw": -0.44
+    },
+    {
+     "name": "exp35_p6",
+     "posture": "standing",
+     "x": 30.743,
+     "y": -19.667,
+     "yaw": -0.279
+    },
+    {
+     "name": "exp35_p7",
+     "posture": "standing",
+     "x": 33.314,
+     "y": -21.86,
+     "yaw": -1.296
+    },
+    {
+     "name": "exp35_p8",
+     "posture": "standing",
+     "x": 32.192,
+     "y": -20.772,
+     "yaw": -1.904
+    },
+    {
+     "name": "exp35_p9",
+     "posture": "standing",
+     "x": 31.022,
+     "y": -20.96,
+     "yaw": 1.972
+    },
+    {
+     "name": "exp35_p10",
+     "posture": "standing",
+     "x": 33.727,
+     "y": -19.989,
+     "yaw": -2.638
+    },
+    {
+     "name": "exp35_p11",
+     "posture": "standing",
+     "x": 33.505,
+     "y": -20.873,
+     "yaw": 1.006
+    },
+    {
+     "name": "exp35_lying",
+     "posture": "lying",
+     "x": 28.635,
+     "y": -24.473,
+     "yaw": -1.666
+    }
+   ],
+   "num_standing": 11,
+   "num_lying": 1
+  },
+  {
+   "id": 36,
+   "label": "emergency",
+   "look_at": [
+    28.382,
+    -18.268
+   ],
+   "viewpoint": [
+    22.581,
+    -19.801,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 14.8,
+   "people": [
+    {
+     "name": "exp36_p1",
+     "posture": "standing",
+     "x": 29.416,
+     "y": -18.324,
+     "yaw": -0.682
+    },
+    {
+     "name": "exp36_p2",
+     "posture": "standing",
+     "x": 30.487,
+     "y": -18.177,
+     "yaw": 2.779
+    },
+    {
+     "name": "exp36_p3",
+     "posture": "standing",
+     "x": 28.106,
+     "y": -18.728,
+     "yaw": 2.29
+    },
+    {
+     "name": "exp36_p4",
+     "posture": "standing",
+     "x": 29.372,
+     "y": -17.124,
+     "yaw": 2.568
+    },
+    {
+     "name": "exp36_p5",
+     "posture": "standing",
+     "x": 29.667,
+     "y": -16.357,
+     "yaw": -2.324
+    },
+    {
+     "name": "exp36_p6",
+     "posture": "standing",
+     "x": 30.008,
+     "y": -18.972,
+     "yaw": -1.437
+    },
+    {
+     "name": "exp36_p7",
+     "posture": "standing",
+     "x": 31.454,
+     "y": -17.73,
+     "yaw": -1.998
+    },
+    {
+     "name": "exp36_p8",
+     "posture": "standing",
+     "x": 31.144,
+     "y": -18.923,
+     "yaw": 2.303
+    },
+    {
+     "name": "exp36_lying",
+     "posture": "lying",
+     "x": 27.37,
+     "y": -21.125,
+     "yaw": -2.24
+    }
+   ],
+   "num_standing": 8,
+   "num_lying": 1
+  },
+  {
+   "id": 37,
+   "label": "normal",
+   "look_at": [
+    30.31,
+    -21.987
+   ],
+   "viewpoint": [
+    28.717,
+    -27.772,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 74.6,
+   "people": [
+    {
+     "name": "exp37_p1",
+     "posture": "standing",
+     "x": 30.688,
+     "y": -21.303,
+     "yaw": 0.021
+    },
+    {
+     "name": "exp37_p2",
+     "posture": "standing",
+     "x": 32.104,
+     "y": -21.901,
+     "yaw": -0.273
+    },
+    {
+     "name": "exp37_p3",
+     "posture": "standing",
+     "x": 29.749,
+     "y": -21.858,
+     "yaw": 2.769
+    },
+    {
+     "name": "exp37_p4",
+     "posture": "standing",
+     "x": 29.121,
+     "y": -20.366,
+     "yaw": 1.304
+    },
+    {
+     "name": "exp37_p5",
+     "posture": "standing",
+     "x": 29.782,
+     "y": -19.697,
+     "yaw": -2.427
+    },
+    {
+     "name": "exp37_p6",
+     "posture": "standing",
+     "x": 32.048,
+     "y": -19.243,
+     "yaw": -2.236
+    },
+    {
+     "name": "exp37_p7",
+     "posture": "standing",
+     "x": 31.661,
+     "y": -20.913,
+     "yaw": -1.916
+    }
+   ],
+   "num_standing": 7,
+   "num_lying": 0
+  },
+  {
+   "id": 38,
+   "label": "emergency",
+   "look_at": [
+    30.956,
+    -20.94
+   ],
+   "viewpoint": [
+    29.413,
+    -15.142,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 284.9,
+   "people": [
+    {
+     "name": "exp38_p1",
+     "posture": "standing",
+     "x": 32.016,
+     "y": -23.414,
+     "yaw": 2.093
+    },
+    {
+     "name": "exp38_p2",
+     "posture": "standing",
+     "x": 30.097,
+     "y": -22.494,
+     "yaw": 0.312
+    },
+    {
+     "name": "exp38_p3",
+     "posture": "standing",
+     "x": 31.445,
+     "y": -21.289,
+     "yaw": 1.642
+    },
+    {
+     "name": "exp38_p4",
+     "posture": "standing",
+     "x": 33.33,
+     "y": -22.371,
+     "yaw": -1.863
+    },
+    {
+     "name": "exp38_p5",
+     "posture": "standing",
+     "x": 32.867,
+     "y": -23.668,
+     "yaw": -0.615
+    },
+    {
+     "name": "exp38_p6",
+     "posture": "standing",
+     "x": 30.83,
+     "y": -23.1,
+     "yaw": 0.083
+    },
+    {
+     "name": "exp38_p7",
+     "posture": "standing",
+     "x": 30.496,
+     "y": -21.086,
+     "yaw": 0.124
+    },
+    {
+     "name": "exp38_p8",
+     "posture": "standing",
+     "x": 30.815,
+     "y": -24.173,
+     "yaw": 1.085
+    },
+    {
+     "name": "exp38_lying",
+     "posture": "lying",
+     "x": 27.679,
+     "y": -19.713,
+     "yaw": 3.018
+    }
+   ],
+   "num_standing": 8,
+   "num_lying": 1
+  },
+  {
+   "id": 39,
+   "label": "emergency",
+   "look_at": [
+    30.808,
+    -21.861
+   ],
+   "viewpoint": [
+    29.377,
+    -16.034,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 283.8,
+   "people": [
+    {
+     "name": "exp39_p1",
+     "posture": "standing",
+     "x": 30.706,
+     "y": -22.072,
+     "yaw": -1.809
+    },
+    {
+     "name": "exp39_p2",
+     "posture": "standing",
+     "x": 31.331,
+     "y": -23.292,
+     "yaw": -0.177
+    },
+    {
+     "name": "exp39_p3",
+     "posture": "standing",
+     "x": 30.061,
+     "y": -24.412,
+     "yaw": -1.319
+    },
+    {
+     "name": "exp39_p4",
+     "posture": "standing",
+     "x": 30.02,
+     "y": -23.382,
+     "yaw": 1.032
+    },
+    {
+     "name": "exp39_p5",
+     "posture": "standing",
+     "x": 30.021,
+     "y": -22.496,
+     "yaw": 0.968
+    },
+    {
+     "name": "exp39_p6",
+     "posture": "standing",
+     "x": 32.019,
+     "y": -23.756,
+     "yaw": 2.648
+    },
+    {
+     "name": "exp39_p7",
+     "posture": "standing",
+     "x": 31.506,
+     "y": -21.914,
+     "yaw": 1.418
+    },
+    {
+     "name": "exp39_lying",
+     "posture": "lying",
+     "x": 27.736,
+     "y": -20.431,
+     "yaw": -2.657
+    }
+   ],
+   "num_standing": 7,
+   "num_lying": 1
+  },
+  {
+   "id": 40,
+   "label": "emergency",
+   "look_at": [
+    28.62,
+    -21.248
+   ],
+   "viewpoint": [
+    32.743,
+    -16.889,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 226.6,
+   "people": [
+    {
+     "name": "exp40_p1",
+     "posture": "standing",
+     "x": 27.893,
+     "y": -23.704,
+     "yaw": -2.208
+    },
+    {
+     "name": "exp40_p2",
+     "posture": "standing",
+     "x": 28.781,
+     "y": -23.271,
+     "yaw": -1.812
+    },
+    {
+     "name": "exp40_p3",
+     "posture": "standing",
+     "x": 28.557,
+     "y": -20.686,
+     "yaw": 2.745
+    },
+    {
+     "name": "exp40_p4",
+     "posture": "standing",
+     "x": 26.453,
+     "y": -22.756,
+     "yaw": -2.507
+    },
+    {
+     "name": "exp40_p5",
+     "posture": "standing",
+     "x": 27.124,
+     "y": -23.213,
+     "yaw": 2.267
+    },
+    {
+     "name": "exp40_p6",
+     "posture": "standing",
+     "x": 26.834,
+     "y": -21.007,
+     "yaw": 1.841
+    },
+    {
+     "name": "exp40_p7",
+     "posture": "standing",
+     "x": 27.565,
+     "y": -21.532,
+     "yaw": 1.124
+    },
+    {
+     "name": "exp40_p8",
+     "posture": "standing",
+     "x": 27.622,
+     "y": -22.565,
+     "yaw": 0.635
+    },
+    {
+     "name": "exp40_p9",
+     "posture": "standing",
+     "x": 25.925,
+     "y": -21.805,
+     "yaw": 0.758
+    },
+    {
+     "name": "exp40_p10",
+     "posture": "standing",
+     "x": 28.44,
+     "y": -21.742,
+     "yaw": 1.76
+    },
+    {
+     "name": "exp40_lying",
+     "posture": "lying",
+     "x": 27.609,
+     "y": -17.647,
+     "yaw": -2.253
+    }
+   ],
+   "num_standing": 10,
+   "num_lying": 1
+  },
+  {
+   "id": 41,
+   "label": "normal",
+   "look_at": [
+    28.234,
+    -20.669
+   ],
+   "viewpoint": [
+    22.285,
+    -19.886,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 352.5,
+   "people": [
+    {
+     "name": "exp41_p1",
+     "posture": "standing",
+     "x": 30.678,
+     "y": -21.711,
+     "yaw": 3.04
+    },
+    {
+     "name": "exp41_p2",
+     "posture": "standing",
+     "x": 30.302,
+     "y": -19.357,
+     "yaw": -2.581
+    },
+    {
+     "name": "exp41_p3",
+     "posture": "standing",
+     "x": 28.404,
+     "y": -20.267,
+     "yaw": 2.979
+    },
+    {
+     "name": "exp41_p4",
+     "posture": "standing",
+     "x": 29.748,
+     "y": -20.66,
+     "yaw": 0.492
+    },
+    {
+     "name": "exp41_p5",
+     "posture": "standing",
+     "x": 30.871,
+     "y": -19.933,
+     "yaw": -1.056
+    },
+    {
+     "name": "exp41_p6",
+     "posture": "standing",
+     "x": 29.748,
+     "y": -21.888,
+     "yaw": -2.61
+    },
+    {
+     "name": "exp41_p7",
+     "posture": "standing",
+     "x": 29.016,
+     "y": -22.556,
+     "yaw": -1.899
+    },
+    {
+     "name": "exp41_p8",
+     "posture": "standing",
+     "x": 28.638,
+     "y": -21.531,
+     "yaw": -1.457
+    },
+    {
+     "name": "exp41_p9",
+     "posture": "standing",
+     "x": 31.521,
+     "y": -21.561,
+     "yaw": -2.363
+    },
+    {
+     "name": "exp41_p10",
+     "posture": "standing",
+     "x": 29.459,
+     "y": -19.242,
+     "yaw": -2.071
+    },
+    {
+     "name": "exp41_p11",
+     "posture": "standing",
+     "x": 28.524,
+     "y": -19.356,
+     "yaw": -2.714
+    }
+   ],
+   "num_standing": 11,
+   "num_lying": 0
+  },
+  {
+   "id": 42,
+   "label": "normal",
+   "look_at": [
+    31.178,
+    -21.634
+   ],
+   "viewpoint": [
+    25.372,
+    -23.146,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 14.6,
+   "people": [
+    {
+     "name": "exp42_p1",
+     "posture": "standing",
+     "x": 33.514,
+     "y": -20.626,
+     "yaw": -2.934
+    },
+    {
+     "name": "exp42_p2",
+     "posture": "standing",
+     "x": 32.988,
+     "y": -21.466,
+     "yaw": 2.311
+    },
+    {
+     "name": "exp42_p3",
+     "posture": "standing",
+     "x": 33.401,
+     "y": -22.539,
+     "yaw": -2.659
+    },
+    {
+     "name": "exp42_p4",
+     "posture": "standing",
+     "x": 30.723,
+     "y": -20.934,
+     "yaw": -2.418
+    },
+    {
+     "name": "exp42_p5",
+     "posture": "standing",
+     "x": 33.905,
+     "y": -21.871,
+     "yaw": 0.25
+    },
+    {
+     "name": "exp42_p6",
+     "posture": "standing",
+     "x": 31.994,
+     "y": -20.87,
+     "yaw": 2.197
+    }
+   ],
+   "num_standing": 6,
+   "num_lying": 0
+  },
+  {
+   "id": 43,
+   "label": "emergency",
+   "look_at": [
+    28.323,
+    -19.974
+   ],
+   "viewpoint": [
+    34.308,
+    -19.545,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 184.1,
+   "people": [
+    {
+     "name": "exp43_p1",
+     "posture": "standing",
+     "x": 28.398,
+     "y": -19.408,
+     "yaw": -2.549
+    },
+    {
+     "name": "exp43_p2",
+     "posture": "standing",
+     "x": 28.194,
+     "y": -21.219,
+     "yaw": -0.806
+    },
+    {
+     "name": "exp43_p3",
+     "posture": "standing",
+     "x": 27.277,
+     "y": -19.677,
+     "yaw": 2.198
+    },
+    {
+     "name": "exp43_p4",
+     "posture": "standing",
+     "x": 26.869,
+     "y": -18.115,
+     "yaw": 2.78
+    },
+    {
+     "name": "exp43_p5",
+     "posture": "standing",
+     "x": 25.434,
+     "y": -20.368,
+     "yaw": -3.134
+    },
+    {
+     "name": "exp43_p6",
+     "posture": "standing",
+     "x": 26.04,
+     "y": -19.613,
+     "yaw": -1.972
+    },
+    {
+     "name": "exp43_lying",
+     "posture": "lying",
+     "x": 30.217,
+     "y": -23.013,
+     "yaw": -1.41
+    }
+   ],
+   "num_standing": 6,
+   "num_lying": 1
+  },
+  {
+   "id": 44,
+   "label": "emergency",
+   "look_at": [
+    28.555,
+    -21.837
+   ],
+   "viewpoint": [
+    28.963,
+    -27.823,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 93.9,
+   "people": [
+    {
+     "name": "exp44_p1",
+     "posture": "standing",
+     "x": 29.637,
+     "y": -20.282,
+     "yaw": -1.884
+    },
+    {
+     "name": "exp44_p2",
+     "posture": "standing",
+     "x": 28.578,
+     "y": -21.927,
+     "yaw": -0.031
+    },
+    {
+     "name": "exp44_p3",
+     "posture": "standing",
+     "x": 27.068,
+     "y": -21.122,
+     "yaw": 0.847
+    },
+    {
+     "name": "exp44_p4",
+     "posture": "standing",
+     "x": 27.827,
+     "y": -20.483,
+     "yaw": 2.693
+    },
+    {
+     "name": "exp44_p5",
+     "posture": "standing",
+     "x": 26.858,
+     "y": -20.264,
+     "yaw": -2.93
+    },
+    {
+     "name": "exp44_p6",
+     "posture": "standing",
+     "x": 27.896,
+     "y": -19.468,
+     "yaw": -1.037
+    },
+    {
+     "name": "exp44_p7",
+     "posture": "standing",
+     "x": 30.185,
+     "y": -19.39,
+     "yaw": 1.753
+    },
+    {
+     "name": "exp44_p8",
+     "posture": "standing",
+     "x": 28.488,
+     "y": -21.013,
+     "yaw": 2.335
+    },
+    {
+     "name": "exp44_p9",
+     "posture": "standing",
+     "x": 27.949,
+     "y": -18.495,
+     "yaw": 0.271
+    },
+    {
+     "name": "exp44_p10",
+     "posture": "standing",
+     "x": 30.088,
+     "y": -21.252,
+     "yaw": 0.585
+    },
+    {
+     "name": "exp44_p11",
+     "posture": "standing",
+     "x": 28.766,
+     "y": -18.404,
+     "yaw": -0.964
+    },
+    {
+     "name": "exp44_lying",
+     "posture": "lying",
+     "x": 31.629,
+     "y": -24.016,
+     "yaw": -1.973
+    }
+   ],
+   "num_standing": 11,
+   "num_lying": 1
+  }
+ ]
+}

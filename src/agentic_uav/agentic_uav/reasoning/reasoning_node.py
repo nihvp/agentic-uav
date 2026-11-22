@@ -50,7 +50,7 @@ class ReasoningNode(Node):
         provider_name = self.declare_parameter("llm.provider", "ollama").value
         # LLM_MODEL (set by compose from .env) overrides params.yaml so the model the llm
         # service pulls and the one the agent asks for cannot drift apart.
-        model_param = self.declare_parameter("llm.model", "qwen3:14b").value
+        model_param = self.declare_parameter("llm.model", "qwen3-vl:8b").value
         model = os.environ.get("LLM_MODEL") if provider_name != "gemini" and os.environ.get("LLM_MODEL") \
             else model_param
         base_url = self.declare_parameter("llm.base_url", "http://127.0.0.1:11434/v1").value

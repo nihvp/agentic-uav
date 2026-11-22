@@ -186,6 +186,11 @@ later by pointing `llm.base_url` at it (`llm.provider: vllm`).
 * Next: repeat the mission ~10 times and record the success rate (final position vs
   (8, 4)) and the largest prompt.
 
+## Paper reproduction (branch `paper-sim`)
+
+The end goal: reproduce the experiment of Koubaa & Gabr, "Agentic UAVs" (arXiv
+2509.13352v2). Plan, differences and status: [PAPER_REPRODUCTION.md](PAPER_REPRODUCTION.md).
+
 ## Phases
 
 Each phase ends with a demo you can run and an acceptance check. Do not start a phase

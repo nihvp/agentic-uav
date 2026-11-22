@@ -51,9 +51,13 @@ services:
       CAMERA_WIDTH: 640
       CAMERA_HEIGHT: 360
       CAMERA_RATE_HZ: 10
+      # Experiment harness (scene spawner) runs here: python3 -m agentic_uav.experiment.spawn
+      PYTHONPATH: /opt/agentic_uav
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ./src/agentic_uav_bringup/worlds:/worlds:ro,z
+      - ./src/agentic_uav:/opt/agentic_uav:ro,z
+      - ./experiments:/experiments:rw,z
       # Mounted so entrypoint changes apply without rebuilding the image.
       - ./docker/sim_entrypoint.sh:/usr/local/bin/sim_entrypoint.sh:ro,z
     stdin_open: true
@@ -73,20 +77,22 @@ services:
       GZ_PARTITION: agentic_uav
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       # Model the llm service serves; reasoning_node asks for the same one.
-      LLM_MODEL: ${LLM_MODEL:-qwen3:14b}
+      LLM_MODEL: ${LLM_MODEL:-qwen3-vl:8b}
       # Context window the llm service runs with; reasoning_node warns near it.
       LLM_CONTEXT: ${LLM_CONTEXT:-16384}
       REBUILD_ON_START: ${REBUILD_ON_START:-1}
     volumes:
       - ./src:/ws/src:rw,z
       - agent-data:/data
+      - ./experiments:/experiments:rw,z
     # e.g. AGENT_LAUNCH_ARGS="perception:=false reasoning:=false learning:=false"
     command: ros2 launch agentic_uav_bringup agent.launch.py ${AGENT_LAUNCH_ARGS:-}
 
   # Local LLM: Ollama with an OpenAI-compatible API on 127.0.0.1:11434/v1. Pulls
   # LLM_MODEL on first start (several GB, kept in the ollama-models volume).
-  # 16 GB VRAM is shared with Gazebo rendering, so the default is a ~9 GB 4-bit
-  # 14B model with a 16k context and an 8-bit KV cache.
+  # 16 GB VRAM is shared with Gazebo rendering and YOLO. The default is a ~6 GB 4-bit
+  # 8B vision model (it must read camera images for the paper reproduction, and do
+  # tool calls for missions) with a 16k context and an 8-bit KV cache.
   llm:
     <<: *host
     image: ollama/ollama:${OLLAMA_TAG:-latest}
@@ -97,7 +103,7 @@ services:
       OLLAMA_KV_CACHE_TYPE: q8_0
       # Keep the model in VRAM between missions instead of unloading after 5 min.
       OLLAMA_KEEP_ALIVE: "-1"
-      LLM_MODEL: ${LLM_MODEL:-qwen3:14b}
+      LLM_MODEL: ${LLM_MODEL:-qwen3-vl:8b}
     volumes:
       - ollama-models:/root/.ollama
     entrypoint: ["/bin/sh", "-c"]

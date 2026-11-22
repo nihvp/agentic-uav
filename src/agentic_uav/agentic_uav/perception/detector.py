@@ -5,6 +5,9 @@ stand-ins in worlds/search_and_rescue.sdf. It is not object recognition: it find
 "orange blobs", which this world uses for the survivor. Every detection carries
 source="color" so downstream layers can tell. It needs no model weights or torch,
 which keeps the perception layer small enough for a 4-5 GB VM.
+
+YoloDetector is real object recognition (YOLOv11 "person" for the paper reproduction,
+docs/PAPER_REPRODUCTION.md); its detections carry source="yolo".
 """
 
 from dataclasses import dataclass
@@ -75,9 +78,69 @@ class ColorDetector(Detector):
         return out
 
 
-def make_detector(name: str) -> Detector:
-    if name == "none":
-        return NullDetector()
-    if name == "color":
-        return ColorDetector()
-    raise ValueError(f"Unknown detector '{name}' (expected 'color' or 'none').")
+class YoloDetector(Detector):
+    """Ultralytics YOLO (YOLOv11 by default), keeping only the requested COCO classes.
+
+    Real object recognition, unlike ColorDetector; detections carry source="yolo". The
+    model loads lazily on the first frame so importing this module needs no torch, and
+    runs on the GPU when one is visible. Weights are fetched by ultralytics on first use
+    unless `model` is a local path.
+    """
+
+    def __init__(self, model: str = "yolo11s.pt", classes: Sequence[str] = ("person",),
+                 min_confidence: float = 0.25, device: str = "", backend: Any = None):
+        self.model_name = model
+        self.classes = set(classes)
+        self.min_confidence = min_confidence
+        self.device = device
+        self._model = backend
+
+    def _load(self):
+        if self._model is None:
+            from ultralytics import YOLO
+            self._model = YOLO(self.model_name)
+        return self._model
+
+    def detect(self, bgr: np.ndarray) -> List[Dict[str, Any]]:
+        model = self._load()
+        kwargs = {"conf": self.min_confidence, "verbose": False}
+        if self.device:
+            kwargs["device"] = self.device
+        out = []
+        for result in model.predict(bgr, **kwargs):
+            names = result.names
+            for xyxy, conf, cls in zip(result.boxes.xyxy.tolist(), result.boxes.conf.tolist(),
+                                       result.boxes.cls.tolist()):
+                label = names[int(cls)]
+                if label in self.classes:
+                    out.append({"bbox": [int(round(v)) for v in xyxy], "label": label,
+                                "confidence": round(float(conf), 3), "source": "yolo"})
+        return out
+
+
+class CompositeDetector(Detector):
+    """Runs several detectors on the same frame and concatenates their detections."""
+
+    def __init__(self, detectors: Sequence[Detector]):
+        self.detectors = list(detectors)
+
+    def detect(self, bgr: np.ndarray) -> List[Dict[str, Any]]:
+        return [d for det in self.detectors for d in det.detect(bgr)]
+
+
+def make_detector(name: str, yolo_model: str = "yolo11s.pt", yolo_confidence: float = 0.25) -> Detector:
+    """'none', 'color', 'yolo', or several joined by '+' (e.g. 'color+yolo')."""
+    parts = [p.strip() for p in name.split("+") if p.strip()]
+    built = []
+    for part in parts:
+        if part == "none":
+            built.append(NullDetector())
+        elif part == "color":
+            built.append(ColorDetector())
+        elif part == "yolo":
+            built.append(YoloDetector(yolo_model, min_confidence=yolo_confidence))
+        else:
+            raise ValueError(f"Unknown detector '{part}' (expected none, color, yolo, or a '+' list).")
+    if not built:
+        raise ValueError("No detector given.")
+    return built[0] if len(built) == 1 else CompositeDetector(built)

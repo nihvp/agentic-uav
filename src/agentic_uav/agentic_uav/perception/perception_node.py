@@ -36,7 +36,10 @@ PX4_QOS = QoSProfile(
 class PerceptionNode(Node):
     def __init__(self):
         super().__init__("perception_node")
-        self.detector = make_detector(self.declare_parameter("detector", "color").value)
+        self.detector = make_detector(
+            self.declare_parameter("detector", "color").value,
+            yolo_model=self.declare_parameter("yolo.model", "yolo11s.pt").value,
+            yolo_confidence=float(self.declare_parameter("yolo.confidence", 0.25).value))
         rate = self.declare_parameter("rate_hz", 5.0).value
         # Must match the camera mount the sim applies (docker/sim_entrypoint.sh).
         self.mount_xyz = list(self.declare_parameter("camera.mount_xyz", [0.132, 0.0, 0.261]).value)
