@@ -166,7 +166,18 @@ later by pointing `llm.base_url` at it (`llm.provider: vllm`).
   everything); thinking text goes to the trace only. Each step logs the prompt token
   count and an estimate, warns at 85% of `LLM_CONTEXT`, and the trace records the
   largest prompt (`stats`).
-* Next: repeat the mission ~10 times and record the success rate and the largest prompt.
+* Phase 3 run 3 (thinking on, new history): takeoff -> scan -> navigate_to -> finish in 4
+  steps, prompt <= 2.0k tokens, reported success. **False positive:** perception placed
+  the survivor at (5.2, 7.6), 4.5 m from its SDF position (8, 4); every object seen in
+  the scan was rotated 22-37 deg anticlockwise about the vehicle. Diagnosis against
+  Gazebo (diagnosis only): PX4's heading was +10.7 deg and +11.7 deg off the true yaw at
+  two headings ~115 deg apart, so a constant declination mismatch: PX4's geo lookup gave
+  3.4 deg, the world's `<magnetic_field>` implies 14.6 deg. Fixed in compose
+  (`EKF2_DECL_TYPE=0`, `EKF2_MAG_DECL=14.6`). The remaining ~15-20 deg of rotation in the
+  scan is not explained yet (EKF settling after takeoff, or frame lag at the end of a
+  turn). Score missions by the final position vs the SDF, not the agent's success flag.
+* Next: confirm the heading fix, then repeat the mission ~10 times and record the
+  success rate (final position vs (8, 4)) and the largest prompt.
 
 ## Phases
 
