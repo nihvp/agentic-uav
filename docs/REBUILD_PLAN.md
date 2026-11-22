@@ -170,12 +170,16 @@ later by pointing `llm.base_url` at it (`llm.provider: vllm`).
   steps, prompt <= 2.0k tokens, reported success. **False positive:** perception placed
   the survivor at (5.2, 7.6), 4.5 m from its SDF position (8, 4); every object seen in
   the scan was rotated 22-37 deg anticlockwise about the vehicle. Diagnosis against
-  Gazebo (diagnosis only): PX4's heading was +10.7 deg and +11.7 deg off the true yaw at
-  two headings ~115 deg apart, so a constant declination mismatch: PX4's geo lookup gave
-  3.4 deg, the world's `<magnetic_field>` implies 14.6 deg. Fixed in compose
-  (`EKF2_DECL_TYPE=0`, `EKF2_MAG_DECL=14.6`). The remaining ~15-20 deg of rotation in the
-  scan is not explained yet (EKF settling after takeoff, or frame lag at the end of a
-  turn). Score missions by the final position vs the SDF, not the agent's success flag.
+  Gazebo's true yaw (diagnosis and one-off calibration only, never read at runtime): with
+  the default 3D magnetometer fusion PX4's heading **drifts** ~0.15 deg/s (~9 deg/min)
+  while hovering; PX4 reports a steady heading while the vehicle physically turns, so the
+  error grows with time since boot (Phase 2 measured 3.6 deg early on; run 3 had ~30 deg).
+  A first guess, a fixed declination mismatch, was wrong: setting the declination alone
+  changed nothing. Heading-only fusion (`EKF2_MAG_TYPE=1`) held the error at -6.2 to -7.4
+  deg over a minute; the declination was then calibrated to 8.0 deg (`EKF2_DECL_TYPE=0`,
+  `EKF2_MAG_DECL=8.0`, in compose). Still to verify after a restart: error near 0 at
+  several headings and after several minutes in the air.
+  Score missions by the final position vs the SDF, not the agent's success flag.
 * Next: confirm the heading fix, then repeat the mission ~10 times and record the
   success rate (final position vs (8, 4)) and the largest prompt.
 

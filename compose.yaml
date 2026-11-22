@@ -33,13 +33,17 @@ services:
       # TODO(remote VM): measure, then return to PX4 defaults if no stalls.
       PX4_PARAM_COM_OF_LOSS_T: 3
       PX4_PARAM_COM_OBL_RC_ACT: 5
-      # Magnetic declination of the simulated world, not of real Zurich. The world's
-      # <magnetic_field> (6e-6 E, 2.3e-5 N) points atan2(6, 23) = 14.6 deg east of north;
-      # PX4's geo lookup gave 3.4 deg, so its heading ran ~11 deg off Gazebo's (measured
-      # at two headings), which rotated every perceived object about the vehicle.
-      # Type 0 = use EKF2_MAG_DECL as set, no geo lookup, don't overwrite it.
+      # Heading. With the default 3D magnetometer fusion, PX4's yaw drifted ~9 deg/min
+      # against Gazebo's true yaw while hovering (the vehicle physically turned while PX4
+      # reported a steady heading), which rotated every perceived object about the
+      # vehicle. Heading-only fusion (1) held it steady to +/-0.6 deg over a minute.
+      PX4_PARAM_EKF2_MAG_TYPE: 1
+      # Declination of the simulated magnetometer, not of real Zurich (PX4's geo lookup:
+      # 3.4 deg). Calibrated once against Gazebo's true yaw: with 14.6 deg the heading
+      # read 6.6 deg high, so 14.6 - 6.6 = 8.0. Type 0 = use this value, no geo lookup,
+      # don't overwrite it. Re-check if the world or PX4 version changes.
       PX4_PARAM_EKF2_DECL_TYPE: 0
-      PX4_PARAM_EKF2_MAG_DECL: 14.6
+      PX4_PARAM_EKF2_MAG_DECL: 8.0
       # docker/sim_entrypoint.sh patches the x500_depth camera: pitch it down so it sees
       # the ground below, and render RGB smaller/slower to save CPU and memory.
       # Keep CAMERA_PITCH_RAD equal to perception_node camera.mount_pitch in params.yaml.
