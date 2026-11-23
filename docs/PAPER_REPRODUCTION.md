@@ -59,11 +59,21 @@ with tool calling serves both the image analysis and the flight tools. `qwen3-vl
    frame, offset from the planned viewpoint). It reads only the viewpoint from the scene
    file, and writes no label. `eval_true_pose.txt` (Gazebo's drone pose) is for scoring
    only.
-4. **Analyse** (next), offline on the saved frames so every system sees identical input:
-   * rule-based: YOLO only (detections, no actions), as in the paper;
-   * agentic: YOLO detections + the image to the vision model, structured JSON output
-     (`person_detected`, `confidence`, `situation`, `surrounding_features`,
-     `recommended_actions`, ...), timed per sample.
+4. **Analyse** (`agentic_uav/experiment/analyse.py`, agent container), offline on each
+   scene's `rgb_0.png`, so every system sees identical input; reads no ground truth:
+   * `--system rule`: YOLOv11 person detections only (count, max confidence), no
+     assessment or actions, as the paper's rule-based baseline;
+   * `--system agentic`: the YOLO detections plus the image to the vision LLM
+     (`--model`, default `LLM_MODEL`), temperature 0, JSON mode; the prompt states the
+     mission (find people in distress, e.g. collapsed or lying motionless) and asks for
+     `person_detected`, `persons_count`, `confidence`, `situation`,
+     `emergency_description`, `surrounding_features`, `recommended_actions` (from
+     NO_INTERVENTION, CONTINUE_MONITORING, HOVER_AND_OBSERVE, LAND_AND_DEPLOY_RESCUE_KIT,
+     ALERT_EMERGENCY_SERVICES).
+   One untimed warm-up on a blank frame first; per sample it records YOLO time, LLM time,
+   total processing time, raw reply, tokens. Output: `results/rule.jsonl`,
+   `results/agentic_<model>.jsonl` (resumable). An optional extra tier is the paper's own
+   local model: `--model gemma3:4b` (pull it first).
 5. **Respond** (next): for emergencies, the MCP alert tool and a land-and-deploy command;
    shown end to end in a separate demo run (landing in every sample would dominate time).
 6. **Score** (next): the paper's metrics and tests, plus correctness from ground truth,
@@ -105,4 +115,5 @@ with tool calling serves both the image analysis and the flight tools. `qwen3-vl
 * [x] Scene 1 spawned on the VM: 13/13 people, lying person flat on the ground
 * [x] Capture node + batch script: scene 1 captured on the VM (0.2 m from the planned
   viewpoint, steady after 7 s, all people in frame)
-* [ ] Analysers, response, scoring
+* [x] Analysers (untested on the VM)
+* [ ] Response, scoring
