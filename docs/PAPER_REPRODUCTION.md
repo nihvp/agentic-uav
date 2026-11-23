@@ -76,9 +76,18 @@ with tool calling serves both the image analysis and the flight tools. `qwen3-vl
    local model: `--model gemma3:4b` (pull it first).
 5. **Respond** (next): for emergencies, the MCP alert tool and a land-and-deploy command;
    shown end to end in a separate demo run (landing in every sample would dominate time).
-6. **Score** (next): the paper's metrics and tests, plus correctness from ground truth,
-   which the paper does not report: emergency recall and false-alarm rate, correct
-   "no intervention" in normal scenes, and person-count error.
+6. **Score** (`agentic_uav/experiment/score.py`, agent container; scipy comes with
+   ultralytics): joins `results/*.jsonl` with `scenes.json` and writes
+   `results/summary.md` / `summary.json`.
+   * Paper metrics: processing time, detection confidence, persons detected, ARR, CAR;
+     Shapiro-Wilk, Levene, ANOVA + Tukey HSD (3+ systems) or Welch's t (2), Mann-Whitney
+     U, Cohen's d and rank-biserial r (same sign), chi-square / Fisher for rates. Like
+     the paper, systems are treated as independent samples although they saw the same
+     scenes.
+   * Correctness (not in the paper): situation accuracy, emergency recall, false-alarm
+     rate, correct response (emergency: LAND_AND_DEPLOY_RESCUE_KIT or
+     ALERT_EMERGENCY_SERVICES; normal: neither; so the rule baseline, which recommends
+     nothing, scores 50 %), person-count error, unparseable replies.
 
 ## Run on the VM (current steps)
 
@@ -116,4 +125,5 @@ with tool calling serves both the image analysis and the flight tools. `qwen3-vl
 * [x] Capture node + batch script: scene 1 captured on the VM (0.2 m from the planned
   viewpoint, steady after 7 s, all people in frame)
 * [x] Analysers (untested on the VM)
-* [ ] Response, scoring
+* [x] Scoring (tested on synthetic results)
+* [ ] Response demo
