@@ -49,8 +49,14 @@ with tool calling serves both the image analysis and the flight tools. `qwen3-vl
    previous scene's people and spawns the next scene's through Gazebo's create/remove
    services. Scene setup only; nothing moves during a sample, and no agent layer reads
    the scene file.
-3. **Capture** (next): fly to the scene's viewpoint, save a burst of frames + depth + PX4
-   pose per scene to `experiments/paper/captures/`.
+3. **Capture** (`agentic_uav/experiment/capture.py` in the agent container, batch:
+   `scripts/capture_scenes.sh`): take off if needed, fly to the scene's viewpoint through
+   the action layer, wait until the hover is steady (speed < 0.15 m/s and heading still
+   for 2 s), save 3 frames 0.5 s apart to `experiments/paper/captures/scene_NN/`:
+   `rgb_K.png`, `depth_K.npz` and `meta.json` (PX4 pose, camera pose and intrinsics per
+   frame, offset from the planned viewpoint). It reads only the viewpoint from the scene
+   file, and writes no label. `eval_true_pose.txt` (Gazebo's drone pose) is for scoring
+   only.
 4. **Analyse** (next), offline on the saved frames so every system sees identical input:
    * rule-based: YOLO only (detections, no actions), as in the paper;
    * agentic: YOLO detections + the image to the vision model, structured JSON output
@@ -74,8 +80,10 @@ with tool calling serves both the image analysis and the flight tools. `qwen3-vl
    (on the VM). Gazebo's create service replies before the model exists, so the spawner
    waits up to `--wait` seconds (180) for all of them to appear. Check the lying person
    lies flat on the ground, not half buried or floating.
-4. Fly to that scene's viewpoint (from `experiments/paper/scenes.json`) and check that
-   perception (`detector: color+yolo`) tracks `person` nodes.
+4. Capture one scene, then look at its frames (on the VM host):
+   `scripts/capture_scenes.sh 1`, then open `experiments/paper/captures/scene_01/rgb_0.png`.
+   All 13 people should be in the frame. Then all scenes: `scripts/capture_scenes.sh`
+   (skips scenes already captured; re-run to retry failures).
 
 ## Caveats in the paper to note in the write-up
 
@@ -89,5 +97,9 @@ with tool calling serves both the image analysis and the flight tools. `qwen3-vl
 * [x] Branch, plan
 * [x] YOLOv11 detector option in perception (`detector: yolo` / `color+yolo`)
 * [x] Scene generator + spawner
-* [x] Vision check (`llm_check --vision`); model switch pending the VM check
-* [ ] Capture, analysers, response, scoring
+* [x] Vision check (`llm_check --vision`): `qwen3-vl:8b` passed tools and vision on the
+  VM (warm image answer 0.6-1.3 s; the first one 27 s while loading, so analysers send an
+  untimed warm-up request first)
+* [x] Scene 1 spawned on the VM: 13/13 people, lying person flat on the ground
+* [x] Capture node + batch script (untested on the VM)
+* [ ] Analysers, response, scoring

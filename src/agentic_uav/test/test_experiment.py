@@ -98,3 +98,25 @@ def test_make_detector_composites():
     assert isinstance(make_detector("none"), NullDetector)
     d = make_detector("color+yolo")
     assert isinstance(d, CompositeDetector) and isinstance(d.detectors[1], YoloDetector)
+
+
+def test_settled_needs_a_full_steady_window():
+    from agentic_uav.experiment.capture_io import is_settled
+    steady = [(t / 10, 0.05, 1.0) for t in range(0, 31)]           # 3 s, slow, fixed heading
+    assert is_settled(steady, 3.0)
+    assert not is_settled(steady[:5], 0.4)                          # too little history
+    assert not is_settled(steady, 10.0)                             # stale: nothing recent
+    moving = steady[:-3] + [(2.8, 0.5, 1.0), (2.9, 0.05, 1.0), (3.0, 0.05, 1.0)]
+    assert not is_settled(moving, 3.0)
+    turning = [(t / 10, 0.05, 1.0 + 0.05 * t / 10) for t in range(0, 31)]   # 0.05 rad/s
+    assert not is_settled(turning, 3.0)
+
+
+def test_capture_meta_round_trip(tmp_path):
+    import json
+    from agentic_uav.experiment.capture_io import horizontal_offset, scene_dir, write_meta
+    d = scene_dir(str(tmp_path), 7)
+    assert d.endswith("scene_07")
+    write_meta(d, {"scene_id": 7})
+    assert json.loads((tmp_path / "scene_07" / "meta.json").read_text()) == {"scene_id": 7}
+    assert math.isclose(horizontal_offset((0, 0, 6), (3, 4, 5)), 5.0)
