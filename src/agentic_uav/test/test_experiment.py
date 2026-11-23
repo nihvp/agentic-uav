@@ -5,7 +5,7 @@ import numpy as np
 
 from agentic_uav.common.frames import yaw_enu_to_ned
 from agentic_uav.experiment.scenes import EMERGENCY, LYING, NORMAL, STANDING, SceneConfig, generate, load, to_json
-from agentic_uav.experiment.spawn import BODY_LENGTH, person_sdf
+from agentic_uav.experiment.spawn import BODY_LENGTH, person_sdf, wait_for
 from agentic_uav.perception.camera_model import Intrinsics, R_ENU_NED, camera_pose_world
 from agentic_uav.perception.detector import CompositeDetector, NullDetector, YoloDetector, make_detector
 
@@ -72,6 +72,14 @@ def test_lying_sdf_is_centred_on_the_person():
     assert math.isclose(pose[3], math.pi / 2, abs_tol=1e-3)
     assert "<static>true</static>" in sdf and '"' not in sdf
     assert f"<name>{p.name}</name>" in person_sdf(p)
+
+
+def test_wait_for_models_that_appear_later():
+    t = [0.0]
+    worlds = iter([["exp_a"], ["exp_a"], ["exp_a", "exp_b"]])
+    tick = lambda s: t.__setitem__(0, t[0] + s)
+    assert wait_for(["exp_a", "exp_b"], 10, lambda: next(worlds), clock=lambda: t[0], sleep=tick) == []
+    assert wait_for(["exp_c"], 5, lambda: [], clock=lambda: t[0], sleep=tick) == ["exp_c"]
 
 
 class FakeYolo:

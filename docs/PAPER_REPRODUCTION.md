@@ -66,12 +66,14 @@ with tool calling serves both the image analysis and the flight tools. `qwen3-vl
 
 1. Use the vision model: in `.env` set `LLM_MODEL=qwen3-vl:8b`, then restart the stack
    (`scripts/run.sh`; the `llm` service pulls it, ~6 GB).
-2. Model check, in the agent shell (`docker compose exec agent bash`, then
-   `source /ws/install/setup.bash`): both lines must print PASS.
-   `python3 -m agentic_uav.reasoning.llm_check --vision`
+2. Model check, inside the agent container (not on the VM host, which has no
+   `agentic_uav` package); both lines must print PASS:
+   `docker compose exec agent bash -c "source /ws/install/setup.bash && python3 -m agentic_uav.reasoning.llm_check --vision"`
 3. Spawn a scene and look at it in the Gazebo window (first spawn downloads the person
    model from Fuel): `docker compose exec sim python3 -m agentic_uav.experiment.spawn --scene 1`
-   (on the VM). Check the lying person lies flat on the ground, not half buried or floating.
+   (on the VM). Gazebo's create service replies before the model exists, so the spawner
+   waits up to `--wait` seconds (180) for all of them to appear. Check the lying person
+   lies flat on the ground, not half buried or floating.
 4. Fly to that scene's viewpoint (from `experiments/paper/scenes.json`) and check that
    perception (`detector: color+yolo`) tracks `person` nodes.
 

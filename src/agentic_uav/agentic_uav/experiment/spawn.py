@@ -13,6 +13,7 @@ import argparse
 import math
 import subprocess
 import sys
+import time
 from typing import List
 
 from agentic_uav.experiment.scenes import LYING, Person, load
@@ -68,12 +69,31 @@ def spawn(world: str, people: List[Person], timeout_ms: int = 60000):
             print(f"[spawn] {p.name}: unexpected reply: {out.strip()[:200]}", file=sys.stderr)
 
 
+def wait_for(names: List[str], timeout_s: float, list_fn=list_models, poll_s: float = 2.0,
+             clock=time.monotonic, sleep=time.sleep) -> List[str]:
+    """Wait until every name is in the world; return the ones still missing at the timeout.
+
+    Gazebo's create service only queues the request and replies true at once; the
+    simulation thread builds the model later (and the first Fuel include blocks it while
+    the model downloads), so models appear some time after the replies.
+    """
+    deadline = clock() + timeout_s
+    while True:
+        present = set(list_fn())
+        missing = [n for n in names if n not in present]
+        if not missing or clock() >= deadline:
+            return missing
+        sleep(poll_s)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--scenes", default="/experiments/paper/scenes.json")
     ap.add_argument("--scene", type=int, help="scene id to spawn (clears the previous one)")
     ap.add_argument("--clear", action="store_true", help="only remove experiment people")
     ap.add_argument("--world", default="search_and_rescue")
+    ap.add_argument("--wait", type=float, default=180.0,
+                    help="seconds to wait for the models to appear (first run downloads from Fuel)")
     a = ap.parse_args()
 
     removed = clear(a.world)
@@ -85,8 +105,7 @@ def main() -> int:
         print(f"[spawn] no scene {a.scene} in {a.scenes}", file=sys.stderr)
         return 1
     spawn(a.world, scene.people)
-    present = set(list_models())
-    missing = [p.name for p in scene.people if p.name not in present]
+    missing = wait_for([p.name for p in scene.people], a.wait)
     print(f"[spawn] scene {scene.id} ({scene.label}): {len(scene.people) - len(missing)}/{len(scene.people)} "
           f"people in the world; viewpoint {scene.viewpoint} yaw {scene.viewpoint_yaw_deg} deg")
     if missing:
