@@ -70,7 +70,10 @@ which the scorer counts as a miss.
   what YOLO cannot, namely a situation assessment, recommended actions and a scene
   description, at a large cost in time. All differences are significant at p < 0.001.
 * **It was also correct**, which the paper does not measure: every emergency caught, no
-  false alarms, and a better person count than YOLO.
+  false alarms, and a better person count than YOLO. Example, scene 1
+  ([frame and replies](figures/paper/examples.md)): YOLO found 12 of the 13 people; the
+  model counted 13 and reported "a person lying motionless on the ground to the left of
+  the crowd", recommending ALERT_EMERGENCY_SERVICES.
 * **Speed is the cost**: 22 s per sample here, against the paper's 1.5 s for its local
   model. The diagnostics explain it: `qwen3-vl:8b` writes about 2,100 tokens of
   reasoning before its answer, and the length varies (6-159 s per sample).
