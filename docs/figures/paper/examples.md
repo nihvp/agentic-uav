@@ -40,7 +40,7 @@ Ground truth: 13 people (1 lying), label **emergency**.
 }
 ```
 
-**agentic_qwen3-vl-8b_nothink**: 26.430 s, YOLO 12 persons, 2644 tokens
+**agentic_qwen3-vl-8b_run2**: 26.430 s, YOLO 12 persons, 2644 tokens
 
 ```json
 {
@@ -92,7 +92,7 @@ Ground truth: 8 people (0 lying), label **normal**.
 }
 ```
 
-**agentic_qwen3-vl-8b_nothink**: 11.255 s, YOLO 8 persons, 1089 tokens
+**agentic_qwen3-vl-8b_run2**: 11.255 s, YOLO 8 persons, 1089 tokens
 
 ```json
 {
