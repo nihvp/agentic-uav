@@ -139,3 +139,12 @@ def test_capture_meta_round_trip(tmp_path):
     write_meta(d, {"scene_id": 7})
     assert json.loads((tmp_path / "scene_07" / "meta.json").read_text()) == {"scene_id": 7}
     assert math.isclose(horizontal_offset((0, 0, 6), (3, 4, 5)), 5.0)
+
+
+def test_model_list_failure_is_not_an_empty_world():
+    import pytest
+    from agentic_uav.experiment.spawn import experiment_models, parse_model_list
+    names = parse_model_list("Requesting...\n  - ground_plane\n  - x500_depth_0\n  - exp01_p1\n")
+    assert experiment_models(names) == ["exp01_p1"]
+    with pytest.raises(RuntimeError):
+        parse_model_list("Service call timed out")

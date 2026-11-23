@@ -106,6 +106,32 @@ with tool calling serves both the image analysis and the flight tools. `qwen3-vl
    All 13 people should be in the frame. Then all scenes: `scripts/capture_scenes.sh`
    (skips scenes already captured; re-run to retry failures).
 
+## First results (run 1, 2026-11-23)
+
+Rule (YOLOv11s) vs agentic (`qwen3-vl:8b`), 44 scenes each:
+
+| metric | rule | agentic |
+|---|---|---|
+| processing time, mean (SD) s | 0.017 (0.004) | 21.9 (10.0) |
+| detection confidence, mean | 0.899 (YOLO) | 0.940 (self-reported) |
+| persons detected | 44/44 | 44/44 |
+| ARR / CAR | 0 % / 0 % | 100 % / 100 % |
+| situation accuracy, emergency recall, false alarms | n/a | 44/44, 22/22, 0/22 |
+| person count, mean abs error | 0.48 | 0.32 |
+
+All differences in time, confidence, ARR, CAR and correct response significant
+(p < 0.001). Notes:
+* Scene 32 is invalid in this run: the spawner's model list timed out, it removed
+  nothing, and scene 31's 9 people stayed in the frame (18 instead of 9; YOLO counted
+  14). The spawner now refuses to continue unless the world holds exactly the scene's
+  people. Recapture scene 32 and re-analyse it (`--only 32`) before reporting.
+* The agentic time (22 s) is far above the paper's local model (seconds). To check:
+  whether qwen3-vl "thinks" before answering (the LLM diagnostics table in
+  `summary.md`), and GPU sharing with Gazebo rendering.
+* Ceiling effect: the agentic system is perfect on these scenes (one clearly isolated
+  lying person on bare ground). Harder variants (lying person near or partly hidden by
+  the crowd, sitting people, other altitudes) would make correctness discriminate.
+
 ## Caveats in the paper to note in the write-up
 
 * YOLO at 29.5 us per sample is too fast for detection itself; probably post-processing.

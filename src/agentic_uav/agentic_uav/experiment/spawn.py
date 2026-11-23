@@ -44,18 +44,47 @@ def _gz(args: List[str], timeout_s: float) -> str:
     return res.stdout + res.stderr
 
 
-def list_models() -> List[str]:
-    out = _gz(["model", "--list"], 30)
-    return [line.strip()[2:].strip() for line in out.splitlines() if line.strip().startswith("- ")]
+def parse_model_list(out: str) -> List[str]:
+    """Model names from `gz model --list`. The world always has models (ground, the drone),
+    so an empty list means the query failed (e.g. timed out under load), not an empty world."""
+    names = [line.strip()[2:].strip() for line in out.splitlines() if line.strip().startswith("- ")]
+    if not names:
+        raise RuntimeError(f"gz model --list returned no models: {out.strip()[:200]!r}")
+    return names
 
 
-def clear(world: str) -> int:
-    names = [n for n in list_models() if n.startswith(PREFIX)]
-    for n in names:
-        _gz(["service", "-s", f"/world/{world}/remove", "--reqtype", "gz.msgs.Entity",
-             "--reptype", "gz.msgs.Boolean", "--timeout", "10000",
-             "--req", f'name: "{n}" type: MODEL'], 20)
-    return len(names)
+def list_models(attempts: int = 3) -> List[str]:
+    for i in range(attempts):
+        try:
+            return parse_model_list(_gz(["model", "--list"], 30))
+        except (RuntimeError, subprocess.TimeoutExpired):
+            if i == attempts - 1:
+                raise
+            time.sleep(2.0)
+    return []
+
+
+def experiment_models(names: List[str]) -> List[str]:
+    return [n for n in names if n.startswith(PREFIX)]
+
+
+def clear(world: str, attempts: int = 3) -> int:
+    """Remove every experiment model; raise unless the world is verified free of them."""
+    removed = 0
+    for _ in range(attempts):
+        names = experiment_models(list_models())
+        if not names:
+            return removed
+        for n in names:
+            _gz(["service", "-s", f"/world/{world}/remove", "--reqtype", "gz.msgs.Entity",
+                 "--reptype", "gz.msgs.Boolean", "--timeout", "10000",
+                 "--req", f'name: "{n}" type: MODEL'], 20)
+        removed += len(names)
+        time.sleep(2.0)      # removal is queued like creation
+    left = experiment_models(list_models())
+    if left:
+        raise RuntimeError(f"Could not remove {len(left)} experiment models: {left[:5]}")
+    return removed
 
 
 def spawn(world: str, people: List[Person], timeout_ms: int = 60000):
@@ -79,7 +108,10 @@ def wait_for(names: List[str], timeout_s: float, list_fn=list_models, poll_s: fl
     """
     deadline = clock() + timeout_s
     while True:
-        present = set(list_fn())
+        try:
+            present = set(list_fn())
+        except (RuntimeError, subprocess.TimeoutExpired):
+            present = set()          # query failed this time; poll again
         missing = [n for n in names if n not in present]
         if not missing or clock() >= deadline:
             return missing
@@ -96,7 +128,11 @@ def main() -> int:
                     help="seconds to wait for the models to appear (first run downloads from Fuel)")
     a = ap.parse_args()
 
-    removed = clear(a.world)
+    try:
+        removed = clear(a.world)
+    except RuntimeError as e:
+        print(f"[spawn] {e}", file=sys.stderr)
+        return 1
     print(f"[spawn] removed {removed} experiment models")
     if a.clear or a.scene is None:
         return 0
@@ -106,10 +142,12 @@ def main() -> int:
         return 1
     spawn(a.world, scene.people)
     missing = wait_for([p.name for p in scene.people], a.wait)
+    # Exactly this scene's people: a leftover from an earlier scene would join the sample.
+    extra = sorted(set(experiment_models(list_models())) - {p.name for p in scene.people})
     print(f"[spawn] scene {scene.id} ({scene.label}): {len(scene.people) - len(missing)}/{len(scene.people)} "
           f"people in the world; viewpoint {scene.viewpoint} yaw {scene.viewpoint_yaw_deg} deg")
-    if missing:
-        print(f"[spawn] missing: {missing}", file=sys.stderr)
+    if missing or extra:
+        print(f"[spawn] missing: {missing}; not from this scene: {extra}", file=sys.stderr)
         return 1
     return 0
 

@@ -16,7 +16,7 @@ Runs in the agent container (YOLO on the GPU, Ollama on 127.0.0.1:11434):
   python3 -m agentic_uav.experiment.analyse --system rule
   python3 -m agentic_uav.experiment.analyse --system agentic [--model gemma3:4b]
 Writes one JSON line per scene to results/<system>[_<model>].jsonl; scenes already in
-that file are skipped, so a run can be resumed. Each system first runs once untimed on
+that file are skipped, so a run can be resumed (--only N ... redoes chosen scenes). Each system first runs once untimed on
 a blank frame, so model loading is not counted in the first sample's time.
 """
 
@@ -191,6 +191,9 @@ def main() -> int:
     ap.add_argument("--timeout", type=float, default=300.0)
     ap.add_argument("--yolo-model", default="yolo11s.pt")
     ap.add_argument("--yolo-confidence", type=float, default=0.25)
+    ap.add_argument("--only", type=int, nargs="+",
+                    help="analyse these scenes again even if done (e.g. after a recapture); "
+                         "the new record replaces the old one when scoring")
     a = ap.parse_args()
 
     import cv2
@@ -204,6 +207,8 @@ def main() -> int:
     name = result_name(a.system, a.model)
     out_path = os.path.join(a.results, f"{name}.jsonl")
     skip = done_ids(out_path)
+    if a.only:
+        skip, frames = set(), [(i, p) for i, p in frames if i in set(a.only)]
     todo = [(i, p) for i, p in frames if i not in skip]
     print(f"[analyse] {name}: {len(frames)} captured scenes, {len(skip)} already done, {len(todo)} to do")
 

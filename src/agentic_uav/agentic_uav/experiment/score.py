@@ -72,6 +72,9 @@ def sample_metrics(rec: dict, truth) -> dict:
         "true_people": len(truth.people),
         "yolo_count": len(rec["yolo"]["detections"]),
         "parse_ok": rec.get("llm", {}).get("parse_ok", True),
+        "llm_time_s": rec.get("llm", {}).get("time_s"),
+        "completion_tokens": rec.get("llm", {}).get("completion_tokens"),
+        "thinking_chars": len(rec["llm"].get("thinking") or "") if "llm" in rec else None,
     }
 
 
@@ -110,6 +113,9 @@ def system_summary(samples: List[dict]) -> dict:
         "count_mae": (sum(abs(e) for e in count_err) / len(count_err)) if count_err else None,
         "count_bias": (sum(count_err) / len(count_err)) if count_err else None,
         "yolo_count_mae": sum(abs(e) for e in yolo_err) / n if n else None,
+        "llm_time_mean_s": _mean_sd([s["llm_time_s"] for s in samples])[0],
+        "completion_tokens_mean": _mean_sd([s["completion_tokens"] for s in samples])[0],
+        "thinking_chars_mean": _mean_sd([s["thinking_chars"] for s in samples])[0],
     }
     if assessed:
         out["situation_accuracy"] = _rate([s["said_emergency"] == s["emergency"] for s in samples])
@@ -226,6 +232,12 @@ def report(summaries: Dict[str, dict], tests: Dict[str, dict]) -> str:
             ("person count, mean error (bias)", lambda s: _num(s["count_bias"], 2)),
             ("YOLO count, mean abs error", lambda s: _num(s["yolo_count_mae"], 2)),
             ("unparseable replies", lambda s: str(s["parse_failures"]))]
+    lines += [f"| {label} | " + " | ".join(f(summaries[n]) for n in names) + " |" for label, f in rows]
+    lines += ["", "## LLM diagnostics", "",
+              "| metric | " + " | ".join(names) + " |", "|---" * (len(names) + 1) + "|"]
+    rows = [("LLM time, mean s", lambda s: _num(s["llm_time_mean_s"], 2)),
+            ("completion tokens, mean", lambda s: _num(s["completion_tokens_mean"], 0)),
+            ("thinking text, mean chars", lambda s: _num(s["thinking_chars_mean"], 0))]
     lines += [f"| {label} | " + " | ".join(f(summaries[n]) for n in names) + " |" for label, f in rows]
     lines += ["", "## Tests (alpha 0.05, * = significant)", ""]
     for metric, t in tests.items():
