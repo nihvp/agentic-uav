@@ -112,22 +112,24 @@ Rule (YOLOv11s) vs agentic (`qwen3-vl:8b`), 44 scenes each:
 
 | metric | rule | agentic |
 |---|---|---|
-| processing time, mean (SD) s | 0.017 (0.004) | 21.9 (10.0) |
+| processing time, mean (SD) s | 0.018 (0.006) | 21.6 (10.1) |
 | detection confidence, mean | 0.899 (YOLO) | 0.940 (self-reported) |
 | persons detected | 44/44 | 44/44 |
 | ARR / CAR | 0 % / 0 % | 100 % / 100 % |
 | situation accuracy, emergency recall, false alarms | n/a | 44/44, 22/22, 0/22 |
-| person count, mean abs error | 0.48 | 0.32 |
+| person count, mean abs error | 0.36 | 0.20 |
 
 All differences in time, confidence, ARR, CAR and correct response significant
 (p < 0.001). Notes:
-* Scene 32 is invalid in this run: the spawner's model list timed out, it removed
-  nothing, and scene 31's 9 people stayed in the frame (18 instead of 9; YOLO counted
-  14). The spawner now refuses to continue unless the world holds exactly the scene's
-  people. Recapture scene 32 and re-analyse it (`--only 32`) before reporting.
-* The agentic time (22 s) is far above the paper's local model (seconds). To check:
-  whether qwen3-vl "thinks" before answering (the LLM diagnostics table in
-  `summary.md`), and GPU sharing with Gazebo rendering.
+* Scene 32 was first captured with scene 31's 9 people still present (the spawner's
+  model list timed out and read as an empty world). The spawner now refuses to continue
+  unless the world holds exactly the scene's people; scene 32 was recaptured and
+  re-analysed (`--only 32`), and the table above includes the corrected sample.
+* The agentic time (22 s) is far above the paper's local model (seconds) because
+  qwen3-vl thinks before answering: 2139 completion tokens and 8290 characters of
+  thinking per sample on average. Next run: the same model with thinking off
+  (`--no-think`, results `agentic_qwen3-vl-8b_nothink`) as a third system, to report
+  both speed and whether thinking changes accuracy.
 * Ceiling effect: the agentic system is perfect on these scenes (one clearly isolated
   lying person on bare ground). Harder variants (lying person near or partly hidden by
   the crowd, sitting people, other altitudes) would make correctness discriminate.

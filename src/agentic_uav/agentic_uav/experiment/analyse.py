@@ -14,7 +14,7 @@ Systems
 
 Runs in the agent container (YOLO on the GPU, Ollama on 127.0.0.1:11434):
   python3 -m agentic_uav.experiment.analyse --system rule
-  python3 -m agentic_uav.experiment.analyse --system agentic [--model gemma3:4b]
+  python3 -m agentic_uav.experiment.analyse --system agentic [--model gemma3:4b] [--no-think]
 Writes one JSON line per scene to results/<system>[_<model>].jsonl; scenes already in
 that file are skipped, so a run can be resumed (--only N ... redoes chosen scenes). Each system first runs once untimed on
 a blank frame, so model loading is not counted in the first sample's time.
@@ -132,8 +132,10 @@ def rule_output(detections: List[Dict[str, Any]]) -> Dict[str, Any]:
             "emergency_description": "", "surrounding_features": "", "recommended_actions": []}
 
 
-def result_name(system: str, model: str) -> str:
-    return "rule" if system == "rule" else f"agentic_{re.sub(r'[^A-Za-z0-9.]+', '-', model)}"
+def result_name(system: str, model: str, think: bool = True) -> str:
+    if system == "rule":
+        return "rule"
+    return f"agentic_{re.sub(r'[^A-Za-z0-9.]+', '-', model)}" + ("" if think else "_nothink")
 
 
 def done_ids(path: str) -> set:
@@ -157,17 +159,19 @@ class Yolo:
 
 
 class VisionLLM:
-    def __init__(self, model: str, base_url: str, temperature: float, timeout_s: float):
+    def __init__(self, model: str, base_url: str, temperature: float, timeout_s: float, think: bool = True):
         from openai import OpenAI
-        self.model, self.temperature = model, temperature
+        self.model, self.temperature, self.think = model, temperature, think
         self.client = OpenAI(base_url=base_url, api_key=os.environ.get("LLM_API_KEY", "") or "unused",
                              timeout=timeout_s)
 
     def run(self, png: bytes, detections) -> Dict[str, Any]:
         url = "data:image/png;base64," + base64.b64encode(png).decode()
+        # Ollama: reasoning_effort "none" turns a thinking model's reasoning off.
+        extra = {} if self.think else {"reasoning_effort": "none"}
         t0 = time.perf_counter()
         resp = self.client.chat.completions.create(
-            model=self.model, temperature=self.temperature, response_format={"type": "json_object"},
+            model=self.model, temperature=self.temperature, response_format={"type": "json_object"}, **extra,
             messages=[{"role": "system", "content": SYSTEM_PROMPT},
                       {"role": "user", "content": [{"type": "text", "text": user_text(detections)},
                                                    {"type": "image_url", "image_url": {"url": url}}]}])
@@ -191,6 +195,8 @@ def main() -> int:
     ap.add_argument("--timeout", type=float, default=300.0)
     ap.add_argument("--yolo-model", default="yolo11s.pt")
     ap.add_argument("--yolo-confidence", type=float, default=0.25)
+    ap.add_argument("--no-think", action="store_true",
+                    help="turn the model's thinking off (results go to agentic_<model>_nothink.jsonl)")
     ap.add_argument("--only", type=int, nargs="+",
                     help="analyse these scenes again even if done (e.g. after a recapture); "
                          "the new record replaces the old one when scoring")
@@ -204,7 +210,7 @@ def main() -> int:
         print(f"[analyse] no captures in {a.captures}", file=sys.stderr)
         return 1
     os.makedirs(a.results, exist_ok=True)
-    name = result_name(a.system, a.model)
+    name = result_name(a.system, a.model, think=not a.no_think)
     out_path = os.path.join(a.results, f"{name}.jsonl")
     skip = done_ids(out_path)
     if a.only:
@@ -213,7 +219,8 @@ def main() -> int:
     print(f"[analyse] {name}: {len(frames)} captured scenes, {len(skip)} already done, {len(todo)} to do")
 
     yolo = Yolo(a.yolo_model, a.yolo_confidence)
-    llm = VisionLLM(a.model, a.base_url, a.temperature, a.timeout) if a.system == "agentic" else None
+    llm = (VisionLLM(a.model, a.base_url, a.temperature, a.timeout, think=not a.no_think)
+           if a.system == "agentic" else None)
     blank = np.full((360, 640, 3), 180, np.uint8)
     yolo.run(blank)                                     # warm-up, untimed
     if llm:
@@ -233,7 +240,8 @@ def main() -> int:
             if llm:
                 r = llm.run(png, dets)
                 parsed = parse_reply(r["raw"])
-                rec["llm"] = {"model": a.model, "temperature": a.temperature, "parse_ok": parsed is not None,
+                rec["llm"] = {"model": a.model, "temperature": a.temperature, "think": not a.no_think,
+                              "parse_ok": parsed is not None,
                               **{k: (round(v, 3) if k == "time_s" else v) for k, v in r.items()}}
                 rec["output"] = normalise(parsed)
             else:

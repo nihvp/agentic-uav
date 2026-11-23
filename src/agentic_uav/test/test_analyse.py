@@ -46,3 +46,4 @@ def test_capture_frames_and_resume(tmp_path):
     res.write_text(json.dumps({"scene_id": 1}) + "\n")
     assert done_ids(str(res)) == {1} and done_ids(str(tmp_path / "none.jsonl")) == set()
     assert result_name("rule", "x") == "rule" and result_name("agentic", "qwen3-vl:8b") == "agentic_qwen3-vl-8b"
+    assert result_name("agentic", "qwen3-vl:8b", think=False) == "agentic_qwen3-vl-8b_nothink"
