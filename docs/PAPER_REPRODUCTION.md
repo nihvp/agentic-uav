@@ -1,5 +1,8 @@
 # Reproducing "Agentic UAVs" (Koubaa & Gabr, arXiv 2509.13352v2)
 
+Results for presenting: [PAPER_RESULTS.md](PAPER_RESULTS.md). Live demo of one scene:
+`scripts/demo_scene.sh [scene]`.
+
 Branch `paper-sim`. Goal: run the paper's Section 4 experiment in this stack and report
 our own results with the same metrics. The paper's numbers are the reference, not a
 target to hit (some are inconsistent, see the end).

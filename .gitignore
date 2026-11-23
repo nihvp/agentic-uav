@@ -11,3 +11,4 @@ data/
 # Experiment captures and results (large; the scene set itself is committed).
 experiments/*/captures/
 experiments/*/results/
+experiments/paper/demo/
