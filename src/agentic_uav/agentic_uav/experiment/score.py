@@ -20,6 +20,8 @@ Correctness, which the paper does not report
   situation accuracy, emergency recall and false-alarm rate; correct response (emergency:
   LAND_AND_DEPLOY_RESCUE_KIT or ALERT_EMERGENCY_SERVICES recommended; normal: neither);
   person-count error against the true number of people in the scene; parse failures.
+  For a system that assesses situations, a sample with no assessment (an unparseable
+  reply) counts as wrong: not a caught emergency, not a correct "normal".
 """
 
 import argparse
@@ -95,7 +97,9 @@ def system_summary(samples: List[dict]) -> dict:
     n = len(samples)
     emerg = [s for s in samples if s["emergency"]]
     normal = [s for s in samples if not s["emergency"]]
-    assessed = all(s["assessed"] for s in samples) and n > 0
+    # A system that assesses situations at all (the LLM systems) is scored on every sample;
+    # a sample without an assessment (e.g. an unparseable reply) counts as a miss.
+    assessed = any(s["assessed"] for s in samples)
     t_mean, t_sd = _mean_sd([s["time_s"] for s in samples])
     c_mean, c_sd = _mean_sd([s["confidence"] for s in samples])
     count_err = [s["count_error"] for s in samples if s["count_error"] is not None]
@@ -118,11 +122,13 @@ def system_summary(samples: List[dict]) -> dict:
         "thinking_chars_mean": _mean_sd([s["thinking_chars"] for s in samples])[0],
     }
     if assessed:
-        out["situation_accuracy"] = _rate([s["said_emergency"] == s["emergency"] for s in samples])
-        out["emergency_recall"] = _rate([s["said_emergency"] for s in emerg])
-        out["false_alarm_rate"] = _rate([s["said_emergency"] for s in normal])
+        out["situation_accuracy"] = _rate([s["said_emergency"] is s["emergency"] for s in samples])
+        out["emergency_recall"] = _rate([s["said_emergency"] is True for s in emerg])
+        out["false_alarm_rate"] = _rate([s["said_emergency"] is True for s in normal])
+        out["no_assessment"] = sum(not s["assessed"] for s in samples)
     else:
         out["situation_accuracy"] = out["emergency_recall"] = out["false_alarm_rate"] = None
+        out["no_assessment"] = None
     return out
 
 
@@ -231,7 +237,9 @@ def report(summaries: Dict[str, dict], tests: Dict[str, dict]) -> str:
             ("person count, mean abs error", lambda s: _num(s["count_mae"], 2)),
             ("person count, mean error (bias)", lambda s: _num(s["count_bias"], 2)),
             ("YOLO count, mean abs error", lambda s: _num(s["yolo_count_mae"], 2)),
-            ("unparseable replies", lambda s: str(s["parse_failures"]))]
+            ("unparseable replies", lambda s: str(s["parse_failures"])),
+            ("samples without an assessment (scored as wrong)",
+             lambda s: "n/a" if s["no_assessment"] is None else str(s["no_assessment"]))]
     lines += [f"| {label} | " + " | ".join(f(summaries[n]) for n in names) + " |" for label, f in rows]
     lines += ["", "## LLM diagnostics", "",
               "| metric | " + " | ".join(names) + " |", "|---" * (len(names) + 1) + "|"]

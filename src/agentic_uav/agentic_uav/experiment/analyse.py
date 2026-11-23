@@ -224,7 +224,13 @@ def main() -> int:
     blank = np.full((360, 640, 3), 180, np.uint8)
     yolo.run(blank)                                     # warm-up, untimed
     if llm:
-        llm.run(cv2.imencode(".png", blank)[1].tobytes(), [])
+        warm = llm.run(cv2.imencode(".png", blank)[1].tobytes(), [])
+        if a.no_think and warm["thinking"]:
+            # qwen3-vl:8b ignores the off switch (a Thinking build); use an Instruct tag.
+            print(f"[analyse] --no-think, but {a.model} still thought ({len(warm['thinking'])} chars). "
+                  "This model cannot turn thinking off; use an instruct variant "
+                  "(e.g. --model qwen3-vl:8b-instruct) instead.", file=sys.stderr)
+            return 2
 
     with open(out_path, "a") as out:
         for scene_id, path in todo:

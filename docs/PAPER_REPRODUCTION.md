@@ -127,9 +127,14 @@ All differences in time, confidence, ARR, CAR and correct response significant
   re-analysed (`--only 32`), and the table above includes the corrected sample.
 * The agentic time (22 s) is far above the paper's local model (seconds) because
   qwen3-vl thinks before answering: 2139 completion tokens and 8290 characters of
-  thinking per sample on average. Next run: the same model with thinking off
-  (`--no-think`, results `agentic_qwen3-vl-8b_nothink`) as a third system, to report
-  both speed and whether thinking changes accuracy.
+  thinking per sample on average.
+* `--no-think` did not turn it off: the "nothink" run thought just as much (8817 chars,
+  23.2 s). `qwen3-vl:8b` behaves as the Thinking build of Qwen3-VL, which has no off
+  switch; analyse.py now stops a `--no-think` run when the model still thinks. That run
+  is therefore a second run of the thinking setup (repeatability): it matched run 1
+  on every scene except scene 18, where the reply was unparseable after 159 s (scored
+  as a miss). For a non-thinking comparison, use an Instruct build
+  (`qwen3-vl:8b-instruct`, if Ollama has that tag) as its own system.
 * Ceiling effect: the agentic system is perfect on these scenes (one clearly isolated
   lying person on bare ground). Harder variants (lying person near or partly hidden by
   the crowd, sitting people, other altitudes) would make correctness discriminate.

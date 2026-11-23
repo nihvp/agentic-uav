@@ -41,6 +41,9 @@ def test_sample_metrics_and_summary():
                                                             "confidence": 0.9, "situation": None,
                                                             "recommended_actions": []}), e)])
     assert rule["emergency_recall"] is None and rule["arr"] == (0, 1)
+    failed = sample_metrics(_rec(e.id, 9.0, {"situation": None, "recommended_actions": []}, parse_ok=False), e)
+    s2 = system_summary([ok, alarm, failed])
+    assert s2["situation_accuracy"] == (1, 3) and s2["emergency_recall"] == (1, 2) and s2["no_assessment"] == 1
     assert cohens_d([1, 2, 3], [1, 2, 3]) == 0.0
 
 
