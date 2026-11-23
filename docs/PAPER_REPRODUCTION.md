@@ -43,8 +43,10 @@ with tool calling serves both the image analysis and the flight tools. `qwen3-vl
 
 1. **Scenes** (`agentic_uav/experiment/scenes.py`): 44 scenes from a fixed seed, 22
    normal and 22 emergency in shuffled order, written to `experiments/paper/scenes.json`
-   (the ground truth). Every scene is laid out around the point the camera looks at, so
-   all its people are in view.
+   (the ground truth). Every scene is laid out around the point the camera looks at, and
+   each person is placed only if the whole body (feet to head, or end to end when lying)
+   projects inside the 640x360 frame with a 20 px margin. (The first layout checked only
+   body centres; the first capture cut a lying person's head off at the frame edge.)
 2. **Spawn** (`agentic_uav/experiment/spawn.py`, runs in the `sim` container): clears the
    previous scene's people and spawns the next scene's through Gazebo's create/remove
    services. Scene setup only; nothing moves during a sample, and no agent layer reads
@@ -101,5 +103,6 @@ with tool calling serves both the image analysis and the flight tools. `qwen3-vl
   VM (warm image answer 0.6-1.3 s; the first one 27 s while loading, so analysers send an
   untimed warm-up request first)
 * [x] Scene 1 spawned on the VM: 13/13 people, lying person flat on the ground
-* [x] Capture node + batch script (untested on the VM)
+* [x] Capture node + batch script: scene 1 captured on the VM (0.2 m from the planned
+  viewpoint, steady after 7 s, all people in frame)
 * [ ] Analysers, response, scoring

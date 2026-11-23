@@ -8,7 +8,9 @@ It is read only by the experiment harness (spawner, scorer), never by an agent l
 Layout. The drone hovers at a viewpoint facing the scene's look-at point L, the ground
 point on the camera's centre ray (camera pitched 45 deg down, so L is `altitude` metres
 ahead). People are placed in a frame aligned with the view (u forward, v left) around L,
-inside the camera footprint, so every person is in view.
+and every candidate position is projected into the camera image (pinhole model of the
+sim camera, below): a person is placed only if the whole body, feet to head, falls inside
+the frame with a margin. Otherwise the position is drawn again.
 
 Standard library only: this also runs in the sim container, which has no numpy.
 
@@ -69,12 +71,62 @@ class SceneConfig:
     crowd_ahead: float = 1.5
     # Standing people at least this far apart (m).
     min_spacing: float = 0.8
-    # Lying person, view frame relative to L: nearer than L, off to one side. Kept inside
-    # the camera footprint (about 69 x 42 deg) with a few degrees of margin.
-    lying_u: Tuple[float, float] = (-2.5, -1.5)
-    lying_v_abs: Tuple[float, float] = (2.5, 3.5)
+    # Lying person, view frame relative to L: nearer than L, off to one side ...
+    lying_u: Tuple[float, float] = (-2.5, -0.5)
+    lying_v_abs: Tuple[float, float] = (1.5, 3.5)
     # ... and at least this far from every standing person ("isolated from the crowd").
     lying_isolation: float = 2.0
+    # Sim camera (x500_depth as patched by docker/sim_entrypoint.sh): image size,
+    # horizontal field of view, downward pitch and mount on the body (forward, up; m).
+    image_size: Tuple[int, int] = (640, 360)
+    hfov_deg: float = 69.0
+    camera_pitch: float = 0.785
+    camera_mount: Tuple[float, float] = (0.132, 0.261)
+    # Every body point at least this many pixels inside the image edge.
+    margin_px: float = 20.0
+
+
+# Body extents used for the in-view check. A standing model is ~1.75 m tall; a lying one
+# is BODY_LENGTH long (spawn.py), its centre on (x, y), head along (sin yaw, -cos yaw).
+STANDING_HEIGHT = 1.75
+LYING_HALF_LENGTH = 0.85
+LYING_HEIGHT = 0.15
+
+
+def pixel(cfg: SceneConfig, u: float, v: float, w: float) -> Optional[Tuple[float, float]]:
+    """Image pixel of a point at (u forward, v left, w up) metres from the viewpoint, in the
+    view-aligned frame; None if it is behind the camera."""
+    p = cfg.camera_pitch
+    du, dw = u - cfg.camera_mount[0], w - cfg.camera_mount[1]
+    depth = du * math.cos(p) - dw * math.sin(p)
+    if depth <= 0.1:
+        return None
+    right = -v
+    down = -du * math.sin(p) - dw * math.cos(p)
+    width, height = cfg.image_size
+    f = (width / 2) / math.tan(math.radians(cfg.hfov_deg) / 2)
+    return width / 2 + f * right / depth, height / 2 + f * down / depth
+
+
+def body_points(person: "Person") -> List[Tuple[float, float, float]]:
+    """Map points (x, y, z) spanning the person's body."""
+    if person.posture == LYING:
+        dx, dy = math.sin(person.yaw), -math.cos(person.yaw)
+        return [(person.x + s * LYING_HALF_LENGTH * dx, person.y + s * LYING_HALF_LENGTH * dy, z)
+                for s in (-1, 1) for z in (0.0, LYING_HEIGHT * 2)]
+    return [(person.x, person.y, 0.0), (person.x, person.y, STANDING_HEIGHT)]
+
+
+def in_view(cfg: SceneConfig, viewpoint, yaw: float, person: "Person") -> bool:
+    c, s = math.cos(yaw), math.sin(yaw)
+    width, height = cfg.image_size
+    m = cfg.margin_px
+    for x, y, z in body_points(person):
+        dx, dy = x - viewpoint[0], y - viewpoint[1]
+        px = pixel(cfg, dx * c + dy * s, -dx * s + dy * c, z - viewpoint[2])
+        if px is None or not (m <= px[0] <= width - m and m <= px[1] <= height - m):
+            return False
+    return True
 
 
 def _view_to_map(look_at, yaw, u, v):
@@ -82,30 +134,35 @@ def _view_to_map(look_at, yaw, u, v):
     return look_at[0] + u * c - v * s, look_at[1] + u * s + v * c
 
 
-def _crowd(rng: random.Random, cfg: SceneConfig, look_at, yaw, count: int, prefix: str) -> List[Person]:
+def _crowd(rng: random.Random, cfg: SceneConfig, look_at, viewpoint, yaw, count: int,
+           prefix: str) -> List[Person]:
     people: List[Person] = []
-    for _ in range(count * 50):
+    for _ in range(count * 200):
         if len(people) == count:
             break
         r = cfg.crowd_radius * math.sqrt(rng.random())
         a = rng.uniform(0, 2 * math.pi)
         x, y = _view_to_map(look_at, yaw, cfg.crowd_ahead + r * math.cos(a), r * math.sin(a))
-        if all(math.hypot(x - p.x, y - p.y) >= cfg.min_spacing for p in people):
-            people.append(Person(f"{prefix}_p{len(people) + 1}", STANDING, round(x, 3), round(y, 3),
-                                 round(rng.uniform(-math.pi, math.pi), 3)))
+        cand = Person(f"{prefix}_p{len(people) + 1}", STANDING, round(x, 3), round(y, 3),
+                      round(rng.uniform(-math.pi, math.pi), 3))
+        if (all(math.hypot(cand.x - p.x, cand.y - p.y) >= cfg.min_spacing for p in people)
+                and in_view(cfg, viewpoint, yaw, cand)):
+            people.append(cand)
     if len(people) < count:
         raise RuntimeError(f"Could not place {count} people {cfg.min_spacing} m apart; widen crowd_radius.")
     return people
 
 
-def _lying(rng: random.Random, cfg: SceneConfig, look_at, yaw, crowd: Sequence[Person], prefix: str) -> Person:
-    for _ in range(500):
+def _lying(rng: random.Random, cfg: SceneConfig, look_at, viewpoint, yaw, crowd: Sequence[Person],
+           prefix: str) -> Person:
+    for _ in range(2000):
         u = rng.uniform(*cfg.lying_u)
         v = rng.choice((-1, 1)) * rng.uniform(*cfg.lying_v_abs)
         x, y = _view_to_map(look_at, yaw, u, v)
-        if all(math.hypot(x - p.x, y - p.y) >= cfg.lying_isolation for p in crowd):
-            return Person(f"{prefix}_lying", LYING, round(x, 3), round(y, 3),
-                          round(rng.uniform(-math.pi, math.pi), 3))
+        cand = Person(f"{prefix}_lying", LYING, round(x, 3), round(y, 3), round(rng.uniform(-math.pi, math.pi), 3))
+        if (all(math.hypot(cand.x - p.x, cand.y - p.y) >= cfg.lying_isolation for p in crowd)
+                and in_view(cfg, viewpoint, yaw, cand)):
+            return cand
     raise RuntimeError("Could not place the lying person away from the crowd.")
 
 
@@ -123,11 +180,12 @@ def generate(cfg: Optional[SceneConfig] = None) -> List[Scene]:
         # Small jitter so samples are not one fixed picture.
         look_at = (round(cfg.site[0] + rng.uniform(-2, 2), 3), round(cfg.site[1] + rng.uniform(-2, 2), 3))
         vx, vy = _view_to_map(look_at, yaw, -cfg.altitude, 0.0)   # 45 deg pitch: L is altitude ahead
+        viewpoint = (round(vx, 3), round(vy, 3), cfg.altitude)
         prefix = f"exp{i:02d}"
-        people = _crowd(rng, cfg, look_at, yaw, rng.randint(cfg.crowd_min, cfg.crowd_max), prefix)
+        people = _crowd(rng, cfg, look_at, viewpoint, yaw, rng.randint(cfg.crowd_min, cfg.crowd_max), prefix)
         if label == EMERGENCY:
-            people.append(_lying(rng, cfg, look_at, yaw, people, prefix))
-        scenes.append(Scene(i, label, look_at, (round(vx, 3), round(vy, 3), cfg.altitude), yaw_deg, people))
+            people.append(_lying(rng, cfg, look_at, viewpoint, yaw, people, prefix))
+        scenes.append(Scene(i, label, look_at, viewpoint, yaw_deg, people))
     return scenes
 
 

@@ -4,7 +4,8 @@ from types import SimpleNamespace as NS
 import numpy as np
 
 from agentic_uav.common.frames import yaw_enu_to_ned
-from agentic_uav.experiment.scenes import EMERGENCY, LYING, NORMAL, STANDING, SceneConfig, generate, load, to_json
+from agentic_uav.experiment.scenes import (EMERGENCY, LYING, LYING_HALF_LENGTH, NORMAL, STANDING, SceneConfig,
+                                           body_points, generate, load, pixel, to_json)
 from agentic_uav.experiment.spawn import BODY_LENGTH, person_sdf, wait_for
 from agentic_uav.perception.camera_model import Intrinsics, R_ENU_NED, camera_pose_world
 from agentic_uav.perception.detector import CompositeDetector, NullDetector, YoloDetector, make_detector
@@ -45,12 +46,30 @@ def test_layout_rules():
         assert len({p.name for p in s.people}) == len(s.people)
 
 
-def test_everyone_is_in_the_camera_view():
+def test_whole_bodies_are_in_the_camera_view():
+    # Checked with the perception layer's camera model, independent of the generator's own.
+    # The first sim capture had a lying person's head cut off by the frame edge.
     for s in generate():
         for p in s.people:
-            z = 0.9 if p.posture == STANDING else 0.15
-            (u, v), depth = project(s, p.x, p.y, z)
-            assert depth > 0 and 10 < u < 630 and 10 < v < 350, (s.id, p.name, u, v)
+            for x, y, z in body_points(p):
+                (u, v), depth = project(s, x, y, z)
+                assert depth > 0 and 15 < u < 625 and 15 < v < 345, (s.id, p.name, u, v)
+
+
+def test_generator_projection_matches_camera_model():
+    cfg = SceneConfig()
+    s = generate()[0]
+    yaw = math.radians(s.viewpoint_yaw_deg)
+    c, sn = math.cos(yaw), math.sin(yaw)
+    for p in s.people:
+        dx, dy = p.x - s.viewpoint[0], p.y - s.viewpoint[1]
+        mine = pixel(cfg, dx * c + dy * sn, -dx * sn + dy * c, 0.0 - s.viewpoint[2])
+        (u, v), _ = project(s, p.x, p.y, 0.0)
+        assert math.isclose(mine[0], u, abs_tol=0.5) and math.isclose(mine[1], v, abs_tol=0.5)
+
+
+def test_lying_extent_matches_spawn():
+    assert math.isclose(2 * LYING_HALF_LENGTH, BODY_LENGTH)
 
 
 def test_json_round_trip(tmp_path):

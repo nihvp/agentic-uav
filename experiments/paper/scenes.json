@@ -14,13 +14,24 @@
   "min_spacing": 0.8,
   "lying_u": [
    -2.5,
-   -1.5
+   -0.5
   ],
   "lying_v_abs": [
-   2.5,
+   1.5,
    3.5
   ],
-  "lying_isolation": 2.0
+  "lying_isolation": 2.0,
+  "image_size": [
+   640,
+   360
+  ],
+  "hfov_deg": 69.0,
+  "camera_pitch": 0.785,
+  "camera_mount": [
+   0.132,
+   0.261
+  ],
+  "margin_px": 20.0
  },
  "scenes": [
   {
@@ -54,79 +65,79 @@
     {
      "name": "exp01_p3",
      "posture": "standing",
-     "x": 34.175,
-     "y": -19.52,
-     "yaw": -0.327
+     "x": 33.067,
+     "y": -19.741,
+     "yaw": 0.298
     },
     {
      "name": "exp01_p4",
      "posture": "standing",
-     "x": 32.124,
-     "y": -18.035,
-     "yaw": 0.05
+     "x": 31.404,
+     "y": -19.672,
+     "yaw": 2.914
     },
     {
      "name": "exp01_p5",
      "posture": "standing",
-     "x": 33.179,
-     "y": -16.483,
-     "yaw": 0.322
+     "x": 31.079,
+     "y": -18.118,
+     "yaw": 0.475
     },
     {
      "name": "exp01_p6",
-     "posture": "standing",
-     "x": 31.544,
-     "y": -19.629,
-     "yaw": 1.976
-    },
-    {
-     "name": "exp01_p7",
      "posture": "standing",
      "x": 32.389,
      "y": -17.274,
      "yaw": -1.968
     },
     {
-     "name": "exp01_p8",
-     "posture": "standing",
-     "x": 32.609,
-     "y": -19.895,
-     "yaw": -0.147
-    },
-    {
-     "name": "exp01_p9",
+     "name": "exp01_p7",
      "posture": "standing",
      "x": 32.965,
      "y": -18.812,
      "yaw": 2.367
     },
     {
+     "name": "exp01_p8",
+     "posture": "standing",
+     "x": 34.377,
+     "y": -19.083,
+     "yaw": 2.502
+    },
+    {
+     "name": "exp01_p9",
+     "posture": "standing",
+     "x": 33.411,
+     "y": -16.738,
+     "yaw": 0.709
+    },
+    {
      "name": "exp01_p10",
      "posture": "standing",
-     "x": 34.495,
-     "y": -18.134,
-     "yaw": 0.255
+     "x": 34.436,
+     "y": -18.193,
+     "yaw": -2.077
     },
     {
      "name": "exp01_p11",
      "posture": "standing",
-     "x": 31.144,
-     "y": -18.744,
-     "yaw": 1.007
+     "x": 32.241,
+     "y": -19.26,
+     "yaw": -0.362
     },
     {
      "name": "exp01_p12",
      "posture": "standing",
-     "x": 31.017,
-     "y": -17.528,
-     "yaw": 1.985
+     "x": 31.913,
+     "y": -17.984,
+     "yaw": 1.82
     },
     {
      "name": "exp01_lying",
      "posture": "lying",
-     "x": 31.218,
-     "y": -23.282,
-     "yaw": -1.767
+     "x": 28.782,
+     "y": -17.199,
+     "yaw": -2.917
     }
    ],
    "num_standing": 12,
@@ -136,712 +147,782 @@
    "id": 2,
    "label": "normal",
    "look_at": [
-    30.537,
-    -18.254
+    28.598,
+    -19.666
    ],
    "viewpoint": [
-    28.077,
-    -12.781,
+    29.34,
+    -25.62,
     6.0
    ],
-   "viewpoint_yaw_deg": 294.2,
+   "viewpoint_yaw_deg": 97.1,
    "people": [
     {
      "name": "exp02_p1",
      "posture": "standing",
-     "x": 32.07,
-     "y": -20.993,
-     "yaw": 0.848
+     "x": 28.935,
+     "y": -19.321,
+     "yaw": -1.298
     },
     {
      "name": "exp02_p2",
      "posture": "standing",
-     "x": 29.932,
-     "y": -18.654,
-     "yaw": -0.684
+     "x": 27.032,
+     "y": -18.259,
+     "yaw": -2.838
     },
     {
      "name": "exp02_p3",
      "posture": "standing",
-     "x": 31.354,
-     "y": -19.946,
-     "yaw": 2.897
+     "x": 28.687,
+     "y": -17.61,
+     "yaw": -0.163
     },
     {
      "name": "exp02_p4",
      "posture": "standing",
-     "x": 30.475,
-     "y": -20.242,
-     "yaw": 2.746
+     "x": 28.459,
+     "y": -16.344,
+     "yaw": -0.982
     },
     {
      "name": "exp02_p5",
      "posture": "standing",
-     "x": 30.236,
-     "y": -19.412,
-     "yaw": -0.941
+     "x": 29.771,
+     "y": -18.443,
+     "yaw": -0.462
     },
     {
      "name": "exp02_p6",
      "posture": "standing",
-     "x": 33.129,
-     "y": -19.415,
-     "yaw": -0.889
+     "x": 29.939,
+     "y": -19.339,
+     "yaw": -0.782
     },
     {
      "name": "exp02_p7",
      "posture": "standing",
-     "x": 30.195,
-     "y": -21.04,
-     "yaw": 2.629
+     "x": 28.321,
+     "y": -18.329,
+     "yaw": 0.119
     },
     {
      "name": "exp02_p8",
      "posture": "standing",
-     "x": 32.217,
-     "y": -19.138,
-     "yaw": 0.608
-    },
-    {
-     "name": "exp02_p9",
-     "posture": "standing",
-     "x": 31.349,
-     "y": -18.263,
-     "yaw": 0.434
-    },
-    {
-     "name": "exp02_p10",
-     "posture": "standing",
-     "x": 32.098,
-     "y": -17.914,
-     "yaw": -1.333
+     "x": 27.832,
+     "y": -19.72,
+     "yaw": -0.827
     }
    ],
-   "num_standing": 10,
+   "num_standing": 8,
    "num_lying": 0
   },
   {
    "id": 3,
    "label": "emergency",
    "look_at": [
-    31.788,
-    -19.465
+    29.044,
+    -18.892
    ],
    "viewpoint": [
-    35.588,
-    -24.108,
+    23.06,
+    -18.453,
     6.0
    ],
-   "viewpoint_yaw_deg": 129.3,
+   "viewpoint_yaw_deg": 355.8,
    "people": [
     {
      "name": "exp03_p1",
      "posture": "standing",
-     "x": 30.485,
-     "y": -18.941,
-     "yaw": 1.561
+     "x": 31.238,
+     "y": -18.472,
+     "yaw": 2.023
     },
     {
      "name": "exp03_p2",
      "posture": "standing",
-     "x": 29.145,
-     "y": -17.633,
-     "yaw": 0.594
+     "x": 32.378,
+     "y": -18.817,
+     "yaw": 0.162
     },
     {
      "name": "exp03_p3",
      "posture": "standing",
-     "x": 29.179,
-     "y": -18.506,
-     "yaw": -1.74
+     "x": 31.178,
+     "y": -17.389,
+     "yaw": -0.018
     },
     {
      "name": "exp03_p4",
      "posture": "standing",
-     "x": 32.051,
-     "y": -17.738,
-     "yaw": 1.092
+     "x": 29.844,
+     "y": -19.737,
+     "yaw": 3.123
     },
     {
      "name": "exp03_p5",
      "posture": "standing",
-     "x": 32.51,
-     "y": -19.135,
-     "yaw": 1.71
+     "x": 29.744,
+     "y": -17.906,
+     "yaw": 2.055
     },
     {
      "name": "exp03_p6",
      "posture": "standing",
-     "x": 31.307,
-     "y": -18.116,
-     "yaw": -0.337
+     "x": 28.705,
+     "y": -19.366,
+     "yaw": 2.71
     },
     {
      "name": "exp03_p7",
      "posture": "standing",
-     "x": 30.635,
-     "y": -16.434,
-     "yaw": 0.653
+     "x": 30.472,
+     "y": -19.187,
+     "yaw": 1.552
     },
     {
      "name": "exp03_p8",
      "posture": "standing",
-     "x": 31.212,
-     "y": -17.225,
-     "yaw": -2.828
+     "x": 30.867,
+     "y": -20.334,
+     "yaw": 0.104
     },
     {
      "name": "exp03_p9",
      "posture": "standing",
-     "x": 29.81,
-     "y": -16.632,
-     "yaw": 2.12
-    },
-    {
-     "name": "exp03_p10",
-     "posture": "standing",
-     "x": 30.331,
-     "y": -17.79,
-     "yaw": 2.825
+     "x": 31.367,
+     "y": -19.691,
+     "yaw": -0.516
     },
     {
      "name": "exp03_lying",
      "posture": "lying",
-     "x": 35.207,
-     "y": -19.358,
-     "yaw": 1.365
-    }
-   ],
-   "num_standing": 10,
-   "num_lying": 1
-  },
-  {
-   "id": 4,
-   "label": "normal",
-   "look_at": [
-    31.291,
-    -19.887
-   ],
-   "viewpoint": [
-    25.292,
-    -19.971,
-    6.0
-   ],
-   "viewpoint_yaw_deg": 0.8,
-   "people": [
-    {
-     "name": "exp04_p1",
-     "posture": "standing",
-     "x": 32.12,
-     "y": -20.425,
-     "yaw": -1.894
-    },
-    {
-     "name": "exp04_p2",
-     "posture": "standing",
-     "x": 31.474,
-     "y": -21.265,
-     "yaw": -3.004
-    },
-    {
-     "name": "exp04_p3",
-     "posture": "standing",
-     "x": 33.405,
-     "y": -21.677,
-     "yaw": -2.414
-    },
-    {
-     "name": "exp04_p4",
-     "posture": "standing",
-     "x": 33.166,
-     "y": -19.301,
-     "yaw": 2.207
-    },
-    {
-     "name": "exp04_p5",
-     "posture": "standing",
-     "x": 32.375,
-     "y": -18.936,
-     "yaw": -0.836
-    },
-    {
-     "name": "exp04_p6",
-     "posture": "standing",
-     "x": 34.582,
-     "y": -20.285,
-     "yaw": 0.676
-    }
-   ],
-   "num_standing": 6,
-   "num_lying": 0
-  },
-  {
-   "id": 5,
-   "label": "emergency",
-   "look_at": [
-    30.577,
-    -20.165
-   ],
-   "viewpoint": [
-    36.573,
-    -20.374,
-    6.0
-   ],
-   "viewpoint_yaw_deg": 178.0,
-   "people": [
-    {
-     "name": "exp05_p1",
-     "posture": "standing",
-     "x": 30.273,
-     "y": -19.866,
-     "yaw": -1.836
-    },
-    {
-     "name": "exp05_p2",
-     "posture": "standing",
-     "x": 27.546,
-     "y": -20.145,
-     "yaw": -2.193
-    },
-    {
-     "name": "exp05_p3",
-     "posture": "standing",
-     "x": 28.833,
-     "y": -18.984,
-     "yaw": 1.373
-    },
-    {
-     "name": "exp05_p4",
-     "posture": "standing",
-     "x": 28.857,
-     "y": -20.453,
-     "yaw": 3.028
-    },
-    {
-     "name": "exp05_p5",
-     "posture": "standing",
-     "x": 29.904,
-     "y": -20.803,
-     "yaw": 0.305
-    },
-    {
-     "name": "exp05_p6",
-     "posture": "standing",
-     "x": 30.117,
-     "y": -21.794,
-     "yaw": -0.131
-    },
-    {
-     "name": "exp05_p7",
-     "posture": "standing",
-     "x": 27.455,
-     "y": -19.141,
-     "yaw": 0.796
-    },
-    {
-     "name": "exp05_p8",
-     "posture": "standing",
-     "x": 29.783,
-     "y": -18.755,
-     "yaw": -0.484
-    },
-    {
-     "name": "exp05_p9",
-     "posture": "standing",
-     "x": 28.598,
-     "y": -22.0,
-     "yaw": -2.222
-    },
-    {
-     "name": "exp05_lying",
-     "posture": "lying",
-     "x": 32.778,
-     "y": -23.105,
-     "yaw": 2.055
+     "x": 28.689,
+     "y": -16.144,
+     "yaw": -1.674
     }
    ],
    "num_standing": 9,
    "num_lying": 1
   },
   {
-   "id": 6,
+   "id": 4,
    "label": "normal",
    "look_at": [
-    30.385,
-    -20.048
+    28.082,
+    -18.459
    ],
    "viewpoint": [
-    25.638,
-    -23.717,
+    24.122,
+    -13.951,
     6.0
    ],
-   "viewpoint_yaw_deg": 37.7,
+   "viewpoint_yaw_deg": 311.3,
    "people": [
     {
-     "name": "exp06_p1",
+     "name": "exp04_p1",
      "posture": "standing",
-     "x": 31.847,
-     "y": -20.375,
-     "yaw": 2.373
+     "x": 28.482,
+     "y": -18.97,
+     "yaw": -1.543
     },
     {
-     "name": "exp06_p2",
+     "name": "exp04_p2",
      "posture": "standing",
-     "x": 32.966,
-     "y": -18.939,
-     "yaw": -1.116
+     "x": 28.991,
+     "y": -20.092,
+     "yaw": 2.783
     },
     {
-     "name": "exp06_p3",
+     "name": "exp04_p3",
      "posture": "standing",
-     "x": 30.447,
-     "y": -19.985,
-     "yaw": 1.069
+     "x": 27.454,
+     "y": -20.501,
+     "yaw": 1.09
     },
     {
-     "name": "exp06_p4",
+     "name": "exp04_p4",
      "posture": "standing",
-     "x": 30.692,
-     "y": -18.814,
-     "yaw": 2.906
+     "x": 29.058,
+     "y": -18.022,
+     "yaw": -2.846
     },
     {
-     "name": "exp06_p5",
+     "name": "exp04_p5",
      "posture": "standing",
-     "x": 33.25,
-     "y": -20.014,
-     "yaw": -2.919
+     "x": 30.437,
+     "y": -19.447,
+     "yaw": -2.938
     },
     {
-     "name": "exp06_p6",
+     "name": "exp04_p6",
      "posture": "standing",
-     "x": 32.427,
-     "y": -17.55,
-     "yaw": -2.61
+     "x": 27.501,
+     "y": -19.533,
+     "yaw": -2.48
     },
     {
-     "name": "exp06_p7",
+     "name": "exp04_p7",
      "posture": "standing",
-     "x": 32.152,
-     "y": -18.38,
-     "yaw": -3.046
+     "x": 27.992,
+     "y": -18.194,
+     "yaw": 2.396
     },
     {
-     "name": "exp06_p8",
+     "name": "exp04_p8",
      "posture": "standing",
-     "x": 29.884,
-     "y": -18.404,
-     "yaw": -2.132
+     "x": 28.171,
+     "y": -20.881,
+     "yaw": -2.343
     },
     {
-     "name": "exp06_p9",
-     "posture": "standing",
-     "x": 32.759,
-     "y": -20.729,
-     "yaw": 2.55
-    },
-    {
-     "name": "exp06_p10",
-     "posture": "standing",
-     "x": 31.509,
-     "y": -17.491,
-     "yaw": 3.058
-    }
-   ],
-   "num_standing": 10,
-   "num_lying": 0
-  },
-  {
-   "id": 7,
-   "label": "normal",
-   "look_at": [
-    30.447,
-    -20.453
-   ],
-   "viewpoint": [
-    35.535,
-    -23.633,
-    6.0
-   ],
-   "viewpoint_yaw_deg": 148.0,
-   "people": [
-    {
-     "name": "exp07_p1",
-     "posture": "standing",
-     "x": 29.412,
-     "y": -19.067,
-     "yaw": -3.014
-    },
-    {
-     "name": "exp07_p2",
-     "posture": "standing",
-     "x": 27.686,
-     "y": -20.079,
-     "yaw": -1.106
-    },
-    {
-     "name": "exp07_p3",
-     "posture": "standing",
-     "x": 30.73,
-     "y": -19.041,
-     "yaw": -1.917
-    },
-    {
-     "name": "exp07_p4",
-     "posture": "standing",
-     "x": 29.841,
-     "y": -18.018,
-     "yaw": -2.444
-    },
-    {
-     "name": "exp07_p5",
-     "posture": "standing",
-     "x": 28.294,
-     "y": -18.362,
-     "yaw": 0.945
-    },
-    {
-     "name": "exp07_p6",
+     "name": "exp04_p9",
      "posture": "standing",
      "x": 29.765,
-     "y": -21.525,
-     "yaw": -1.296
-    }
-   ],
-   "num_standing": 6,
-   "num_lying": 0
-  },
-  {
-   "id": 8,
-   "label": "normal",
-   "look_at": [
-    31.83,
-    -18.066
-   ],
-   "viewpoint": [
-    31.987,
-    -12.068,
-    6.0
-   ],
-   "viewpoint_yaw_deg": 268.5,
-   "people": [
-    {
-     "name": "exp08_p1",
-     "posture": "standing",
-     "x": 30.378,
-     "y": -19.847,
-     "yaw": -1.953
+     "y": -21.353,
+     "yaw": 1.046
     },
     {
-     "name": "exp08_p2",
+     "name": "exp04_p10",
      "posture": "standing",
-     "x": 32.438,
-     "y": -17.919,
-     "yaw": 1.612
+     "x": 30.015,
+     "y": -20.326,
+     "yaw": -0.956
     },
     {
-     "name": "exp08_p3",
+     "name": "exp04_p11",
      "posture": "standing",
-     "x": 31.929,
-     "y": -20.097,
-     "yaw": 2.729
-    },
-    {
-     "name": "exp08_p4",
-     "posture": "standing",
-     "x": 30.949,
-     "y": -20.678,
-     "yaw": 2.795
-    },
-    {
-     "name": "exp08_p5",
-     "posture": "standing",
-     "x": 31.118,
-     "y": -18.078,
-     "yaw": -1.785
-    },
-    {
-     "name": "exp08_p6",
-     "posture": "standing",
-     "x": 31.914,
-     "y": -19.238,
-     "yaw": 1.171
-    }
-   ],
-   "num_standing": 6,
-   "num_lying": 0
-  },
-  {
-   "id": 9,
-   "label": "normal",
-   "look_at": [
-    31.677,
-    -18.151
-   ],
-   "viewpoint": [
-    25.783,
-    -19.275,
-    6.0
-   ],
-   "viewpoint_yaw_deg": 10.8,
-   "people": [
-    {
-     "name": "exp09_p1",
-     "posture": "standing",
-     "x": 32.407,
-     "y": -17.193,
-     "yaw": -2.379
-    },
-    {
-     "name": "exp09_p2",
-     "posture": "standing",
-     "x": 33.689,
-     "y": -18.519,
-     "yaw": -1.693
-    },
-    {
-     "name": "exp09_p3",
-     "posture": "standing",
-     "x": 32.304,
-     "y": -18.734,
-     "yaw": -2.241
-    },
-    {
-     "name": "exp09_p4",
-     "posture": "standing",
-     "x": 34.703,
-     "y": -18.59,
-     "yaw": 1.558
-    },
-    {
-     "name": "exp09_p5",
-     "posture": "standing",
-     "x": 32.994,
-     "y": -15.945,
-     "yaw": -2.25
-    },
-    {
-     "name": "exp09_p6",
-     "posture": "standing",
-     "x": 31.804,
-     "y": -17.927,
-     "yaw": 1.304
-    },
-    {
-     "name": "exp09_p7",
-     "posture": "standing",
-     "x": 34.1,
-     "y": -17.508,
-     "yaw": -1.834
-    },
-    {
-     "name": "exp09_p8",
-     "posture": "standing",
-     "x": 33.694,
-     "y": -16.77,
-     "yaw": -2.355
-    },
-    {
-     "name": "exp09_p9",
-     "posture": "standing",
-     "x": 33.01,
-     "y": -19.117,
-     "yaw": -2.312
-    },
-    {
-     "name": "exp09_p10",
-     "posture": "standing",
-     "x": 34.564,
-     "y": -16.524,
-     "yaw": -1.976
-    },
-    {
-     "name": "exp09_p11",
-     "posture": "standing",
-     "x": 32.185,
-     "y": -16.143,
-     "yaw": 0.686
+     "x": 29.565,
+     "y": -18.829,
+     "yaw": -0.183
     }
    ],
    "num_standing": 11,
    "num_lying": 0
   },
   {
+   "id": 5,
+   "label": "emergency",
+   "look_at": [
+    31.186,
+    -20.892
+   ],
+   "viewpoint": [
+    25.476,
+    -19.048,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 342.1,
+   "people": [
+    {
+     "name": "exp05_p1",
+     "posture": "standing",
+     "x": 33.848,
+     "y": -20.406,
+     "yaw": 1.273
+    },
+    {
+     "name": "exp05_p2",
+     "posture": "standing",
+     "x": 33.319,
+     "y": -21.802,
+     "yaw": -1.003
+    },
+    {
+     "name": "exp05_p3",
+     "posture": "standing",
+     "x": 32.118,
+     "y": -19.994,
+     "yaw": 0.826
+    },
+    {
+     "name": "exp05_p4",
+     "posture": "standing",
+     "x": 32.45,
+     "y": -21.918,
+     "yaw": -1.29
+    },
+    {
+     "name": "exp05_p5",
+     "posture": "standing",
+     "x": 31.143,
+     "y": -20.276,
+     "yaw": -0.239
+    },
+    {
+     "name": "exp05_p6",
+     "posture": "standing",
+     "x": 31.591,
+     "y": -21.753,
+     "yaw": -0.476
+    },
+    {
+     "name": "exp05_p7",
+     "posture": "standing",
+     "x": 30.654,
+     "y": -21.279,
+     "yaw": -0.595
+    },
+    {
+     "name": "exp05_p8",
+     "posture": "standing",
+     "x": 34.179,
+     "y": -21.632,
+     "yaw": -1.445
+    },
+    {
+     "name": "exp05_p9",
+     "posture": "standing",
+     "x": 31.605,
+     "y": -22.948,
+     "yaw": -0.348
+    },
+    {
+     "name": "exp05_p10",
+     "posture": "standing",
+     "x": 32.736,
+     "y": -20.837,
+     "yaw": 0.211
+    },
+    {
+     "name": "exp05_lying",
+     "posture": "lying",
+     "x": 29.015,
+     "y": -22.884,
+     "yaw": -0.56
+    }
+   ],
+   "num_standing": 10,
+   "num_lying": 1
+  },
+  {
+   "id": 6,
+   "label": "normal",
+   "look_at": [
+    29.614,
+    -18.886
+   ],
+   "viewpoint": [
+    33.59,
+    -14.392,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 228.5,
+   "people": [
+    {
+     "name": "exp06_p1",
+     "posture": "standing",
+     "x": 29.554,
+     "y": -19.518,
+     "yaw": 0.429
+    },
+    {
+     "name": "exp06_p2",
+     "posture": "standing",
+     "x": 28.657,
+     "y": -20.751,
+     "yaw": -2.384
+    },
+    {
+     "name": "exp06_p3",
+     "posture": "standing",
+     "x": 28.505,
+     "y": -18.922,
+     "yaw": 1.523
+    },
+    {
+     "name": "exp06_p4",
+     "posture": "standing",
+     "x": 27.45,
+     "y": -20.785,
+     "yaw": -0.352
+    },
+    {
+     "name": "exp06_p5",
+     "posture": "standing",
+     "x": 26.641,
+     "y": -19.771,
+     "yaw": 3.009
+    },
+    {
+     "name": "exp06_p6",
+     "posture": "standing",
+     "x": 28.27,
+     "y": -21.63,
+     "yaw": 2.823
+    },
+    {
+     "name": "exp06_p7",
+     "posture": "standing",
+     "x": 30.51,
+     "y": -19.651,
+     "yaw": -0.872
+    },
+    {
+     "name": "exp06_p8",
+     "posture": "standing",
+     "x": 30.056,
+     "y": -20.716,
+     "yaw": 2.518
+    },
+    {
+     "name": "exp06_p9",
+     "posture": "standing",
+     "x": 27.696,
+     "y": -18.954,
+     "yaw": 1.857
+    },
+    {
+     "name": "exp06_p10",
+     "posture": "standing",
+     "x": 28.032,
+     "y": -20.023,
+     "yaw": 1.58
+    },
+    {
+     "name": "exp06_p11",
+     "posture": "standing",
+     "x": 29.288,
+     "y": -18.544,
+     "yaw": 1.473
+    },
+    {
+     "name": "exp06_p12",
+     "posture": "standing",
+     "x": 29.275,
+     "y": -21.298,
+     "yaw": -2.638
+    }
+   ],
+   "num_standing": 12,
+   "num_lying": 0
+  },
+  {
+   "id": 7,
+   "label": "normal",
+   "look_at": [
+    29.383,
+    -18.651
+   ],
+   "viewpoint": [
+    25.276,
+    -14.277,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 313.2,
+   "people": [
+    {
+     "name": "exp07_p1",
+     "posture": "standing",
+     "x": 29.118,
+     "y": -20.755,
+     "yaw": -1.18
+    },
+    {
+     "name": "exp07_p2",
+     "posture": "standing",
+     "x": 31.724,
+     "y": -18.436,
+     "yaw": -0.981
+    },
+    {
+     "name": "exp07_p3",
+     "posture": "standing",
+     "x": 31.86,
+     "y": -20.608,
+     "yaw": 2.728
+    },
+    {
+     "name": "exp07_p4",
+     "posture": "standing",
+     "x": 30.148,
+     "y": -19.275,
+     "yaw": 1.411
+    },
+    {
+     "name": "exp07_p5",
+     "posture": "standing",
+     "x": 30.222,
+     "y": -20.138,
+     "yaw": 3.009
+    },
+    {
+     "name": "exp07_p6",
+     "posture": "standing",
+     "x": 29.697,
+     "y": -17.964,
+     "yaw": -2.657
+    },
+    {
+     "name": "exp07_p7",
+     "posture": "standing",
+     "x": 30.222,
+     "y": -21.168,
+     "yaw": -2.376
+    },
+    {
+     "name": "exp07_p8",
+     "posture": "standing",
+     "x": 29.443,
+     "y": -19.735,
+     "yaw": -1.339
+    }
+   ],
+   "num_standing": 8,
+   "num_lying": 0
+  },
+  {
+   "id": 8,
+   "label": "normal",
+   "look_at": [
+    31.239,
+    -19.788
+   ],
+   "viewpoint": [
+    28.394,
+    -25.071,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 61.7,
+   "people": [
+    {
+     "name": "exp08_p1",
+     "posture": "standing",
+     "x": 32.369,
+     "y": -19.604,
+     "yaw": 1.96
+    },
+    {
+     "name": "exp08_p2",
+     "posture": "standing",
+     "x": 31.083,
+     "y": -16.807,
+     "yaw": -2.031
+    },
+    {
+     "name": "exp08_p3",
+     "posture": "standing",
+     "x": 31.009,
+     "y": -20.133,
+     "yaw": 1.679
+    },
+    {
+     "name": "exp08_p4",
+     "posture": "standing",
+     "x": 30.31,
+     "y": -17.378,
+     "yaw": -2.311
+    },
+    {
+     "name": "exp08_p5",
+     "posture": "standing",
+     "x": 31.043,
+     "y": -18.8,
+     "yaw": 0.682
+    },
+    {
+     "name": "exp08_p6",
+     "posture": "standing",
+     "x": 32.459,
+     "y": -16.982,
+     "yaw": 0.604
+    },
+    {
+     "name": "exp08_p7",
+     "posture": "standing",
+     "x": 33.462,
+     "y": -19.443,
+     "yaw": 0.289
+    },
+    {
+     "name": "exp08_p8",
+     "posture": "standing",
+     "x": 32.76,
+     "y": -17.752,
+     "yaw": -1.831
+    }
+   ],
+   "num_standing": 8,
+   "num_lying": 0
+  },
+  {
+   "id": 9,
+   "label": "normal",
+   "look_at": [
+    30.988,
+    -21.002
+   ],
+   "viewpoint": [
+    33.38,
+    -26.504,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 113.5,
+   "people": [
+    {
+     "name": "exp09_p1",
+     "posture": "standing",
+     "x": 31.674,
+     "y": -19.287,
+     "yaw": 0.992
+    },
+    {
+     "name": "exp09_p2",
+     "posture": "standing",
+     "x": 31.12,
+     "y": -20.571,
+     "yaw": 1.46
+    },
+    {
+     "name": "exp09_p3",
+     "posture": "standing",
+     "x": 29.984,
+     "y": -18.963,
+     "yaw": 0.803
+    },
+    {
+     "name": "exp09_p4",
+     "posture": "standing",
+     "x": 29.198,
+     "y": -18.533,
+     "yaw": -2.749
+    },
+    {
+     "name": "exp09_p5",
+     "posture": "standing",
+     "x": 30.24,
+     "y": -21.593,
+     "yaw": 2.466
+    },
+    {
+     "name": "exp09_p6",
+     "posture": "standing",
+     "x": 29.87,
+     "y": -20.288,
+     "yaw": 3.059
+    },
+    {
+     "name": "exp09_p7",
+     "posture": "standing",
+     "x": 31.033,
+     "y": -18.674,
+     "yaw": 2.015
+    },
+    {
+     "name": "exp09_p8",
+     "posture": "standing",
+     "x": 32.071,
+     "y": -18.586,
+     "yaw": 0.443
+    },
+    {
+     "name": "exp09_p9",
+     "posture": "standing",
+     "x": 30.66,
+     "y": -19.529,
+     "yaw": -2.926
+    },
+    {
+     "name": "exp09_p10",
+     "posture": "standing",
+     "x": 28.441,
+     "y": -19.926,
+     "yaw": 0.415
+    },
+    {
+     "name": "exp09_p11",
+     "posture": "standing",
+     "x": 31.956,
+     "y": -20.483,
+     "yaw": 1.601
+    },
+    {
+     "name": "exp09_p12",
+     "posture": "standing",
+     "x": 30.502,
+     "y": -18.004,
+     "yaw": 0.398
+    }
+   ],
+   "num_standing": 12,
+   "num_lying": 0
+  },
+  {
    "id": 10,
    "label": "normal",
    "look_at": [
-    31.005,
-    -21.63
+    31.798,
+    -19.754
    ],
    "viewpoint": [
-    36.337,
-    -24.382,
+    35.647,
+    -24.357,
     6.0
    ],
-   "viewpoint_yaw_deg": 152.7,
+   "viewpoint_yaw_deg": 129.9,
    "people": [
     {
      "name": "exp10_p1",
      "posture": "standing",
-     "x": 28.706,
-     "y": -22.394,
-     "yaw": 1.646
+     "x": 31.697,
+     "y": -17.26,
+     "yaw": 1.635
     },
     {
      "name": "exp10_p2",
      "posture": "standing",
-     "x": 28.785,
-     "y": -20.365,
-     "yaw": -2.382
+     "x": 30.516,
+     "y": -20.473,
+     "yaw": 3.026
     },
     {
      "name": "exp10_p3",
      "posture": "standing",
-     "x": 27.838,
-     "y": -20.529,
-     "yaw": -1.529
+     "x": 30.087,
+     "y": -18.875,
+     "yaw": -0.914
     },
     {
      "name": "exp10_p4",
      "posture": "standing",
-     "x": 31.122,
-     "y": -20.889,
-     "yaw": -0.652
+     "x": 29.616,
+     "y": -17.458,
+     "yaw": 1.478
     },
     {
      "name": "exp10_p5",
      "posture": "standing",
-     "x": 29.388,
-     "y": -21.514,
-     "yaw": -1.361
+     "x": 31.704,
+     "y": -18.163,
+     "yaw": 2.286
     },
     {
      "name": "exp10_p6",
      "posture": "standing",
-     "x": 28.807,
-     "y": -19.435,
-     "yaw": 0.599
+     "x": 31.111,
+     "y": -19.426,
+     "yaw": -2.732
     },
     {
      "name": "exp10_p7",
      "posture": "standing",
-     "x": 29.751,
-     "y": -20.574,
-     "yaw": -1.221
+     "x": 29.227,
+     "y": -19.283,
+     "yaw": -0.642
     },
     {
      "name": "exp10_p8",
      "posture": "standing",
-     "x": 30.414,
-     "y": -22.197,
-     "yaw": 0.846
+     "x": 31.912,
+     "y": -19.113,
+     "yaw": 0.405
     },
     {
      "name": "exp10_p9",
      "posture": "standing",
-     "x": 30.044,
-     "y": -19.727,
-     "yaw": 1.811
+     "x": 32.828,
+     "y": -18.648,
+     "yaw": -0.588
     }
    ],
    "num_standing": 9,
@@ -851,508 +932,515 @@
    "id": 11,
    "label": "normal",
    "look_at": [
-    29.487,
-    -19.485
+    28.59,
+    -18.534
    ],
    "viewpoint": [
-    31.06,
-    -25.275,
+    24.83,
+    -23.21,
     6.0
    ],
-   "viewpoint_yaw_deg": 105.2,
+   "viewpoint_yaw_deg": 51.2,
    "people": [
     {
      "name": "exp11_p1",
      "posture": "standing",
-     "x": 28.494,
-     "y": -17.671,
-     "yaw": -0.621
+     "x": 29.476,
+     "y": -16.879,
+     "yaw": -2.3
     },
     {
      "name": "exp11_p2",
      "posture": "standing",
-     "x": 29.911,
-     "y": -19.135,
-     "yaw": -1.263
+     "x": 29.825,
+     "y": -18.72,
+     "yaw": 1.659
     },
     {
      "name": "exp11_p3",
      "posture": "standing",
-     "x": 30.646,
-     "y": -17.695,
-     "yaw": -1.772
+     "x": 30.656,
+     "y": -18.341,
+     "yaw": 0.824
     },
     {
      "name": "exp11_p4",
      "posture": "standing",
-     "x": 29.088,
-     "y": -16.634,
-     "yaw": -0.352
+     "x": 27.587,
+     "y": -17.205,
+     "yaw": 0.54
     },
     {
      "name": "exp11_p5",
      "posture": "standing",
-     "x": 27.212,
-     "y": -18.131,
-     "yaw": -0.909
+     "x": 29.359,
+     "y": -17.915,
+     "yaw": 1.969
     },
     {
      "name": "exp11_p6",
      "posture": "standing",
-     "x": 27.932,
-     "y": -16.855,
-     "yaw": 2.823
+     "x": 28.943,
+     "y": -15.455,
+     "yaw": 2.514
     },
     {
      "name": "exp11_p7",
      "posture": "standing",
-     "x": 28.356,
-     "y": -19.813,
-     "yaw": -0.872
-    }
-   ],
-   "num_standing": 7,
-   "num_lying": 0
-  },
-  {
-   "id": 12,
-   "label": "normal",
-   "look_at": [
-    28.015,
-    -20.919
-   ],
-   "viewpoint": [
-    23.542,
-    -24.918,
-    6.0
-   ],
-   "viewpoint_yaw_deg": 41.8,
-   "people": [
-    {
-     "name": "exp12_p1",
-     "posture": "standing",
-     "x": 30.058,
-     "y": -21.313,
-     "yaw": -1.717
+     "x": 30.156,
+     "y": -16.016,
+     "yaw": 0.537
     },
     {
-     "name": "exp12_p2",
+     "name": "exp11_p8",
      "posture": "standing",
-     "x": 27.705,
-     "y": -18.936,
-     "yaw": -2.479
+     "x": 28.539,
+     "y": -16.446,
+     "yaw": -0.26
     },
     {
-     "name": "exp12_p3",
+     "name": "exp11_p9",
      "posture": "standing",
-     "x": 28.336,
-     "y": -20.112,
-     "yaw": 2.496
+     "x": 28.741,
+     "y": -17.244,
+     "yaw": 0.975
     },
     {
-     "name": "exp12_p4",
+     "name": "exp11_p10",
      "posture": "standing",
-     "x": 28.062,
-     "y": -21.218,
-     "yaw": -2.33
-    },
-    {
-     "name": "exp12_p5",
-     "posture": "standing",
-     "x": 27.36,
-     "y": -20.624,
-     "yaw": 1.818
-    },
-    {
-     "name": "exp12_p6",
-     "posture": "standing",
-     "x": 30.237,
-     "y": -20.5,
-     "yaw": -0.694
-    },
-    {
-     "name": "exp12_p7",
-     "posture": "standing",
-     "x": 28.775,
-     "y": -19.052,
-     "yaw": 2.765
-    },
-    {
-     "name": "exp12_p8",
-     "posture": "standing",
-     "x": 29.905,
-     "y": -18.596,
-     "yaw": -0.702
-    },
-    {
-     "name": "exp12_p9",
-     "posture": "standing",
-     "x": 28.924,
-     "y": -21.468,
-     "yaw": 1.288
-    },
-    {
-     "name": "exp12_p10",
-     "posture": "standing",
-     "x": 30.423,
-     "y": -19.286,
-     "yaw": 2.857
-    },
-    {
-     "name": "exp12_p11",
-     "posture": "standing",
-     "x": 29.067,
-     "y": -18.302,
-     "yaw": 1.801
-    }
-   ],
-   "num_standing": 11,
-   "num_lying": 0
-  },
-  {
-   "id": 13,
-   "label": "normal",
-   "look_at": [
-    31.883,
-    -20.414
-   ],
-   "viewpoint": [
-    34.419,
-    -14.976,
-    6.0
-   ],
-   "viewpoint_yaw_deg": 245.0,
-   "people": [
-    {
-     "name": "exp13_p1",
-     "posture": "standing",
-     "x": 32.586,
-     "y": -21.604,
-     "yaw": -2.499
-    },
-    {
-     "name": "exp13_p2",
-     "posture": "standing",
-     "x": 29.392,
-     "y": -21.484,
-     "yaw": -1.113
-    },
-    {
-     "name": "exp13_p3",
-     "posture": "standing",
-     "x": 31.196,
-     "y": -22.109,
-     "yaw": -0.825
-    },
-    {
-     "name": "exp13_p4",
-     "posture": "standing",
-     "x": 31.504,
-     "y": -20.894,
-     "yaw": -1.962
-    },
-    {
-     "name": "exp13_p5",
-     "posture": "standing",
-     "x": 30.707,
-     "y": -21.058,
-     "yaw": 1.48
-    },
-    {
-     "name": "exp13_p6",
-     "posture": "standing",
-     "x": 30.168,
-     "y": -22.055,
-     "yaw": -1.542
-    },
-    {
-     "name": "exp13_p7",
-     "posture": "standing",
-     "x": 31.015,
-     "y": -23.46,
-     "yaw": 1.942
-    }
-   ],
-   "num_standing": 7,
-   "num_lying": 0
-  },
-  {
-   "id": 14,
-   "label": "normal",
-   "look_at": [
-    29.842,
-    -21.528
-   ],
-   "viewpoint": [
-    23.895,
-    -20.734,
-    6.0
-   ],
-   "viewpoint_yaw_deg": 352.4,
-   "people": [
-    {
-     "name": "exp14_p1",
-     "posture": "standing",
-     "x": 31.662,
-     "y": -22.65,
-     "yaw": -2.175
-    },
-    {
-     "name": "exp14_p2",
-     "posture": "standing",
-     "x": 31.995,
-     "y": -19.968,
-     "yaw": 0.708
-    },
-    {
-     "name": "exp14_p3",
-     "posture": "standing",
-     "x": 29.571,
-     "y": -22.153,
-     "yaw": 2.429
-    },
-    {
-     "name": "exp14_p4",
-     "posture": "standing",
-     "x": 32.49,
-     "y": -22.205,
-     "yaw": -1.573
-    },
-    {
-     "name": "exp14_p5",
-     "posture": "standing",
-     "x": 30.814,
-     "y": -20.804,
-     "yaw": 3.108
-    },
-    {
-     "name": "exp14_p6",
-     "posture": "standing",
-     "x": 31.396,
-     "y": -23.412,
-     "yaw": 0.088
-    }
-   ],
-   "num_standing": 6,
-   "num_lying": 0
-  },
-  {
-   "id": 15,
-   "label": "emergency",
-   "look_at": [
-    30.537,
-    -20.91
-   ],
-   "viewpoint": [
-    36.366,
-    -22.331,
-    6.0
-   ],
-   "viewpoint_yaw_deg": 166.3,
-   "people": [
-    {
-     "name": "exp15_p1",
-     "posture": "standing",
-     "x": 29.099,
-     "y": -19.866,
-     "yaw": -2.52
-    },
-    {
-     "name": "exp15_p2",
-     "posture": "standing",
-     "x": 28.661,
-     "y": -22.215,
-     "yaw": -1.354
-    },
-    {
-     "name": "exp15_p3",
-     "posture": "standing",
-     "x": 30.319,
-     "y": -19.368,
-     "yaw": 1.52
-    },
-    {
-     "name": "exp15_p4",
-     "posture": "standing",
-     "x": 28.46,
-     "y": -19.26,
-     "yaw": -2.376
-    },
-    {
-     "name": "exp15_p5",
-     "posture": "standing",
-     "x": 27.673,
-     "y": -21.33,
-     "yaw": 1.491
-    },
-    {
-     "name": "exp15_p6",
-     "posture": "standing",
-     "x": 30.052,
-     "y": -20.677,
-     "yaw": 1.097
-    },
-    {
-     "name": "exp15_lying",
-     "posture": "lying",
-     "x": 32.079,
-     "y": -24.154,
-     "yaw": -2.065
-    }
-   ],
-   "num_standing": 6,
-   "num_lying": 1
-  },
-  {
-   "id": 16,
-   "label": "normal",
-   "look_at": [
-    30.212,
-    -20.688
-   ],
-   "viewpoint": [
-    28.013,
-    -15.105,
-    6.0
-   ],
-   "viewpoint_yaw_deg": 291.5,
-   "people": [
-    {
-     "name": "exp16_p1",
-     "posture": "standing",
-     "x": 29.612,
-     "y": -23.187,
-     "yaw": 2.368
-    },
-    {
-     "name": "exp16_p2",
-     "posture": "standing",
-     "x": 31.547,
-     "y": -22.15,
-     "yaw": 3.086
-    },
-    {
-     "name": "exp16_p3",
-     "posture": "standing",
-     "x": 30.097,
-     "y": -20.29,
-     "yaw": 1.679
-    },
-    {
-     "name": "exp16_p4",
-     "posture": "standing",
-     "x": 32.653,
-     "y": -21.534,
-     "yaw": -2.311
-    },
-    {
-     "name": "exp16_p5",
-     "posture": "standing",
-     "x": 31.093,
-     "y": -21.175,
-     "yaw": 0.682
-    },
-    {
-     "name": "exp16_p6",
-     "posture": "standing",
-     "x": 29.05,
-     "y": -21.222,
-     "yaw": -2.978
-    },
-    {
-     "name": "exp16_p7",
-     "posture": "standing",
-     "x": 30.89,
-     "y": -23.187,
-     "yaw": 0.349
-    },
-    {
-     "name": "exp16_p8",
-     "posture": "standing",
-     "x": 29.041,
-     "y": -22.608,
-     "yaw": 0.289
-    },
-    {
-     "name": "exp16_p9",
-     "posture": "standing",
-     "x": 32.045,
-     "y": -23.166,
-     "yaw": -2.278
-    },
-    {
-     "name": "exp16_p10",
-     "posture": "standing",
-     "x": 32.035,
-     "y": -20.614,
-     "yaw": 2.017
+     "x": 31.517,
+     "y": -17.319,
+     "yaw": -2.395
     }
    ],
    "num_standing": 10,
    "num_lying": 0
   },
   {
+   "id": 12,
+   "label": "normal",
+   "look_at": [
+    28.091,
+    -19.065
+   ],
+   "viewpoint": [
+    30.541,
+    -24.542,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 114.1,
+   "people": [
+    {
+     "name": "exp12_p1",
+     "posture": "standing",
+     "x": 28.512,
+     "y": -18.227,
+     "yaw": -2.864
+    },
+    {
+     "name": "exp12_p2",
+     "posture": "standing",
+     "x": 29.077,
+     "y": -17.537,
+     "yaw": 1.865
+    },
+    {
+     "name": "exp12_p3",
+     "posture": "standing",
+     "x": 27.554,
+     "y": -16.879,
+     "yaw": 2.682
+    },
+    {
+     "name": "exp12_p4",
+     "posture": "standing",
+     "x": 27.54,
+     "y": -18.972,
+     "yaw": 0.654
+    },
+    {
+     "name": "exp12_p5",
+     "posture": "standing",
+     "x": 26.065,
+     "y": -18.391,
+     "yaw": -1.195
+    },
+    {
+     "name": "exp12_p6",
+     "posture": "standing",
+     "x": 27.425,
+     "y": -17.983,
+     "yaw": 1.197
+    }
+   ],
+   "num_standing": 6,
+   "num_lying": 0
+  },
+  {
+   "id": 13,
+   "label": "normal",
+   "look_at": [
+    29.291,
+    -18.837
+   ],
+   "viewpoint": [
+    24.505,
+    -15.218,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 322.9,
+   "people": [
+    {
+     "name": "exp13_p1",
+     "posture": "standing",
+     "x": 29.027,
+     "y": -18.579,
+     "yaw": -2.636
+    },
+    {
+     "name": "exp13_p2",
+     "posture": "standing",
+     "x": 30.513,
+     "y": -20.196,
+     "yaw": 1.827
+    },
+    {
+     "name": "exp13_p3",
+     "posture": "standing",
+     "x": 31.488,
+     "y": -18.182,
+     "yaw": 0.93
+    },
+    {
+     "name": "exp13_p4",
+     "posture": "standing",
+     "x": 28.599,
+     "y": -20.01,
+     "yaw": -1.338
+    },
+    {
+     "name": "exp13_p5",
+     "posture": "standing",
+     "x": 30.431,
+     "y": -19.362,
+     "yaw": -2.156
+    },
+    {
+     "name": "exp13_p6",
+     "posture": "standing",
+     "x": 31.912,
+     "y": -19.339,
+     "yaw": -2.044
+    },
+    {
+     "name": "exp13_p7",
+     "posture": "standing",
+     "x": 30.789,
+     "y": -21.098,
+     "yaw": 1.121
+    },
+    {
+     "name": "exp13_p8",
+     "posture": "standing",
+     "x": 31.915,
+     "y": -20.823,
+     "yaw": -3.019
+    },
+    {
+     "name": "exp13_p9",
+     "posture": "standing",
+     "x": 29.833,
+     "y": -18.603,
+     "yaw": -0.181
+    },
+    {
+     "name": "exp13_p10",
+     "posture": "standing",
+     "x": 31.386,
+     "y": -20.116,
+     "yaw": -1.121
+    },
+    {
+     "name": "exp13_p11",
+     "posture": "standing",
+     "x": 29.557,
+     "y": -21.029,
+     "yaw": -1.912
+    }
+   ],
+   "num_standing": 11,
+   "num_lying": 0
+  },
+  {
+   "id": 14,
+   "label": "normal",
+   "look_at": [
+    28.708,
+    -19.665
+   ],
+   "viewpoint": [
+    22.923,
+    -18.072,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 344.6,
+   "people": [
+    {
+     "name": "exp14_p1",
+     "posture": "standing",
+     "x": 31.387,
+     "y": -20.074,
+     "yaw": 0.323
+    },
+    {
+     "name": "exp14_p2",
+     "posture": "standing",
+     "x": 29.902,
+     "y": -19.787,
+     "yaw": -0.784
+    },
+    {
+     "name": "exp14_p3",
+     "posture": "standing",
+     "x": 29.048,
+     "y": -20.858,
+     "yaw": 1.301
+    },
+    {
+     "name": "exp14_p4",
+     "posture": "standing",
+     "x": 30.727,
+     "y": -19.589,
+     "yaw": -2.108
+    },
+    {
+     "name": "exp14_p5",
+     "posture": "standing",
+     "x": 30.691,
+     "y": -21.899,
+     "yaw": 1.718
+    },
+    {
+     "name": "exp14_p6",
+     "posture": "standing",
+     "x": 28.189,
+     "y": -19.944,
+     "yaw": -2.233
+    },
+    {
+     "name": "exp14_p7",
+     "posture": "standing",
+     "x": 30.826,
+     "y": -20.761,
+     "yaw": -0.763
+    },
+    {
+     "name": "exp14_p8",
+     "posture": "standing",
+     "x": 29.029,
+     "y": -19.521,
+     "yaw": -1.218
+    }
+   ],
+   "num_standing": 8,
+   "num_lying": 0
+  },
+  {
+   "id": 15,
+   "label": "emergency",
+   "look_at": [
+    29.625,
+    -21.609
+   ],
+   "viewpoint": [
+    34.691,
+    -24.824,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 147.6,
+   "people": [
+    {
+     "name": "exp15_p1",
+     "posture": "standing",
+     "x": 29.126,
+     "y": -20.837,
+     "yaw": 0.842
+    },
+    {
+     "name": "exp15_p2",
+     "posture": "standing",
+     "x": 27.848,
+     "y": -18.891,
+     "yaw": -2.47
+    },
+    {
+     "name": "exp15_p3",
+     "posture": "standing",
+     "x": 29.732,
+     "y": -19.696,
+     "yaw": 0.602
+    },
+    {
+     "name": "exp15_p4",
+     "posture": "standing",
+     "x": 29.736,
+     "y": -21.524,
+     "yaw": -1.466
+    },
+    {
+     "name": "exp15_p5",
+     "posture": "standing",
+     "x": 26.852,
+     "y": -21.617,
+     "yaw": -2.605
+    },
+    {
+     "name": "exp15_p6",
+     "posture": "standing",
+     "x": 27.984,
+     "y": -20.866,
+     "yaw": -0.866
+    },
+    {
+     "name": "exp15_p7",
+     "posture": "standing",
+     "x": 28.128,
+     "y": -22.49,
+     "yaw": 1.106
+    },
+    {
+     "name": "exp15_lying",
+     "posture": "lying",
+     "x": 29.595,
+     "y": -24.945,
+     "yaw": 1.961
+    }
+   ],
+   "num_standing": 7,
+   "num_lying": 1
+  },
+  {
+   "id": 16,
+   "label": "normal",
+   "look_at": [
+    28.636,
+    -19.793
+   ],
+   "viewpoint": [
+    27.832,
+    -25.739,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 82.3,
+   "people": [
+    {
+     "name": "exp16_p1",
+     "posture": "standing",
+     "x": 28.688,
+     "y": -20.067,
+     "yaw": 2.425
+    },
+    {
+     "name": "exp16_p2",
+     "posture": "standing",
+     "x": 29.059,
+     "y": -18.538,
+     "yaw": -2.093
+    },
+    {
+     "name": "exp16_p3",
+     "posture": "standing",
+     "x": 27.542,
+     "y": -19.823,
+     "yaw": 1.009
+    },
+    {
+     "name": "exp16_p4",
+     "posture": "standing",
+     "x": 29.965,
+     "y": -19.0,
+     "yaw": -1.482
+    },
+    {
+     "name": "exp16_p5",
+     "posture": "standing",
+     "x": 29.751,
+     "y": -17.076,
+     "yaw": -2.065
+    },
+    {
+     "name": "exp16_p6",
+     "posture": "standing",
+     "x": 28.57,
+     "y": -17.006,
+     "yaw": -0.785
+    }
+   ],
+   "num_standing": 6,
+   "num_lying": 0
+  },
+  {
    "id": 17,
    "label": "normal",
    "look_at": [
-    30.656,
-    -21.457
+    30.576,
+    -20.379
    ],
    "viewpoint": [
-    34.029,
-    -26.419,
+    28.642,
+    -14.699,
     6.0
    ],
-   "viewpoint_yaw_deg": 124.2,
+   "viewpoint_yaw_deg": 288.8,
    "people": [
     {
      "name": "exp17_p1",
      "posture": "standing",
-     "x": 28.477,
-     "y": -20.108,
-     "yaw": -1.182
+     "x": 30.99,
+     "y": -20.377,
+     "yaw": -0.126
     },
     {
      "name": "exp17_p2",
      "posture": "standing",
-     "x": 31.257,
-     "y": -19.502,
-     "yaw": 1.792
+     "x": 30.639,
+     "y": -22.279,
+     "yaw": -0.061
     },
     {
      "name": "exp17_p3",
      "posture": "standing",
-     "x": 29.032,
-     "y": -19.204,
-     "yaw": 2.456
+     "x": 32.488,
+     "y": -22.149,
+     "yaw": 2.213
     },
     {
      "name": "exp17_p4",
      "posture": "standing",
-     "x": 31.283,
-     "y": -21.153,
-     "yaw": -2.371
+     "x": 31.235,
+     "y": -21.306,
+     "yaw": 2.847
     },
     {
      "name": "exp17_p5",
      "posture": "standing",
-     "x": 30.459,
-     "y": -18.723,
-     "yaw": 1.254
+     "x": 32.418,
+     "y": -21.183,
+     "yaw": -1.699
     },
     {
      "name": "exp17_p6",
      "posture": "standing",
-     "x": 29.322,
-     "y": -20.496,
-     "yaw": 2.062
+     "x": 31.684,
+     "y": -22.031,
+     "yaw": 1.959
     },
     {
      "name": "exp17_p7",
      "posture": "standing",
-     "x": 30.448,
-     "y": -20.323,
-     "yaw": 1.32
+     "x": 29.871,
+     "y": -20.372,
+     "yaw": 1.604
     }
    ],
    "num_standing": 7,
@@ -1362,289 +1450,247 @@
    "id": 18,
    "label": "emergency",
    "look_at": [
-    28.16,
-    -20.639
+    30.762,
+    -18.275
    ],
    "viewpoint": [
-    32.661,
-    -16.671,
+    36.751,
+    -18.641,
     6.0
    ],
-   "viewpoint_yaw_deg": 221.4,
+   "viewpoint_yaw_deg": 176.5,
    "people": [
     {
      "name": "exp18_p1",
      "posture": "standing",
-     "x": 25.962,
-     "y": -22.965,
-     "yaw": 2.717
+     "x": 29.115,
+     "y": -17.014,
+     "yaw": 2.341
     },
     {
      "name": "exp18_p2",
      "posture": "standing",
-     "x": 26.928,
-     "y": -21.997,
-     "yaw": -1.302
+     "x": 29.078,
+     "y": -19.829,
+     "yaw": -0.014
     },
     {
      "name": "exp18_p3",
      "posture": "standing",
-     "x": 26.331,
-     "y": -20.668,
-     "yaw": -0.599
+     "x": 28.143,
+     "y": -17.781,
+     "yaw": 2.68
     },
     {
      "name": "exp18_p4",
      "posture": "standing",
-     "x": 27.846,
-     "y": -20.982,
-     "yaw": -0.675
+     "x": 29.434,
+     "y": -18.765,
+     "yaw": -0.488
     },
     {
      "name": "exp18_p5",
      "posture": "standing",
-     "x": 25.925,
-     "y": -21.74,
-     "yaw": 0.317
+     "x": 30.298,
+     "y": -16.756,
+     "yaw": 1.769
     },
     {
      "name": "exp18_p6",
      "posture": "standing",
-     "x": 25.528,
-     "y": -20.351,
-     "yaw": 0.443
+     "x": 30.115,
+     "y": -17.544,
+     "yaw": 2.081
     },
     {
      "name": "exp18_p7",
      "posture": "standing",
-     "x": 27.919,
-     "y": -23.393,
-     "yaw": 0.415
+     "x": 30.176,
+     "y": -19.883,
+     "yaw": -1.705
     },
     {
      "name": "exp18_p8",
      "posture": "standing",
-     "x": 27.616,
-     "y": -19.798,
-     "yaw": 1.383
+     "x": 28.535,
+     "y": -16.376,
+     "yaw": -0.431
     },
     {
      "name": "exp18_p9",
      "posture": "standing",
-     "x": 28.653,
-     "y": -21.957,
-     "yaw": 2.616
+     "x": 27.546,
+     "y": -19.017,
+     "yaw": -0.213
     },
     {
      "name": "exp18_p10",
      "posture": "standing",
-     "x": 28.643,
-     "y": -20.532,
-     "yaw": 2.807
-    },
-    {
-     "name": "exp18_p11",
-     "posture": "standing",
-     "x": 27.869,
-     "y": -22.237,
-     "yaw": -0.448
+     "x": 31.102,
+     "y": -18.062,
+     "yaw": 0.763
     },
     {
      "name": "exp18_lying",
      "posture": "lying",
-     "x": 31.571,
-     "y": -22.226,
-     "yaw": 0.238
+     "x": 32.633,
+     "y": -15.031,
+     "yaw": -1.716
     }
    ],
-   "num_standing": 11,
+   "num_standing": 10,
    "num_lying": 1
   },
   {
    "id": 19,
    "label": "emergency",
    "look_at": [
-    31.96,
-    -21.24
+    29.899,
+    -21.999
    ],
    "viewpoint": [
-    37.612,
-    -19.227,
+    35.074,
+    -25.035,
     6.0
    ],
-   "viewpoint_yaw_deg": 199.6,
+   "viewpoint_yaw_deg": 149.6,
    "people": [
     {
      "name": "exp19_p1",
      "posture": "standing",
-     "x": 30.111,
-     "y": -22.983,
-     "yaw": -3.104
+     "x": 29.125,
+     "y": -20.12,
+     "yaw": 0.727
     },
     {
      "name": "exp19_p2",
      "posture": "standing",
-     "x": 29.787,
-     "y": -20.531,
-     "yaw": 1.265
+     "x": 29.643,
+     "y": -21.251,
+     "yaw": 1.281
     },
     {
      "name": "exp19_p3",
      "posture": "standing",
-     "x": 32.185,
-     "y": -22.409,
-     "yaw": -0.225
+     "x": 30.124,
+     "y": -20.239,
+     "yaw": 0.884
     },
     {
      "name": "exp19_p4",
      "posture": "standing",
-     "x": 30.174,
-     "y": -21.664,
-     "yaw": 0.859
+     "x": 27.063,
+     "y": -21.314,
+     "yaw": 2.797
     },
     {
      "name": "exp19_p5",
      "posture": "standing",
-     "x": 31.288,
-     "y": -22.221,
-     "yaw": 1.257
+     "x": 27.967,
+     "y": -22.806,
+     "yaw": 1.209
     },
     {
      "name": "exp19_p6",
      "posture": "standing",
-     "x": 30.983,
-     "y": -23.191,
-     "yaw": -1.978
+     "x": 29.547,
+     "y": -22.237,
+     "yaw": -1.006
     },
     {
      "name": "exp19_p7",
      "posture": "standing",
-     "x": 29.075,
-     "y": -20.913,
-     "yaw": 2.482
-    },
-    {
-     "name": "exp19_p8",
-     "posture": "standing",
-     "x": 31.607,
-     "y": -21.421,
-     "yaw": 1.65
-    },
-    {
-     "name": "exp19_p9",
-     "posture": "standing",
-     "x": 31.034,
-     "y": -20.516,
-     "yaw": 1.087
-    },
-    {
-     "name": "exp19_p10",
-     "posture": "standing",
-     "x": 28.834,
-     "y": -22.683,
-     "yaw": -0.675
-    },
-    {
-     "name": "exp19_p11",
-     "posture": "standing",
-     "x": 30.43,
-     "y": -19.838,
-     "yaw": 1.359
-    },
-    {
-     "name": "exp19_p12",
-     "posture": "standing",
-     "x": 28.898,
-     "y": -21.718,
-     "yaw": 2.728
+     "x": 28.804,
+     "y": -21.003,
+     "yaw": -3.104
     },
     {
      "name": "exp19_lying",
      "posture": "lying",
-     "x": 33.005,
-     "y": -17.701,
-     "yaw": 2.437
+     "x": 30.371,
+     "y": -24.534,
+     "yaw": -1.627
     }
    ],
-   "num_standing": 12,
+   "num_standing": 7,
    "num_lying": 1
   },
   {
    "id": 20,
    "label": "emergency",
    "look_at": [
-    28.177,
-    -21.039
+    28.564,
+    -20.236
    ],
    "viewpoint": [
-    30.788,
-    -15.637,
+    34.503,
+    -21.092,
     6.0
    ],
-   "viewpoint_yaw_deg": 244.2,
+   "viewpoint_yaw_deg": 171.8,
    "people": [
     {
      "name": "exp20_p1",
      "posture": "standing",
-     "x": 26.819,
-     "y": -23.293,
-     "yaw": -0.929
+     "x": 28.512,
+     "y": -19.273,
+     "yaw": 2.699
     },
     {
      "name": "exp20_p2",
      "posture": "standing",
-     "x": 28.181,
-     "y": -21.918,
-     "yaw": -0.859
+     "x": 29.048,
+     "y": -20.027,
+     "yaw": -2.591
     },
     {
      "name": "exp20_p3",
      "posture": "standing",
-     "x": 28.469,
-     "y": -23.869,
-     "yaw": 0.526
+     "x": 28.174,
+     "y": -20.056,
+     "yaw": 1.088
     },
     {
      "name": "exp20_p4",
      "posture": "standing",
-     "x": 26.203,
-     "y": -21.388,
-     "yaw": -2.061
+     "x": 25.768,
+     "y": -21.46,
+     "yaw": -2.911
     },
     {
      "name": "exp20_p5",
      "posture": "standing",
-     "x": 26.76,
-     "y": -22.22,
-     "yaw": 1.808
+     "x": 26.702,
+     "y": -18.195,
+     "yaw": 1.67
     },
     {
      "name": "exp20_p6",
      "posture": "standing",
-     "x": 27.554,
-     "y": -21.096,
-     "yaw": 1.171
+     "x": 25.421,
+     "y": -19.346,
+     "yaw": 2.436
     },
     {
      "name": "exp20_p7",
      "posture": "standing",
-     "x": 29.004,
-     "y": -22.117,
-     "yaw": -2.535
+     "x": 26.386,
+     "y": -19.52,
+     "yaw": 1.336
     },
     {
      "name": "exp20_p8",
      "posture": "standing",
-     "x": 29.205,
-     "y": -23.26,
-     "yaw": -0.743
+     "x": 28.388,
+     "y": -20.838,
+     "yaw": 0.839
     },
     {
      "name": "exp20_lying",
      "posture": "lying",
-     "x": 26.035,
-     "y": -18.244,
-     "yaw": -0.647
+     "x": 30.2,
+     "y": -17.748,
+     "yaw": -2.935
     }
    ],
    "num_standing": 8,
@@ -1654,194 +1700,201 @@
    "id": 21,
    "label": "emergency",
    "look_at": [
-    31.342,
-    -18.008
+    30.416,
+    -20.729
    ],
    "viewpoint": [
-    36.574,
-    -15.072,
+    36.398,
+    -21.189,
     6.0
    ],
-   "viewpoint_yaw_deg": 209.3,
+   "viewpoint_yaw_deg": 175.6,
    "people": [
     {
      "name": "exp21_p1",
      "posture": "standing",
-     "x": 29.062,
-     "y": -19.478,
-     "yaw": 0.701
+     "x": 28.051,
+     "y": -20.787,
+     "yaw": -2.299
     },
     {
      "name": "exp21_p2",
      "posture": "standing",
-     "x": 30.608,
-     "y": -19.995,
-     "yaw": -2.888
+     "x": 29.62,
+     "y": -19.481,
+     "yaw": -1.734
     },
     {
      "name": "exp21_p3",
      "posture": "standing",
-     "x": 29.21,
-     "y": -17.963,
-     "yaw": 2.916
+     "x": 27.95,
+     "y": -19.274,
+     "yaw": 1.616
     },
     {
      "name": "exp21_p4",
      "posture": "standing",
-     "x": 30.361,
-     "y": -18.737,
-     "yaw": 2.326
+     "x": 29.785,
+     "y": -22.286,
+     "yaw": 1.165
     },
     {
      "name": "exp21_p5",
      "posture": "standing",
-     "x": 30.699,
-     "y": -17.19,
-     "yaw": -2.128
+     "x": 29.696,
+     "y": -20.388,
+     "yaw": -0.901
     },
     {
      "name": "exp21_p6",
      "posture": "standing",
-     "x": 31.2,
-     "y": -18.797,
-     "yaw": 0.567
+     "x": 30.106,
+     "y": -21.202,
+     "yaw": 1.026
     },
     {
      "name": "exp21_p7",
      "posture": "standing",
-     "x": 30.136,
-     "y": -20.696,
-     "yaw": 0.526
+     "x": 29.036,
+     "y": -18.881,
+     "yaw": 2.852
     },
     {
      "name": "exp21_p8",
      "posture": "standing",
-     "x": 29.905,
-     "y": -17.061,
-     "yaw": 1.745
+     "x": 28.667,
+     "y": -22.347,
+     "yaw": 2.94
     },
     {
      "name": "exp21_p9",
      "posture": "standing",
-     "x": 31.71,
-     "y": -19.426,
-     "yaw": 2.399
+     "x": 28.722,
+     "y": -20.345,
+     "yaw": 0.079
     },
     {
      "name": "exp21_p10",
      "posture": "standing",
-     "x": 28.228,
-     "y": -17.974,
-     "yaw": -0.573
+     "x": 28.902,
+     "y": -21.397,
+     "yaw": 0.588
+    },
+    {
+     "name": "exp21_p11",
+     "posture": "standing",
+     "x": 30.525,
+     "y": -19.429,
+     "yaw": -0.517
     },
     {
      "name": "exp21_lying",
      "posture": "lying",
-     "x": 31.378,
-     "y": -14.728,
-     "yaw": 0.01
+     "x": 32.948,
+     "y": -18.446,
+     "yaw": 0.127
     }
    ],
-   "num_standing": 10,
+   "num_standing": 11,
    "num_lying": 1
   },
   {
    "id": 22,
    "label": "emergency",
    "look_at": [
-    30.781,
-    -18.351
+    29.389,
+    -19.769
    ],
    "viewpoint": [
-    33.726,
-    -23.578,
+    28.193,
+    -13.889,
     6.0
    ],
-   "viewpoint_yaw_deg": 119.4,
+   "viewpoint_yaw_deg": 281.5,
    "people": [
     {
      "name": "exp22_p1",
      "posture": "standing",
-     "x": 28.92,
-     "y": -18.352,
-     "yaw": 2.391
+     "x": 30.589,
+     "y": -21.475,
+     "yaw": 1.026
     },
     {
      "name": "exp22_p2",
      "posture": "standing",
-     "x": 31.121,
-     "y": -18.668,
-     "yaw": 2.919
+     "x": 29.757,
+     "y": -23.129,
+     "yaw": 0.297
     },
     {
      "name": "exp22_p3",
      "posture": "standing",
-     "x": 31.272,
-     "y": -15.47,
-     "yaw": 1.153
+     "x": 29.701,
+     "y": -20.343,
+     "yaw": -1.17
     },
     {
      "name": "exp22_p4",
      "posture": "standing",
-     "x": 29.638,
-     "y": -16.373,
-     "yaw": 0.6
+     "x": 29.648,
+     "y": -21.224,
+     "yaw": -1.08
     },
     {
      "name": "exp22_p5",
      "posture": "standing",
-     "x": 29.864,
-     "y": -15.375,
-     "yaw": 0.108
+     "x": 27.969,
+     "y": -21.97,
+     "yaw": -1.11
     },
     {
      "name": "exp22_p6",
      "posture": "standing",
-     "x": 31.7,
-     "y": -17.264,
-     "yaw": -1.854
+     "x": 28.79,
+     "y": -22.427,
+     "yaw": -2.583
     },
     {
      "name": "exp22_p7",
      "posture": "standing",
-     "x": 30.706,
-     "y": -16.96,
-     "yaw": 0.718
+     "x": 28.767,
+     "y": -20.657,
+     "yaw": 1.091
     },
     {
      "name": "exp22_p8",
      "posture": "standing",
-     "x": 30.185,
-     "y": -17.687,
-     "yaw": 0.529
+     "x": 30.05,
+     "y": -22.247,
+     "yaw": -3.09
     },
     {
      "name": "exp22_p9",
      "posture": "standing",
-     "x": 28.125,
-     "y": -17.04,
-     "yaw": 2.058
+     "x": 30.844,
+     "y": -22.67,
+     "yaw": 2.99
     },
     {
      "name": "exp22_p10",
      "posture": "standing",
-     "x": 29.09,
-     "y": -17.431,
-     "yaw": -2.445
+     "x": 29.122,
+     "y": -19.441,
+     "yaw": -1.511
     },
     {
      "name": "exp22_p11",
      "posture": "standing",
-     "x": 31.774,
-     "y": -16.176,
-     "yaw": -0.119
+     "x": 31.031,
+     "y": -20.798,
+     "yaw": -0.43
     },
     {
      "name": "exp22_lying",
      "posture": "lying",
-     "x": 29.152,
-     "y": -21.128,
-     "yaw": 0.706
+     "x": 27.141,
+     "y": -18.745,
+     "yaw": -1.751
     }
    ],
    "num_standing": 11,
@@ -1851,578 +1904,648 @@
    "id": 23,
    "label": "emergency",
    "look_at": [
-    28.478,
-    -20.58
+    28.581,
+    -19.793
    ],
    "viewpoint": [
-    25.551,
-    -15.342,
+    30.465,
+    -25.49,
     6.0
    ],
-   "viewpoint_yaw_deg": 299.2,
+   "viewpoint_yaw_deg": 108.3,
    "people": [
     {
      "name": "exp23_p1",
      "posture": "standing",
-     "x": 27.842,
-     "y": -21.78,
-     "yaw": -0.792
+     "x": 26.644,
+     "y": -18.203,
+     "yaw": 2.288
     },
     {
      "name": "exp23_p2",
      "posture": "standing",
-     "x": 29.053,
-     "y": -19.982,
-     "yaw": -0.885
+     "x": 28.364,
+     "y": -16.689,
+     "yaw": 1.289
     },
     {
      "name": "exp23_p3",
      "posture": "standing",
-     "x": 28.173,
-     "y": -22.617,
-     "yaw": 3.098
+     "x": 28.848,
+     "y": -18.081,
+     "yaw": -2.332
     },
     {
      "name": "exp23_p4",
      "posture": "standing",
-     "x": 29.027,
-     "y": -20.825,
-     "yaw": -0.98
+     "x": 29.924,
+     "y": -18.574,
+     "yaw": 1.539
     },
     {
      "name": "exp23_p5",
      "posture": "standing",
-     "x": 30.19,
-     "y": -21.778,
-     "yaw": 2.864
+     "x": 27.577,
+     "y": -19.537,
+     "yaw": -0.704
     },
     {
      "name": "exp23_p6",
      "posture": "standing",
-     "x": 29.747,
-     "y": -23.218,
-     "yaw": 2.995
+     "x": 28.687,
+     "y": -19.467,
+     "yaw": -2.494
     },
     {
      "name": "exp23_p7",
      "posture": "standing",
-     "x": 30.061,
-     "y": -20.784,
-     "yaw": 1.156
+     "x": 27.38,
+     "y": -17.661,
+     "yaw": 1.647
     },
     {
      "name": "exp23_p8",
      "posture": "standing",
-     "x": 30.972,
-     "y": -21.211,
-     "yaw": 2.938
-    },
-    {
-     "name": "exp23_p9",
-     "posture": "standing",
-     "x": 27.558,
-     "y": -20.79,
-     "yaw": -2.888
-    },
-    {
-     "name": "exp23_p10",
-     "posture": "standing",
-     "x": 29.199,
-     "y": -21.966,
-     "yaw": 2.175
-    },
-    {
-     "name": "exp23_p11",
-     "posture": "standing",
-     "x": 30.577,
-     "y": -22.606,
-     "yaw": 2.797
-    },
-    {
-     "name": "exp23_p12",
-     "posture": "standing",
-     "x": 28.828,
-     "y": -23.813,
-     "yaw": 1.144
+     "x": 26.526,
+     "y": -19.374,
+     "yaw": 0.618
     },
     {
      "name": "exp23_lying",
      "posture": "lying",
-     "x": 29.855,
-     "y": -17.543,
-     "yaw": 2.658
-    }
-   ],
-   "num_standing": 12,
-   "num_lying": 1
-  },
-  {
-   "id": 24,
-   "label": "normal",
-   "look_at": [
-    30.378,
-    -20.264
-   ],
-   "viewpoint": [
-    31.779,
-    -14.43,
-    6.0
-   ],
-   "viewpoint_yaw_deg": 256.5,
-   "people": [
-    {
-     "name": "exp24_p1",
-     "posture": "standing",
-     "x": 30.481,
-     "y": -20.126,
-     "yaw": 1.025
-    },
-    {
-     "name": "exp24_p2",
-     "posture": "standing",
-     "x": 29.312,
-     "y": -19.933,
-     "yaw": -2.935
-    },
-    {
-     "name": "exp24_p3",
-     "posture": "standing",
-     "x": 28.971,
-     "y": -21.331,
-     "yaw": -3.138
-    },
-    {
-     "name": "exp24_p4",
-     "posture": "standing",
-     "x": 30.507,
-     "y": -21.861,
-     "yaw": 2.351
-    },
-    {
-     "name": "exp24_p5",
-     "posture": "standing",
-     "x": 29.74,
-     "y": -22.317,
-     "yaw": 0.099
-    },
-    {
-     "name": "exp24_p6",
-     "posture": "standing",
-     "x": 31.188,
-     "y": -22.515,
-     "yaw": -0.8
-    },
-    {
-     "name": "exp24_p7",
-     "posture": "standing",
-     "x": 29.024,
-     "y": -23.377,
-     "yaw": 1.305
-    },
-    {
-     "name": "exp24_p8",
-     "posture": "standing",
-     "x": 28.588,
-     "y": -20.392,
-     "yaw": 0.194
-    },
-    {
-     "name": "exp24_p9",
-     "posture": "standing",
-     "x": 31.915,
-     "y": -21.47,
-     "yaw": 0.276
-    },
-    {
-     "name": "exp24_p10",
-     "posture": "standing",
-     "x": 29.817,
-     "y": -21.254,
-     "yaw": 1.448
-    },
-    {
-     "name": "exp24_p11",
-     "posture": "standing",
-     "x": 28.901,
-     "y": -22.443,
-     "yaw": 3.022
-    }
-   ],
-   "num_standing": 11,
-   "num_lying": 0
-  },
-  {
-   "id": 25,
-   "label": "emergency",
-   "look_at": [
-    30.984,
-    -18.29
-   ],
-   "viewpoint": [
-    35.429,
-    -22.32,
-    6.0
-   ],
-   "viewpoint_yaw_deg": 137.8,
-   "people": [
-    {
-     "name": "exp25_p1",
-     "posture": "standing",
-     "x": 28.775,
-     "y": -18.729,
-     "yaw": -2.583
-    },
-    {
-     "name": "exp25_p2",
-     "posture": "standing",
-     "x": 30.658,
-     "y": -17.234,
-     "yaw": 0.399
-    },
-    {
-     "name": "exp25_p3",
-     "posture": "standing",
-     "x": 29.515,
-     "y": -16.928,
-     "yaw": -0.129
-    },
-    {
-     "name": "exp25_p4",
-     "posture": "standing",
-     "x": 28.957,
-     "y": -15.934,
-     "yaw": 1.644
-    },
-    {
-     "name": "exp25_p5",
-     "posture": "standing",
-     "x": 27.991,
-     "y": -17.302,
-     "yaw": -0.441
-    },
-    {
-     "name": "exp25_p6",
-     "posture": "standing",
-     "x": 29.691,
-     "y": -18.509,
-     "yaw": -0.793
-    },
-    {
-     "name": "exp25_p7",
-     "posture": "standing",
-     "x": 28.262,
-     "y": -18.069,
-     "yaw": 2.039
-    },
-    {
-     "name": "exp25_lying",
-     "posture": "lying",
-     "x": 30.409,
-     "y": -21.839,
-     "yaw": -3.054
-    }
-   ],
-   "num_standing": 7,
-   "num_lying": 1
-  },
-  {
-   "id": 26,
-   "label": "emergency",
-   "look_at": [
-    31.278,
-    -19.451
-   ],
-   "viewpoint": [
-    26.252,
-    -16.174,
-    6.0
-   ],
-   "viewpoint_yaw_deg": 326.9,
-   "people": [
-    {
-     "name": "exp26_p1",
-     "posture": "standing",
-     "x": 32.519,
-     "y": -19.119,
-     "yaw": 3.111
-    },
-    {
-     "name": "exp26_p2",
-     "posture": "standing",
-     "x": 34.292,
-     "y": -20.54,
-     "yaw": 0.443
-    },
-    {
-     "name": "exp26_p3",
-     "posture": "standing",
-     "x": 32.709,
-     "y": -21.703,
-     "yaw": 0.542
-    },
-    {
-     "name": "exp26_p4",
-     "posture": "standing",
-     "x": 31.28,
-     "y": -19.663,
-     "yaw": 1.771
-    },
-    {
-     "name": "exp26_p5",
-     "posture": "standing",
-     "x": 33.674,
-     "y": -21.485,
-     "yaw": -0.634
-    },
-    {
-     "name": "exp26_p6",
-     "posture": "standing",
-     "x": 31.644,
-     "y": -21.552,
-     "yaw": -0.952
-    },
-    {
-     "name": "exp26_p7",
-     "posture": "standing",
-     "x": 33.847,
-     "y": -18.972,
-     "yaw": 2.062
-    },
-    {
-     "name": "exp26_p8",
-     "posture": "standing",
-     "x": 32.453,
-     "y": -20.842,
-     "yaw": -1.204
-    },
-    {
-     "name": "exp26_lying",
-     "posture": "lying",
-     "x": 31.16,
-     "y": -16.348,
-     "yaw": 0.702
+     "x": 27.024,
+     "y": -22.201,
+     "yaw": 2.913
     }
    ],
    "num_standing": 8,
    "num_lying": 1
   },
   {
+   "id": 24,
+   "label": "normal",
+   "look_at": [
+    30.753,
+    -21.466
+   ],
+   "viewpoint": [
+    36.753,
+    -21.403,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 180.6,
+   "people": [
+    {
+     "name": "exp24_p1",
+     "posture": "standing",
+     "x": 27.596,
+     "y": -20.788,
+     "yaw": 2.233
+    },
+    {
+     "name": "exp24_p2",
+     "posture": "standing",
+     "x": 30.098,
+     "y": -22.794,
+     "yaw": -1.248
+    },
+    {
+     "name": "exp24_p3",
+     "posture": "standing",
+     "x": 28.934,
+     "y": -20.807,
+     "yaw": 2.749
+    },
+    {
+     "name": "exp24_p4",
+     "posture": "standing",
+     "x": 29.13,
+     "y": -22.98,
+     "yaw": -0.432
+    },
+    {
+     "name": "exp24_p5",
+     "posture": "standing",
+     "x": 29.173,
+     "y": -19.938,
+     "yaw": 0.199
+    },
+    {
+     "name": "exp24_p6",
+     "posture": "standing",
+     "x": 28.252,
+     "y": -19.856,
+     "yaw": 0.927
+    },
+    {
+     "name": "exp24_p7",
+     "posture": "standing",
+     "x": 31.127,
+     "y": -21.144,
+     "yaw": 1.819
+    },
+    {
+     "name": "exp24_p8",
+     "posture": "standing",
+     "x": 30.244,
+     "y": -19.855,
+     "yaw": 0.687
+    },
+    {
+     "name": "exp24_p9",
+     "posture": "standing",
+     "x": 29.716,
+     "y": -20.556,
+     "yaw": 0.984
+    }
+   ],
+   "num_standing": 9,
+   "num_lying": 0
+  },
+  {
+   "id": 25,
+   "label": "emergency",
+   "look_at": [
+    31.666,
+    -21.33
+   ],
+   "viewpoint": [
+    25.716,
+    -22.103,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 7.4,
+   "people": [
+    {
+     "name": "exp25_p1",
+     "posture": "standing",
+     "x": 33.766,
+     "y": -22.068,
+     "yaw": -0.672
+    },
+    {
+     "name": "exp25_p2",
+     "posture": "standing",
+     "x": 32.1,
+     "y": -20.194,
+     "yaw": -0.913
+    },
+    {
+     "name": "exp25_p3",
+     "posture": "standing",
+     "x": 34.865,
+     "y": -20.756,
+     "yaw": 0.199
+    },
+    {
+     "name": "exp25_p4",
+     "posture": "standing",
+     "x": 33.309,
+     "y": -19.959,
+     "yaw": 2.644
+    },
+    {
+     "name": "exp25_p5",
+     "posture": "standing",
+     "x": 32.06,
+     "y": -22.335,
+     "yaw": 0.035
+    },
+    {
+     "name": "exp25_p6",
+     "posture": "standing",
+     "x": 32.979,
+     "y": -21.445,
+     "yaw": 2.707
+    },
+    {
+     "name": "exp25_p7",
+     "posture": "standing",
+     "x": 34.961,
+     "y": -21.768,
+     "yaw": 0.748
+    },
+    {
+     "name": "exp25_p8",
+     "posture": "standing",
+     "x": 31.425,
+     "y": -21.168,
+     "yaw": 1.171
+    },
+    {
+     "name": "exp25_p9",
+     "posture": "standing",
+     "x": 34.098,
+     "y": -19.518,
+     "yaw": 2.774
+    },
+    {
+     "name": "exp25_p10",
+     "posture": "standing",
+     "x": 33.673,
+     "y": -21.035,
+     "yaw": -1.353
+    },
+    {
+     "name": "exp25_p11",
+     "posture": "standing",
+     "x": 33.127,
+     "y": -22.768,
+     "yaw": -0.615
+    },
+    {
+     "name": "exp25_p12",
+     "posture": "standing",
+     "x": 34.48,
+     "y": -22.492,
+     "yaw": -0.115
+    },
+    {
+     "name": "exp25_lying",
+     "posture": "lying",
+     "x": 30.004,
+     "y": -24.523,
+     "yaw": 3.113
+    }
+   ],
+   "num_standing": 12,
+   "num_lying": 1
+  },
+  {
+   "id": 26,
+   "label": "emergency",
+   "look_at": [
+    28.365,
+    -18.04
+   ],
+   "viewpoint": [
+    26.863,
+    -12.231,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 284.5,
+   "people": [
+    {
+     "name": "exp26_p1",
+     "posture": "standing",
+     "x": 28.206,
+     "y": -17.958,
+     "yaw": 2.863
+    },
+    {
+     "name": "exp26_p2",
+     "posture": "standing",
+     "x": 29.134,
+     "y": -21.256,
+     "yaw": 2.52
+    },
+    {
+     "name": "exp26_p3",
+     "posture": "standing",
+     "x": 29.216,
+     "y": -20.337,
+     "yaw": -2.542
+    },
+    {
+     "name": "exp26_p4",
+     "posture": "standing",
+     "x": 30.286,
+     "y": -18.334,
+     "yaw": 1.984
+    },
+    {
+     "name": "exp26_p5",
+     "posture": "standing",
+     "x": 26.875,
+     "y": -19.493,
+     "yaw": 1.71
+    },
+    {
+     "name": "exp26_p6",
+     "posture": "standing",
+     "x": 27.813,
+     "y": -21.217,
+     "yaw": -1.397
+    },
+    {
+     "name": "exp26_p7",
+     "posture": "standing",
+     "x": 28.369,
+     "y": -20.132,
+     "yaw": -1.521
+    },
+    {
+     "name": "exp26_p8",
+     "posture": "standing",
+     "x": 30.373,
+     "y": -20.192,
+     "yaw": 0.73
+    },
+    {
+     "name": "exp26_p9",
+     "posture": "standing",
+     "x": 28.378,
+     "y": -18.821,
+     "yaw": 0.021
+    },
+    {
+     "name": "exp26_p10",
+     "posture": "standing",
+     "x": 29.46,
+     "y": -19.249,
+     "yaw": 1.467
+    },
+    {
+     "name": "exp26_p11",
+     "posture": "standing",
+     "x": 27.52,
+     "y": -18.495,
+     "yaw": 2.292
+    },
+    {
+     "name": "exp26_p12",
+     "posture": "standing",
+     "x": 27.344,
+     "y": -20.248,
+     "yaw": -0.938
+    },
+    {
+     "name": "exp26_lying",
+     "posture": "lying",
+     "x": 25.383,
+     "y": -16.637,
+     "yaw": -1.809
+    }
+   ],
+   "num_standing": 12,
+   "num_lying": 1
+  },
+  {
    "id": 27,
    "label": "emergency",
    "look_at": [
-    28.459,
-    -19.153
+    28.946,
+    -20.113
    ],
    "viewpoint": [
-    30.042,
-    -24.94,
+    22.952,
+    -20.375,
     6.0
    ],
-   "viewpoint_yaw_deg": 105.3,
+   "viewpoint_yaw_deg": 2.5,
    "people": [
     {
      "name": "exp27_p1",
      "posture": "standing",
-     "x": 27.142,
-     "y": -18.803,
-     "yaw": -0.32
+     "x": 29.859,
+     "y": -20.92,
+     "yaw": -0.677
     },
     {
      "name": "exp27_p2",
      "posture": "standing",
-     "x": 28.644,
-     "y": -18.856,
-     "yaw": -0.571
+     "x": 32.057,
+     "y": -20.64,
+     "yaw": 2.496
     },
     {
      "name": "exp27_p3",
      "posture": "standing",
-     "x": 27.985,
-     "y": -17.145,
-     "yaw": 3.121
+     "x": 29.139,
+     "y": -18.782,
+     "yaw": 0.763
     },
     {
      "name": "exp27_p4",
      "posture": "standing",
-     "x": 27.247,
-     "y": -17.881,
-     "yaw": -0.396
+     "x": 30.846,
+     "y": -20.486,
+     "yaw": -0.57
     },
     {
      "name": "exp27_p5",
      "posture": "standing",
-     "x": 27.315,
-     "y": -16.211,
-     "yaw": 2.108
+     "x": 31.674,
+     "y": -21.464,
+     "yaw": -0.095
     },
     {
      "name": "exp27_p6",
      "posture": "standing",
-     "x": 29.851,
-     "y": -18.241,
-     "yaw": -1.15
+     "x": 31.625,
+     "y": -18.901,
+     "yaw": -1.122
     },
     {
      "name": "exp27_p7",
      "posture": "standing",
-     "x": 28.964,
-     "y": -17.043,
-     "yaw": -0.066
+     "x": 30.932,
+     "y": -18.28,
+     "yaw": -1.287
+    },
+    {
+     "name": "exp27_p8",
+     "posture": "standing",
+     "x": 30.794,
+     "y": -19.46,
+     "yaw": -0.368
+    },
+    {
+     "name": "exp27_p9",
+     "posture": "standing",
+     "x": 29.059,
+     "y": -20.288,
+     "yaw": -2.952
+    },
+    {
+     "name": "exp27_p10",
+     "posture": "standing",
+     "x": 30.377,
+     "y": -21.859,
+     "yaw": -1.528
     },
     {
      "name": "exp27_lying",
      "posture": "lying",
-     "x": 31.82,
-     "y": -20.36,
-     "yaw": -2.076
+     "x": 27.953,
+     "y": -23.569,
+     "yaw": 0.944
     }
    ],
-   "num_standing": 7,
+   "num_standing": 10,
    "num_lying": 1
   },
   {
    "id": 28,
    "label": "normal",
    "look_at": [
-    30.825,
-    -20.091
+    28.053,
+    -21.426
    ],
    "viewpoint": [
-    25.135,
-    -21.995,
+    32.213,
+    -17.103,
     6.0
    ],
-   "viewpoint_yaw_deg": 18.5,
+   "viewpoint_yaw_deg": 226.1,
    "people": [
     {
      "name": "exp28_p1",
      "posture": "standing",
-     "x": 31.626,
-     "y": -18.861,
-     "yaw": 2.039
+     "x": 25.37,
+     "y": -22.506,
+     "yaw": 2.288
     },
     {
      "name": "exp28_p2",
      "posture": "standing",
-     "x": 34.144,
-     "y": -19.476,
-     "yaw": -3.046
+     "x": 27.538,
+     "y": -23.954,
+     "yaw": -2.478
     },
     {
      "name": "exp28_p3",
      "posture": "standing",
-     "x": 30.71,
-     "y": -20.422,
-     "yaw": -2.359
+     "x": 27.009,
+     "y": -21.889,
+     "yaw": 0.485
     },
     {
      "name": "exp28_p4",
      "posture": "standing",
-     "x": 33.741,
-     "y": -18.384,
-     "yaw": 1.314
+     "x": 27.983,
+     "y": -22.206,
+     "yaw": -2.881
     },
     {
      "name": "exp28_p5",
      "posture": "standing",
-     "x": 30.695,
-     "y": -18.612,
-     "yaw": -1.576
+     "x": 26.824,
+     "y": -23.409,
+     "yaw": 1.388
     },
     {
      "name": "exp28_p6",
      "posture": "standing",
-     "x": 31.639,
-     "y": -20.075,
-     "yaw": -1.568
+     "x": 27.697,
+     "y": -21.148,
+     "yaw": -2.33
+    },
+    {
+     "name": "exp28_p7",
+     "posture": "standing",
+     "x": 28.303,
+     "y": -23.472,
+     "yaw": 1.89
+    },
+    {
+     "name": "exp28_p8",
+     "posture": "standing",
+     "x": 26.174,
+     "y": -21.921,
+     "yaw": -2.61
+    },
+    {
+     "name": "exp28_p9",
+     "posture": "standing",
+     "x": 25.742,
+     "y": -21.181,
+     "yaw": -1.919
+    },
+    {
+     "name": "exp28_p10",
+     "posture": "standing",
+     "x": 26.613,
+     "y": -20.747,
+     "yaw": -0.402
     }
    ],
-   "num_standing": 6,
+   "num_standing": 10,
    "num_lying": 0
   },
   {
    "id": 29,
    "label": "emergency",
    "look_at": [
-    28.931,
-    -18.717
+    30.882,
+    -21.23
    ],
    "viewpoint": [
-    23.019,
-    -19.738,
+    33.522,
+    -26.618,
     6.0
    ],
-   "viewpoint_yaw_deg": 9.8,
+   "viewpoint_yaw_deg": 116.1,
    "people": [
     {
      "name": "exp29_p1",
      "posture": "standing",
-     "x": 30.197,
-     "y": -20.374,
-     "yaw": -2.156
+     "x": 28.543,
+     "y": -19.338,
+     "yaw": 0.886
     },
     {
      "name": "exp29_p2",
      "posture": "standing",
-     "x": 31.379,
-     "y": -17.015,
-     "yaw": 2.094
+     "x": 31.087,
+     "y": -19.381,
+     "yaw": 2.589
     },
     {
      "name": "exp29_p3",
      "posture": "standing",
-     "x": 30.867,
-     "y": -19.835,
-     "yaw": 1.876
+     "x": 30.021,
+     "y": -21.715,
+     "yaw": 0.528
     },
     {
      "name": "exp29_p4",
      "posture": "standing",
-     "x": 30.12,
-     "y": -18.44,
-     "yaw": 2.544
+     "x": 31.671,
+     "y": -21.241,
+     "yaw": -0.296
     },
     {
      "name": "exp29_p5",
      "posture": "standing",
-     "x": 29.346,
-     "y": -17.834,
-     "yaw": -0.724
+     "x": 30.136,
+     "y": -19.269,
+     "yaw": 0.156
     },
     {
      "name": "exp29_p6",
      "posture": "standing",
-     "x": 28.689,
-     "y": -19.143,
-     "yaw": 2.508
+     "x": 31.879,
+     "y": -20.123,
+     "yaw": -1.65
     },
     {
      "name": "exp29_p7",
      "posture": "standing",
-     "x": 32.247,
-     "y": -18.017,
-     "yaw": 1.551
+     "x": 30.129,
+     "y": -18.408,
+     "yaw": -0.626
     },
     {
      "name": "exp29_p8",
      "posture": "standing",
-     "x": 31.217,
-     "y": -17.845,
-     "yaw": 1.647
+     "x": 28.657,
+     "y": -20.599,
+     "yaw": 2.115
     },
     {
      "name": "exp29_p9",
      "posture": "standing",
-     "x": 30.136,
-     "y": -16.819,
-     "yaw": 1.32
+     "x": 29.069,
+     "y": -21.39,
+     "yaw": -2.996
     },
     {
      "name": "exp29_lying",
      "posture": "lying",
-     "x": 27.879,
-     "y": -22.044,
-     "yaw": 2.388
+     "x": 29.004,
+     "y": -23.878,
+     "yaw": -3.01
     }
    ],
    "num_standing": 9,
@@ -2432,226 +2555,226 @@
    "id": 30,
    "label": "normal",
    "look_at": [
-    30.393,
-    -20.595
+    30.917,
+    -18.726
    ],
    "viewpoint": [
-    31.855,
-    -26.414,
+    26.106,
+    -22.312,
     6.0
    ],
-   "viewpoint_yaw_deg": 104.1,
+   "viewpoint_yaw_deg": 36.7,
    "people": [
     {
      "name": "exp30_p1",
      "posture": "standing",
-     "x": 30.006,
-     "y": -17.929,
-     "yaw": 0.011
+     "x": 31.232,
+     "y": -17.777,
+     "yaw": 1.257
     },
     {
      "name": "exp30_p2",
      "posture": "standing",
-     "x": 28.56,
-     "y": -18.366,
-     "yaw": -0.129
+     "x": 32.229,
+     "y": -16.683,
+     "yaw": -0.053
     },
     {
      "name": "exp30_p3",
      "posture": "standing",
-     "x": 31.257,
-     "y": -17.947,
-     "yaw": -1.887
+     "x": 33.605,
+     "y": -18.997,
+     "yaw": 2.37
     },
     {
      "name": "exp30_p4",
      "posture": "standing",
-     "x": 30.128,
-     "y": -20.396,
-     "yaw": -0.375
+     "x": 32.334,
+     "y": -19.254,
+     "yaw": 0.339
     },
     {
      "name": "exp30_p5",
      "posture": "standing",
-     "x": 28.841,
-     "y": -19.843,
-     "yaw": 1.94
+     "x": 31.533,
+     "y": -16.009,
+     "yaw": -1.287
     },
     {
      "name": "exp30_p6",
      "posture": "standing",
-     "x": 29.257,
-     "y": -20.539,
-     "yaw": 0.495
+     "x": 33.865,
+     "y": -17.945,
+     "yaw": 1.897
     },
     {
      "name": "exp30_p7",
      "posture": "standing",
-     "x": 31.283,
-     "y": -19.64,
-     "yaw": -2.814
-    },
-    {
-     "name": "exp30_p8",
-     "posture": "standing",
-     "x": 30.061,
-     "y": -19.085,
-     "yaw": 2.762
+     "x": 31.119,
+     "y": -18.721,
+     "yaw": -1.36
     }
    ],
-   "num_standing": 8,
+   "num_standing": 7,
    "num_lying": 0
   },
   {
    "id": 31,
    "label": "normal",
    "look_at": [
-    28.694,
-    -18.137
+    28.344,
+    -20.484
    ],
    "viewpoint": [
-    26.311,
-    -23.644,
+    22.38,
+    -19.826,
     6.0
    ],
-   "viewpoint_yaw_deg": 66.6,
+   "viewpoint_yaw_deg": 353.7,
    "people": [
     {
      "name": "exp31_p1",
      "posture": "standing",
-     "x": 27.797,
-     "y": -16.303,
-     "yaw": 1.096
+     "x": 28.976,
+     "y": -21.535,
+     "yaw": 1.643
     },
     {
      "name": "exp31_p2",
      "posture": "standing",
-     "x": 29.736,
-     "y": -15.202,
-     "yaw": 2.617
+     "x": 29.662,
+     "y": -18.901,
+     "yaw": 2.964
     },
     {
      "name": "exp31_p3",
      "posture": "standing",
-     "x": 30.06,
-     "y": -16.482,
-     "yaw": 2.905
+     "x": 30.909,
+     "y": -19.407,
+     "yaw": 1.097
     },
     {
      "name": "exp31_p4",
      "posture": "standing",
-     "x": 30.945,
-     "y": -16.299,
-     "yaw": -2.59
+     "x": 31.087,
+     "y": -21.045,
+     "yaw": 1.346
     },
     {
      "name": "exp31_p5",
      "posture": "standing",
-     "x": 28.881,
-     "y": -15.511,
-     "yaw": -2.986
+     "x": 28.846,
+     "y": -19.942,
+     "yaw": 2.598
     },
     {
      "name": "exp31_p6",
      "posture": "standing",
-     "x": 29.439,
-     "y": -17.577,
-     "yaw": -1.429
+     "x": 31.172,
+     "y": -20.199,
+     "yaw": -2.516
     },
     {
      "name": "exp31_p7",
      "posture": "standing",
-     "x": 28.543,
-     "y": -18.381,
-     "yaw": -2.192
+     "x": 29.457,
+     "y": -20.555,
+     "yaw": 2.486
     },
     {
      "name": "exp31_p8",
      "posture": "standing",
-     "x": 28.005,
-     "y": -17.606,
-     "yaw": 0.801
+     "x": 30.365,
+     "y": -20.267,
+     "yaw": 1.978
+    },
+    {
+     "name": "exp31_p9",
+     "posture": "standing",
+     "x": 30.037,
+     "y": -21.693,
+     "yaw": -1.245
     }
    ],
-   "num_standing": 8,
+   "num_standing": 9,
    "num_lying": 0
   },
   {
    "id": 32,
    "label": "normal",
    "look_at": [
-    28.907,
-    -21.989
+    31.279,
+    -20.673
    ],
    "viewpoint": [
-    23.83,
-    -18.792,
+    25.402,
+    -21.879,
     6.0
    ],
-   "viewpoint_yaw_deg": 327.8,
+   "viewpoint_yaw_deg": 11.6,
    "people": [
     {
      "name": "exp32_p1",
      "posture": "standing",
-     "x": 31.946,
-     "y": -23.465,
-     "yaw": 0.928
+     "x": 32.901,
+     "y": -20.869,
+     "yaw": 1.326
     },
     {
      "name": "exp32_p2",
      "posture": "standing",
-     "x": 28.528,
-     "y": -21.785,
-     "yaw": -0.507
+     "x": 33.802,
+     "y": -20.626,
+     "yaw": -0.284
     },
     {
      "name": "exp32_p3",
      "posture": "standing",
-     "x": 30.71,
-     "y": -23.809,
-     "yaw": 2.676
+     "x": 33.211,
+     "y": -18.901,
+     "yaw": 0.938
     },
     {
      "name": "exp32_p4",
      "posture": "standing",
-     "x": 29.063,
-     "y": -23.901,
-     "yaw": -1.011
+     "x": 34.196,
+     "y": -19.876,
+     "yaw": 1.524
     },
     {
      "name": "exp32_p5",
      "posture": "standing",
-     "x": 30.821,
-     "y": -21.301,
-     "yaw": 2.998
+     "x": 33.238,
+     "y": -19.824,
+     "yaw": 1.313
     },
     {
      "name": "exp32_p6",
      "posture": "standing",
-     "x": 31.798,
-     "y": -22.023,
-     "yaw": -2.465
+     "x": 32.204,
+     "y": -21.832,
+     "yaw": -1.874
     },
     {
      "name": "exp32_p7",
      "posture": "standing",
-     "x": 29.409,
-     "y": -21.43,
-     "yaw": -2.142
+     "x": 32.12,
+     "y": -20.449,
+     "yaw": -2.637
     },
     {
      "name": "exp32_p8",
      "posture": "standing",
-     "x": 29.901,
-     "y": -24.422,
-     "yaw": 1.723
+     "x": 31.279,
+     "y": -21.244,
+     "yaw": -2.549
     },
     {
      "name": "exp32_p9",
      "posture": "standing",
-     "x": 29.906,
-     "y": -23.402,
-     "yaw": 2.128
+     "x": 31.244,
+     "y": -19.422,
+     "yaw": -0.806
     }
    ],
    "num_standing": 9,
@@ -2661,979 +2784,1098 @@
    "id": 33,
    "label": "emergency",
    "look_at": [
-    29.929,
-    -19.254
+    30.247,
+    -19.713
    ],
    "viewpoint": [
-    30.055,
-    -13.255,
+    25.083,
+    -16.659,
     6.0
    ],
-   "viewpoint_yaw_deg": 268.8,
+   "viewpoint_yaw_deg": 329.4,
    "people": [
     {
      "name": "exp33_p1",
      "posture": "standing",
-     "x": 30.673,
-     "y": -19.292,
-     "yaw": -1.407
+     "x": 32.588,
+     "y": -18.885,
+     "yaw": 1.216
     },
     {
      "name": "exp33_p2",
      "posture": "standing",
-     "x": 30.43,
-     "y": -20.355,
-     "yaw": 2.043
+     "x": 31.205,
+     "y": -19.77,
+     "yaw": 1.743
     },
     {
      "name": "exp33_p3",
      "posture": "standing",
-     "x": 29.951,
-     "y": -22.544,
-     "yaw": 0.678
+     "x": 31.921,
+     "y": -19.332,
+     "yaw": -0.924
     },
     {
      "name": "exp33_p4",
      "posture": "standing",
-     "x": 29.185,
-     "y": -20.52,
-     "yaw": 0.904
+     "x": 32.62,
+     "y": -21.045,
+     "yaw": -2.242
     },
     {
      "name": "exp33_p5",
      "posture": "standing",
-     "x": 31.602,
-     "y": -21.059,
-     "yaw": -1.827
+     "x": 30.197,
+     "y": -21.555,
+     "yaw": 0.958
     },
     {
      "name": "exp33_p6",
      "posture": "standing",
-     "x": 28.765,
-     "y": -22.295,
-     "yaw": -2.845
+     "x": 32.884,
+     "y": -20.124,
+     "yaw": 2.927
+    },
+    {
+     "name": "exp33_p7",
+     "posture": "standing",
+     "x": 31.957,
+     "y": -22.235,
+     "yaw": -2.06
+    },
+    {
+     "name": "exp33_p8",
+     "posture": "standing",
+     "x": 30.954,
+     "y": -20.826,
+     "yaw": -1.615
+    },
+    {
+     "name": "exp33_p9",
+     "posture": "standing",
+     "x": 30.822,
+     "y": -22.115,
+     "yaw": 2.874
     },
     {
      "name": "exp33_lying",
      "posture": "lying",
-     "x": 26.905,
-     "y": -17.472,
-     "yaw": 1.278
+     "x": 30.76,
+     "y": -16.979,
+     "yaw": -2.941
     }
    ],
-   "num_standing": 6,
+   "num_standing": 9,
    "num_lying": 1
   },
   {
    "id": 34,
    "label": "normal",
    "look_at": [
-    31.568,
-    -18.177
+    29.576,
+    -18.135
    ],
    "viewpoint": [
-    36.566,
-    -21.497,
+    32.531,
+    -23.357,
     6.0
    ],
-   "viewpoint_yaw_deg": 146.4,
+   "viewpoint_yaw_deg": 119.5,
    "people": [
     {
      "name": "exp34_p1",
      "posture": "standing",
-     "x": 30.338,
-     "y": -16.879,
-     "yaw": 2.377
+     "x": 29.965,
+     "y": -15.893,
+     "yaw": -2.141
     },
     {
      "name": "exp34_p2",
      "posture": "standing",
-     "x": 29.781,
-     "y": -17.815,
-     "yaw": 2.862
+     "x": 28.556,
+     "y": -17.318,
+     "yaw": -0.525
     },
     {
      "name": "exp34_p3",
      "posture": "standing",
-     "x": 32.131,
-     "y": -17.539,
-     "yaw": -1.333
+     "x": 27.405,
+     "y": -17.851,
+     "yaw": 0.978
     },
     {
      "name": "exp34_p4",
      "posture": "standing",
-     "x": 30.688,
-     "y": -18.282,
-     "yaw": -3.085
+     "x": 27.474,
+     "y": -16.342,
+     "yaw": -0.016
     },
     {
      "name": "exp34_p5",
      "posture": "standing",
-     "x": 28.778,
-     "y": -16.933,
-     "yaw": 1.721
+     "x": 30.583,
+     "y": -17.493,
+     "yaw": -2.677
     },
     {
      "name": "exp34_p6",
      "posture": "standing",
-     "x": 31.014,
-     "y": -16.427,
-     "yaw": -1.11
+     "x": 28.874,
+     "y": -15.02,
+     "yaw": -2.943
     },
     {
      "name": "exp34_p7",
      "posture": "standing",
-     "x": 31.078,
-     "y": -17.419,
-     "yaw": -2.748
+     "x": 29.097,
+     "y": -16.007,
+     "yaw": -1.709
     },
     {
      "name": "exp34_p8",
      "posture": "standing",
-     "x": 31.65,
-     "y": -18.705,
-     "yaw": -0.972
+     "x": 29.043,
+     "y": -18.047,
+     "yaw": 2.895
     },
     {
      "name": "exp34_p9",
      "posture": "standing",
-     "x": 28.657,
-     "y": -18.351,
-     "yaw": -1.45
-    },
-    {
-     "name": "exp34_p10",
-     "posture": "standing",
-     "x": 29.72,
-     "y": -16.092,
-     "yaw": 2.808
+     "x": 29.878,
+     "y": -16.908,
+     "yaw": -0.586
     }
    ],
-   "num_standing": 10,
+   "num_standing": 9,
    "num_lying": 0
   },
   {
    "id": 35,
    "label": "emergency",
    "look_at": [
-    30.592,
-    -21.055
+    28.086,
+    -19.778
    ],
    "viewpoint": [
-    24.592,
-    -21.107,
+    22.242,
+    -21.138,
     6.0
    ],
-   "viewpoint_yaw_deg": 0.5,
+   "viewpoint_yaw_deg": 13.1,
    "people": [
     {
      "name": "exp35_p1",
      "posture": "standing",
-     "x": 31.89,
-     "y": -22.409,
-     "yaw": -0.979
+     "x": 30.155,
+     "y": -20.3,
+     "yaw": -2.957
     },
     {
      "name": "exp35_p2",
      "posture": "standing",
-     "x": 32.929,
-     "y": -22.627,
-     "yaw": 1.418
+     "x": 28.072,
+     "y": -18.703,
+     "yaw": 0.211
     },
     {
      "name": "exp35_p3",
      "posture": "standing",
-     "x": 32.43,
-     "y": -19.556,
-     "yaw": -2.97
+     "x": 28.17,
+     "y": -19.986,
+     "yaw": 0.351
     },
     {
      "name": "exp35_p4",
      "posture": "standing",
-     "x": 31.136,
-     "y": -21.992,
-     "yaw": 2.048
+     "x": 31.124,
+     "y": -20.106,
+     "yaw": 0.491
     },
     {
      "name": "exp35_p5",
      "posture": "standing",
-     "x": 31.556,
-     "y": -20.055,
-     "yaw": -0.44
+     "x": 30.006,
+     "y": -21.174,
+     "yaw": 0.673
     },
     {
      "name": "exp35_p6",
      "posture": "standing",
-     "x": 30.743,
-     "y": -19.667,
-     "yaw": -0.279
+     "x": 29.039,
+     "y": -20.073,
+     "yaw": 0.81
     },
     {
      "name": "exp35_p7",
      "posture": "standing",
-     "x": 33.314,
-     "y": -21.86,
-     "yaw": -1.296
+     "x": 31.389,
+     "y": -19.223,
+     "yaw": -0.071
     },
     {
      "name": "exp35_p8",
      "posture": "standing",
-     "x": 32.192,
-     "y": -20.772,
-     "yaw": -1.904
+     "x": 29.076,
+     "y": -17.541,
+     "yaw": -0.998
     },
     {
      "name": "exp35_p9",
      "posture": "standing",
-     "x": 31.022,
-     "y": -20.96,
-     "yaw": 1.972
+     "x": 28.847,
+     "y": -21.1,
+     "yaw": 0.598
     },
     {
      "name": "exp35_p10",
      "posture": "standing",
-     "x": 33.727,
-     "y": -19.989,
-     "yaw": -2.638
+     "x": 30.104,
+     "y": -18.481,
+     "yaw": -2.264
     },
     {
      "name": "exp35_p11",
      "posture": "standing",
-     "x": 33.505,
-     "y": -20.873,
-     "yaw": 1.006
+     "x": 29.187,
+     "y": -19.084,
+     "yaw": -2.863
+    },
+    {
+     "name": "exp35_p12",
+     "posture": "standing",
+     "x": 30.78,
+     "y": -20.902,
+     "yaw": -2.603
     },
     {
      "name": "exp35_lying",
      "posture": "lying",
-     "x": 28.635,
-     "y": -24.473,
-     "yaw": -1.666
+     "x": 26.246,
+     "y": -17.278,
+     "yaw": -0.277
     }
    ],
-   "num_standing": 11,
+   "num_standing": 12,
    "num_lying": 1
   },
   {
    "id": 36,
    "label": "emergency",
    "look_at": [
-    28.382,
-    -18.268
+    31.339,
+    -20.672
    ],
    "viewpoint": [
-    22.581,
-    -19.801,
+    26.46,
+    -17.179,
     6.0
    ],
-   "viewpoint_yaw_deg": 14.8,
+   "viewpoint_yaw_deg": 324.4,
    "people": [
     {
      "name": "exp36_p1",
      "posture": "standing",
-     "x": 29.416,
-     "y": -18.324,
-     "yaw": -0.682
+     "x": 33.996,
+     "y": -22.605,
+     "yaw": -0.26
     },
     {
      "name": "exp36_p2",
      "posture": "standing",
-     "x": 30.487,
-     "y": -18.177,
-     "yaw": 2.779
+     "x": 32.558,
+     "y": -21.071,
+     "yaw": -0.003
     },
     {
      "name": "exp36_p3",
      "posture": "standing",
-     "x": 28.106,
-     "y": -18.728,
-     "yaw": 2.29
+     "x": 33.885,
+     "y": -21.54,
+     "yaw": 1.581
     },
     {
      "name": "exp36_p4",
      "posture": "standing",
-     "x": 29.372,
-     "y": -17.124,
-     "yaw": 2.568
+     "x": 31.188,
+     "y": -22.102,
+     "yaw": 2.264
     },
     {
      "name": "exp36_p5",
      "posture": "standing",
-     "x": 29.667,
-     "y": -16.357,
-     "yaw": -2.324
+     "x": 32.98,
+     "y": -19.769,
+     "yaw": -2.048
     },
     {
      "name": "exp36_p6",
      "posture": "standing",
-     "x": 30.008,
-     "y": -18.972,
-     "yaw": -1.437
+     "x": 31.077,
+     "y": -21.04,
+     "yaw": 0.999
     },
     {
      "name": "exp36_p7",
      "posture": "standing",
-     "x": 31.454,
-     "y": -17.73,
-     "yaw": -1.998
+     "x": 32.102,
+     "y": -23.202,
+     "yaw": -3.133
     },
     {
      "name": "exp36_p8",
      "posture": "standing",
-     "x": 31.144,
-     "y": -18.923,
-     "yaw": 2.303
+     "x": 32.211,
+     "y": -20.298,
+     "yaw": -2.893
+    },
+    {
+     "name": "exp36_p9",
+     "posture": "standing",
+     "x": 32.814,
+     "y": -22.601,
+     "yaw": -0.991
     },
     {
      "name": "exp36_lying",
      "posture": "lying",
-     "x": 27.37,
-     "y": -21.125,
-     "yaw": -2.24
+     "x": 31.793,
+     "y": -17.163,
+     "yaw": 0.103
     }
    ],
-   "num_standing": 8,
+   "num_standing": 9,
    "num_lying": 1
   },
   {
    "id": 37,
    "label": "normal",
    "look_at": [
-    30.31,
-    -21.987
+    31.165,
+    -20.672
    ],
    "viewpoint": [
-    28.717,
-    -27.772,
+    33.178,
+    -26.324,
     6.0
    ],
-   "viewpoint_yaw_deg": 74.6,
+   "viewpoint_yaw_deg": 109.6,
    "people": [
     {
      "name": "exp37_p1",
      "posture": "standing",
-     "x": 30.688,
-     "y": -21.303,
-     "yaw": 0.021
+     "x": 30.36,
+     "y": -20.377,
+     "yaw": 2.481
     },
     {
      "name": "exp37_p2",
      "posture": "standing",
-     "x": 32.104,
-     "y": -21.901,
-     "yaw": -0.273
+     "x": 31.721,
+     "y": -19.251,
+     "yaw": -1.797
     },
     {
      "name": "exp37_p3",
      "posture": "standing",
-     "x": 29.749,
-     "y": -21.858,
-     "yaw": 2.769
+     "x": 30.917,
+     "y": -21.149,
+     "yaw": -1.264
     },
     {
      "name": "exp37_p4",
      "posture": "standing",
-     "x": 29.121,
-     "y": -20.366,
-     "yaw": 1.304
+     "x": 29.011,
+     "y": -18.535,
+     "yaw": 2.936
     },
     {
      "name": "exp37_p5",
      "posture": "standing",
-     "x": 29.782,
-     "y": -19.697,
-     "yaw": -2.427
+     "x": 30.614,
+     "y": -17.878,
+     "yaw": -2.068
     },
     {
      "name": "exp37_p6",
      "posture": "standing",
-     "x": 32.048,
-     "y": -19.243,
-     "yaw": -2.236
+     "x": 31.298,
+     "y": -18.435,
+     "yaw": -2.112
     },
     {
      "name": "exp37_p7",
      "posture": "standing",
-     "x": 31.661,
-     "y": -20.913,
-     "yaw": -1.916
+     "x": 32.468,
+     "y": -19.653,
+     "yaw": -2.379
+    },
+    {
+     "name": "exp37_p8",
+     "posture": "standing",
+     "x": 29.501,
+     "y": -17.835,
+     "yaw": -2.901
+    },
+    {
+     "name": "exp37_p9",
+     "posture": "standing",
+     "x": 28.776,
+     "y": -19.349,
+     "yaw": -1.736
+    },
+    {
+     "name": "exp37_p10",
+     "posture": "standing",
+     "x": 29.408,
+     "y": -20.817,
+     "yaw": 1.533
+    },
+    {
+     "name": "exp37_p11",
+     "posture": "standing",
+     "x": 32.153,
+     "y": -18.0,
+     "yaw": -2.157
     }
    ],
-   "num_standing": 7,
+   "num_standing": 11,
    "num_lying": 0
   },
   {
    "id": 38,
    "label": "emergency",
    "look_at": [
-    30.956,
-    -20.94
+    31.028,
+    -18.546
    ],
    "viewpoint": [
-    29.413,
-    -15.142,
+    36.306,
+    -21.4,
     6.0
    ],
-   "viewpoint_yaw_deg": 284.9,
+   "viewpoint_yaw_deg": 151.6,
    "people": [
     {
      "name": "exp38_p1",
      "posture": "standing",
-     "x": 32.016,
-     "y": -23.414,
-     "yaw": 2.093
+     "x": 31.443,
+     "y": -18.333,
+     "yaw": 1.751
     },
     {
      "name": "exp38_p2",
      "posture": "standing",
-     "x": 30.097,
-     "y": -22.494,
-     "yaw": 0.312
+     "x": 29.798,
+     "y": -15.93,
+     "yaw": -1.008
     },
     {
      "name": "exp38_p3",
      "posture": "standing",
-     "x": 31.445,
-     "y": -21.289,
-     "yaw": 1.642
+     "x": 28.888,
+     "y": -17.851,
+     "yaw": -1.619
     },
     {
      "name": "exp38_p4",
      "posture": "standing",
-     "x": 33.33,
-     "y": -22.371,
-     "yaw": -1.863
+     "x": 28.503,
+     "y": -16.444,
+     "yaw": -2.967
     },
     {
      "name": "exp38_p5",
      "posture": "standing",
-     "x": 32.867,
-     "y": -23.668,
-     "yaw": -0.615
+     "x": 29.719,
+     "y": -19.684,
+     "yaw": -0.911
     },
     {
      "name": "exp38_p6",
      "posture": "standing",
-     "x": 30.83,
-     "y": -23.1,
-     "yaw": 0.083
+     "x": 29.226,
+     "y": -16.951,
+     "yaw": 1.568
     },
     {
      "name": "exp38_p7",
      "posture": "standing",
-     "x": 30.496,
-     "y": -21.086,
-     "yaw": 0.124
+     "x": 28.528,
+     "y": -19.334,
+     "yaw": 1.615
     },
     {
      "name": "exp38_p8",
      "posture": "standing",
-     "x": 30.815,
-     "y": -24.173,
-     "yaw": 1.085
+     "x": 28.12,
+     "y": -17.157,
+     "yaw": 2.009
+    },
+    {
+     "name": "exp38_p9",
+     "posture": "standing",
+     "x": 30.088,
+     "y": -17.257,
+     "yaw": -2.172
+    },
+    {
+     "name": "exp38_p10",
+     "posture": "standing",
+     "x": 30.927,
+     "y": -16.505,
+     "yaw": 0.772
+    },
+    {
+     "name": "exp38_p11",
+     "posture": "standing",
+     "x": 30.089,
+     "y": -18.558,
+     "yaw": 1.05
+    },
+    {
+     "name": "exp38_p12",
+     "posture": "standing",
+     "x": 28.351,
+     "y": -18.487,
+     "yaw": 2.173
     },
     {
      "name": "exp38_lying",
      "posture": "lying",
-     "x": 27.679,
-     "y": -19.713,
-     "yaw": 3.018
+     "x": 33.36,
+     "y": -16.093,
+     "yaw": 0.755
     }
    ],
-   "num_standing": 8,
+   "num_standing": 12,
    "num_lying": 1
   },
   {
    "id": 39,
    "label": "emergency",
    "look_at": [
-    30.808,
-    -21.861
+    31.577,
+    -18.832
    ],
    "viewpoint": [
-    29.377,
-    -16.034,
+    34.932,
+    -13.858,
     6.0
    ],
-   "viewpoint_yaw_deg": 283.8,
+   "viewpoint_yaw_deg": 236.0,
    "people": [
     {
      "name": "exp39_p1",
      "posture": "standing",
-     "x": 30.706,
-     "y": -22.072,
-     "yaw": -1.809
+     "x": 30.88,
+     "y": -18.982,
+     "yaw": -0.917
     },
     {
      "name": "exp39_p2",
      "posture": "standing",
-     "x": 31.331,
-     "y": -23.292,
-     "yaw": -0.177
+     "x": 31.792,
+     "y": -20.528,
+     "yaw": 1.675
     },
     {
      "name": "exp39_p3",
      "posture": "standing",
-     "x": 30.061,
-     "y": -24.412,
-     "yaw": -1.319
+     "x": 30.55,
+     "y": -20.419,
+     "yaw": 0.892
     },
     {
      "name": "exp39_p4",
      "posture": "standing",
-     "x": 30.02,
-     "y": -23.382,
-     "yaw": 1.032
+     "x": 32.528,
+     "y": -19.418,
+     "yaw": -0.427
     },
     {
      "name": "exp39_p5",
      "posture": "standing",
-     "x": 30.021,
-     "y": -22.496,
-     "yaw": 0.968
+     "x": 31.105,
+     "y": -21.824,
+     "yaw": -0.731
     },
     {
      "name": "exp39_p6",
      "posture": "standing",
-     "x": 32.019,
-     "y": -23.756,
-     "yaw": 2.648
+     "x": 29.674,
+     "y": -20.061,
+     "yaw": -2.976
     },
     {
      "name": "exp39_p7",
      "posture": "standing",
-     "x": 31.506,
-     "y": -21.914,
-     "yaw": 1.418
+     "x": 29.144,
+     "y": -20.868,
+     "yaw": -2.122
+    },
+    {
+     "name": "exp39_p8",
+     "posture": "standing",
+     "x": 30.431,
+     "y": -18.104,
+     "yaw": -2.012
+    },
+    {
+     "name": "exp39_p9",
+     "posture": "standing",
+     "x": 30.108,
+     "y": -21.201,
+     "yaw": 1.813
+    },
+    {
+     "name": "exp39_p10",
+     "posture": "standing",
+     "x": 31.837,
+     "y": -18.609,
+     "yaw": 2.081
     },
     {
      "name": "exp39_lying",
      "posture": "lying",
-     "x": 27.736,
-     "y": -20.431,
-     "yaw": -2.657
-    }
-   ],
-   "num_standing": 7,
-   "num_lying": 1
-  },
-  {
-   "id": 40,
-   "label": "emergency",
-   "look_at": [
-    28.62,
-    -21.248
-   ],
-   "viewpoint": [
-    32.743,
-    -16.889,
-    6.0
-   ],
-   "viewpoint_yaw_deg": 226.6,
-   "people": [
-    {
-     "name": "exp40_p1",
-     "posture": "standing",
-     "x": 27.893,
-     "y": -23.704,
-     "yaw": -2.208
-    },
-    {
-     "name": "exp40_p2",
-     "posture": "standing",
-     "x": 28.781,
-     "y": -23.271,
-     "yaw": -1.812
-    },
-    {
-     "name": "exp40_p3",
-     "posture": "standing",
-     "x": 28.557,
-     "y": -20.686,
-     "yaw": 2.745
-    },
-    {
-     "name": "exp40_p4",
-     "posture": "standing",
-     "x": 26.453,
-     "y": -22.756,
-     "yaw": -2.507
-    },
-    {
-     "name": "exp40_p5",
-     "posture": "standing",
-     "x": 27.124,
-     "y": -23.213,
-     "yaw": 2.267
-    },
-    {
-     "name": "exp40_p6",
-     "posture": "standing",
-     "x": 26.834,
-     "y": -21.007,
-     "yaw": 1.841
-    },
-    {
-     "name": "exp40_p7",
-     "posture": "standing",
-     "x": 27.565,
-     "y": -21.532,
-     "yaw": 1.124
-    },
-    {
-     "name": "exp40_p8",
-     "posture": "standing",
-     "x": 27.622,
-     "y": -22.565,
-     "yaw": 0.635
-    },
-    {
-     "name": "exp40_p9",
-     "posture": "standing",
-     "x": 25.925,
-     "y": -21.805,
-     "yaw": 0.758
-    },
-    {
-     "name": "exp40_p10",
-     "posture": "standing",
-     "x": 28.44,
-     "y": -21.742,
-     "yaw": 1.76
-    },
-    {
-     "name": "exp40_lying",
-     "posture": "lying",
-     "x": 27.609,
-     "y": -17.647,
-     "yaw": -2.253
+     "x": 34.973,
+     "y": -19.711,
+     "yaw": -2.973
     }
    ],
    "num_standing": 10,
    "num_lying": 1
   },
   {
-   "id": 41,
-   "label": "normal",
-   "look_at": [
-    28.234,
-    -20.669
-   ],
-   "viewpoint": [
-    22.285,
-    -19.886,
-    6.0
-   ],
-   "viewpoint_yaw_deg": 352.5,
-   "people": [
-    {
-     "name": "exp41_p1",
-     "posture": "standing",
-     "x": 30.678,
-     "y": -21.711,
-     "yaw": 3.04
-    },
-    {
-     "name": "exp41_p2",
-     "posture": "standing",
-     "x": 30.302,
-     "y": -19.357,
-     "yaw": -2.581
-    },
-    {
-     "name": "exp41_p3",
-     "posture": "standing",
-     "x": 28.404,
-     "y": -20.267,
-     "yaw": 2.979
-    },
-    {
-     "name": "exp41_p4",
-     "posture": "standing",
-     "x": 29.748,
-     "y": -20.66,
-     "yaw": 0.492
-    },
-    {
-     "name": "exp41_p5",
-     "posture": "standing",
-     "x": 30.871,
-     "y": -19.933,
-     "yaw": -1.056
-    },
-    {
-     "name": "exp41_p6",
-     "posture": "standing",
-     "x": 29.748,
-     "y": -21.888,
-     "yaw": -2.61
-    },
-    {
-     "name": "exp41_p7",
-     "posture": "standing",
-     "x": 29.016,
-     "y": -22.556,
-     "yaw": -1.899
-    },
-    {
-     "name": "exp41_p8",
-     "posture": "standing",
-     "x": 28.638,
-     "y": -21.531,
-     "yaw": -1.457
-    },
-    {
-     "name": "exp41_p9",
-     "posture": "standing",
-     "x": 31.521,
-     "y": -21.561,
-     "yaw": -2.363
-    },
-    {
-     "name": "exp41_p10",
-     "posture": "standing",
-     "x": 29.459,
-     "y": -19.242,
-     "yaw": -2.071
-    },
-    {
-     "name": "exp41_p11",
-     "posture": "standing",
-     "x": 28.524,
-     "y": -19.356,
-     "yaw": -2.714
-    }
-   ],
-   "num_standing": 11,
-   "num_lying": 0
-  },
-  {
-   "id": 42,
-   "label": "normal",
-   "look_at": [
-    31.178,
-    -21.634
-   ],
-   "viewpoint": [
-    25.372,
-    -23.146,
-    6.0
-   ],
-   "viewpoint_yaw_deg": 14.6,
-   "people": [
-    {
-     "name": "exp42_p1",
-     "posture": "standing",
-     "x": 33.514,
-     "y": -20.626,
-     "yaw": -2.934
-    },
-    {
-     "name": "exp42_p2",
-     "posture": "standing",
-     "x": 32.988,
-     "y": -21.466,
-     "yaw": 2.311
-    },
-    {
-     "name": "exp42_p3",
-     "posture": "standing",
-     "x": 33.401,
-     "y": -22.539,
-     "yaw": -2.659
-    },
-    {
-     "name": "exp42_p4",
-     "posture": "standing",
-     "x": 30.723,
-     "y": -20.934,
-     "yaw": -2.418
-    },
-    {
-     "name": "exp42_p5",
-     "posture": "standing",
-     "x": 33.905,
-     "y": -21.871,
-     "yaw": 0.25
-    },
-    {
-     "name": "exp42_p6",
-     "posture": "standing",
-     "x": 31.994,
-     "y": -20.87,
-     "yaw": 2.197
-    }
-   ],
-   "num_standing": 6,
-   "num_lying": 0
-  },
-  {
-   "id": 43,
+   "id": 40,
    "label": "emergency",
    "look_at": [
-    28.323,
-    -19.974
+    28.175,
+    -20.265
    ],
    "viewpoint": [
-    34.308,
-    -19.545,
+    34.042,
+    -19.007,
     6.0
    ],
-   "viewpoint_yaw_deg": 184.1,
+   "viewpoint_yaw_deg": 192.1,
    "people": [
     {
-     "name": "exp43_p1",
+     "name": "exp40_p1",
      "posture": "standing",
-     "x": 28.398,
-     "y": -19.408,
-     "yaw": -2.549
+     "x": 26.754,
+     "y": -19.573,
+     "yaw": 0.07
     },
     {
-     "name": "exp43_p2",
+     "name": "exp40_p2",
      "posture": "standing",
-     "x": 28.194,
-     "y": -21.219,
-     "yaw": -0.806
+     "x": 25.144,
+     "y": -19.872,
+     "yaw": -2.484
     },
     {
-     "name": "exp43_p3",
+     "name": "exp40_p3",
      "posture": "standing",
-     "x": 27.277,
-     "y": -19.677,
-     "yaw": 2.198
+     "x": 27.227,
+     "y": -18.673,
+     "yaw": -0.924
     },
     {
-     "name": "exp43_p4",
+     "name": "exp40_p4",
      "posture": "standing",
-     "x": 26.869,
-     "y": -18.115,
-     "yaw": 2.78
+     "x": 26.279,
+     "y": -21.216,
+     "yaw": 1.456
     },
     {
-     "name": "exp43_p5",
+     "name": "exp40_p5",
      "posture": "standing",
-     "x": 25.434,
-     "y": -20.368,
-     "yaw": -3.134
+     "x": 26.238,
+     "y": -18.856,
+     "yaw": -2.049
     },
     {
-     "name": "exp43_p6",
+     "name": "exp40_p6",
      "posture": "standing",
-     "x": 26.04,
-     "y": -19.613,
-     "yaw": -1.972
+     "x": 27.072,
+     "y": -22.441,
+     "yaw": 2.617
     },
     {
-     "name": "exp43_lying",
+     "name": "exp40_lying",
      "posture": "lying",
-     "x": 30.217,
-     "y": -23.013,
-     "yaw": -1.41
+     "x": 30.623,
+     "y": -23.178,
+     "yaw": 2.692
     }
    ],
    "num_standing": 6,
    "num_lying": 1
   },
   {
+   "id": 41,
+   "label": "normal",
+   "look_at": [
+    31.166,
+    -21.438
+   ],
+   "viewpoint": [
+    25.168,
+    -21.291,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 358.6,
+   "people": [
+    {
+     "name": "exp41_p1",
+     "posture": "standing",
+     "x": 31.082,
+     "y": -21.502,
+     "yaw": -2.748
+    },
+    {
+     "name": "exp41_p2",
+     "posture": "standing",
+     "x": 31.268,
+     "y": -20.421,
+     "yaw": -0.112
+    },
+    {
+     "name": "exp41_p3",
+     "posture": "standing",
+     "x": 32.023,
+     "y": -19.78,
+     "yaw": -2.256
+    },
+    {
+     "name": "exp41_p4",
+     "posture": "standing",
+     "x": 32.499,
+     "y": -21.868,
+     "yaw": -2.725
+    },
+    {
+     "name": "exp41_p5",
+     "posture": "standing",
+     "x": 34.082,
+     "y": -20.869,
+     "yaw": -2.432
+    },
+    {
+     "name": "exp41_p6",
+     "posture": "standing",
+     "x": 34.482,
+     "y": -22.16,
+     "yaw": 2.907
+    },
+    {
+     "name": "exp41_p7",
+     "posture": "standing",
+     "x": 32.569,
+     "y": -22.743,
+     "yaw": 0.149
+    },
+    {
+     "name": "exp41_p8",
+     "posture": "standing",
+     "x": 32.2,
+     "y": -20.87,
+     "yaw": 0.068
+    },
+    {
+     "name": "exp41_p9",
+     "posture": "standing",
+     "x": 31.52,
+     "y": -22.335,
+     "yaw": -1.584
+    },
+    {
+     "name": "exp41_p10",
+     "posture": "standing",
+     "x": 33.349,
+     "y": -21.387,
+     "yaw": -2.241
+    },
+    {
+     "name": "exp41_p11",
+     "posture": "standing",
+     "x": 33.044,
+     "y": -20.463,
+     "yaw": 0.974
+    },
+    {
+     "name": "exp41_p12",
+     "posture": "standing",
+     "x": 33.277,
+     "y": -23.19,
+     "yaw": 2.08
+    }
+   ],
+   "num_standing": 12,
+   "num_lying": 0
+  },
+  {
+   "id": 42,
+   "label": "normal",
+   "look_at": [
+    31.596,
+    -20.822
+   ],
+   "viewpoint": [
+    28.835,
+    -26.149,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 62.6,
+   "people": [
+    {
+     "name": "exp42_p1",
+     "posture": "standing",
+     "x": 31.261,
+     "y": -20.446,
+     "yaw": -1.609
+    },
+    {
+     "name": "exp42_p2",
+     "posture": "standing",
+     "x": 31.828,
+     "y": -17.578,
+     "yaw": 0.885
+    },
+    {
+     "name": "exp42_p3",
+     "posture": "standing",
+     "x": 33.491,
+     "y": -19.752,
+     "yaw": 0.921
+    },
+    {
+     "name": "exp42_p4",
+     "posture": "standing",
+     "x": 32.666,
+     "y": -17.99,
+     "yaw": -2.981
+    },
+    {
+     "name": "exp42_p5",
+     "posture": "standing",
+     "x": 32.429,
+     "y": -19.316,
+     "yaw": -1.808
+    },
+    {
+     "name": "exp42_p6",
+     "posture": "standing",
+     "x": 32.341,
+     "y": -21.25,
+     "yaw": 1.898
+    },
+    {
+     "name": "exp42_p7",
+     "posture": "standing",
+     "x": 30.749,
+     "y": -18.579,
+     "yaw": -0.047
+    },
+    {
+     "name": "exp42_p8",
+     "posture": "standing",
+     "x": 30.453,
+     "y": -19.67,
+     "yaw": -1.419
+    }
+   ],
+   "num_standing": 8,
+   "num_lying": 0
+  },
+  {
+   "id": 43,
+   "label": "emergency",
+   "look_at": [
+    28.237,
+    -18.468
+   ],
+   "viewpoint": [
+    32.887,
+    -22.26,
+    6.0
+   ],
+   "viewpoint_yaw_deg": 140.8,
+   "people": [
+    {
+     "name": "exp43_p1",
+     "posture": "standing",
+     "x": 25.156,
+     "y": -17.847,
+     "yaw": 2.978
+    },
+    {
+     "name": "exp43_p2",
+     "posture": "standing",
+     "x": 28.178,
+     "y": -17.841,
+     "yaw": -3.02
+    },
+    {
+     "name": "exp43_p3",
+     "posture": "standing",
+     "x": 26.255,
+     "y": -15.937,
+     "yaw": 2.804
+    },
+    {
+     "name": "exp43_p4",
+     "posture": "standing",
+     "x": 26.302,
+     "y": -17.671,
+     "yaw": 0.3
+    },
+    {
+     "name": "exp43_p5",
+     "posture": "standing",
+     "x": 25.997,
+     "y": -16.835,
+     "yaw": -1.331
+    },
+    {
+     "name": "exp43_p6",
+     "posture": "standing",
+     "x": 28.063,
+     "y": -16.058,
+     "yaw": -1.651
+    },
+    {
+     "name": "exp43_p7",
+     "posture": "standing",
+     "x": 27.179,
+     "y": -19.435,
+     "yaw": 1.694
+    },
+    {
+     "name": "exp43_p8",
+     "posture": "standing",
+     "x": 28.977,
+     "y": -17.929,
+     "yaw": 1.884
+    },
+    {
+     "name": "exp43_p9",
+     "posture": "standing",
+     "x": 28.618,
+     "y": -18.691,
+     "yaw": 2.664
+    },
+    {
+     "name": "exp43_p10",
+     "posture": "standing",
+     "x": 26.11,
+     "y": -19.022,
+     "yaw": 1.021
+    },
+    {
+     "name": "exp43_p11",
+     "posture": "standing",
+     "x": 27.22,
+     "y": -16.715,
+     "yaw": -2.376
+    },
+    {
+     "name": "exp43_lying",
+     "posture": "lying",
+     "x": 30.884,
+     "y": -17.207,
+     "yaw": -0.691
+    }
+   ],
+   "num_standing": 11,
+   "num_lying": 1
+  },
+  {
    "id": 44,
    "label": "emergency",
    "look_at": [
-    28.555,
-    -21.837
+    29.022,
+    -18.185
    ],
    "viewpoint": [
-    28.963,
-    -27.823,
+    30.218,
+    -12.305,
     6.0
    ],
-   "viewpoint_yaw_deg": 93.9,
+   "viewpoint_yaw_deg": 258.5,
    "people": [
     {
      "name": "exp44_p1",
      "posture": "standing",
-     "x": 29.637,
-     "y": -20.282,
-     "yaw": -1.884
+     "x": 30.464,
+     "y": -19.304,
+     "yaw": 2.29
     },
     {
      "name": "exp44_p2",
      "posture": "standing",
-     "x": 28.578,
-     "y": -21.927,
-     "yaw": -0.031
+     "x": 30.039,
+     "y": -20.204,
+     "yaw": 0.425
     },
     {
      "name": "exp44_p3",
      "posture": "standing",
-     "x": 27.068,
-     "y": -21.122,
-     "yaw": 0.847
+     "x": 28.433,
+     "y": -19.481,
+     "yaw": -1.437
     },
     {
      "name": "exp44_p4",
      "posture": "standing",
-     "x": 27.827,
-     "y": -20.483,
-     "yaw": 2.693
+     "x": 27.655,
+     "y": -20.25,
+     "yaw": 0.775
     },
     {
      "name": "exp44_p5",
      "posture": "standing",
-     "x": 26.858,
-     "y": -20.264,
-     "yaw": -2.93
+     "x": 27.862,
+     "y": -18.022,
+     "yaw": -2.305
     },
     {
      "name": "exp44_p6",
      "posture": "standing",
-     "x": 27.896,
-     "y": -19.468,
-     "yaw": -1.037
+     "x": 27.238,
+     "y": -19.551,
+     "yaw": 2.521
     },
     {
      "name": "exp44_p7",
      "posture": "standing",
-     "x": 30.185,
-     "y": -19.39,
-     "yaw": 1.753
+     "x": 29.345,
+     "y": -17.802,
+     "yaw": 2.467
     },
     {
      "name": "exp44_p8",
      "posture": "standing",
-     "x": 28.488,
-     "y": -21.013,
-     "yaw": 2.335
+     "x": 28.946,
+     "y": -18.601,
+     "yaw": -0.646
     },
     {
      "name": "exp44_p9",
      "posture": "standing",
-     "x": 27.949,
-     "y": -18.495,
-     "yaw": 0.271
-    },
-    {
-     "name": "exp44_p10",
-     "posture": "standing",
-     "x": 30.088,
-     "y": -21.252,
-     "yaw": 0.585
-    },
-    {
-     "name": "exp44_p11",
-     "posture": "standing",
-     "x": 28.766,
-     "y": -18.404,
-     "yaw": -0.964
+     "x": 27.806,
+     "y": -21.201,
+     "yaw": 1.211
     },
     {
      "name": "exp44_lying",
      "posture": "lying",
-     "x": 31.629,
-     "y": -24.016,
-     "yaw": -1.973
+     "x": 31.35,
+     "y": -16.976,
+     "yaw": -2.195
     }
    ],
-   "num_standing": 11,
+   "num_standing": 9,
    "num_lying": 1
   }
  ]
